@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="a207phase1.fall2018.gamecentre.SlidingTilesPreNewGameActivity">
+
+    <RadioGroup
+        android:id="@+id/rgBackground"
+        android:layout_width="172dp"
+        android:layout_height="128dp"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true">
+
+        <RadioButton
+            android:id="@+id/rbNumbers"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:checked="true"
+            android:text="Numbers" />
+
+        <RadioButton
+            android:id="@+id/rbPenguin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Penguin" />
+
+        <RadioButton
+            android:id="@+id/rbUoft"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Uoft" />
+    </RadioGroup>
+
+    <RadioGroup
+        android:id="@+id/rgGridSize"
+        android:layout_width="172dp"
+        android:layout_height="128dp"
+        android:layout_alignParentStart="true"
+        android:layout_centerVertical="true">
+
+        <RadioButton
+            android:id="@+id/rb3x3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:checked="true"
+            android:text="3x3" />
+
+        <RadioButton
+            android:id="@+id/rb4x4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="4x4" />
+
+        <RadioButton
+            android:id="@+id/rb5x5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="5x5" />
+    </RadioGroup>
+
+    <Button
+        android:id="@+id/btnStart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="110dp"
+        android:text="Start Game" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="17dp"
+        android:layout_marginTop="187dp"
+        android:text="Complexity" />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignTop="@+id/textView3"
+        android:layout_marginEnd="104dp"
+        android:text="Picture" />
+</RelativeLayout>

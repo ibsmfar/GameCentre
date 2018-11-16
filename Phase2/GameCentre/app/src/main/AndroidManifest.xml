@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="a207phase1.fall2018.gamecentre">
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+        <activity android:name="a207phase1.fall2018.gamecentre.GameLaunchActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".GameSelectionActivity"></activity>
+        <activity android:name="a207phase1.fall2018.gamecentre.SlidingTilesMenuActivity"></activity>
+        <activity android:name="a207phase1.fall2018.gamecentre.SlidingTilesGameActivity"></activity>
+        <activity android:name=".GameRegisterActivity"></activity>
+        <activity android:name="a207phase1.fall2018.gamecentre.SlidingTilesPreNewGameActivity"></activity>
+
+
+    </application>
+
+</manifest>
