@@ -24,6 +24,8 @@ public class GameSelectionActivity extends AppCompatActivity {
 
         ArrayList<String> list = new ArrayList<>();
         list.add("Sliding Tiles");
+        list.add("Hangman");
+        list.add("2048");
 
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_spinner_dropdown_item, list);
@@ -50,7 +52,12 @@ public class GameSelectionActivity extends AppCompatActivity {
                 if (spinnerSelection.equals("Sliding Tiles")){
                     switchToSlidingTiles();
                 }
-
+                else if (spinnerSelection.equals("Hangman")) {
+                    switchToHangman();
+                }
+                else {
+                    switchTo2048();
+                }
             }
         });
     }
@@ -58,6 +65,12 @@ public class GameSelectionActivity extends AppCompatActivity {
         Intent slidingMenu = new Intent(this, SlidingTilesMenuActivity.class);
         startActivity(slidingMenu);
     }
-
-
+    private void switchToHangman(){
+        Intent slidingMenu = new Intent(this, HangmanMenuActivity.class);
+        startActivity(slidingMenu);
+    }
+    private void switchTo2048(){
+        Intent slidingMenu = new Intent(this, HangmanMenuActivity.class);
+        startActivity(slidingMenu);
+    }
 }

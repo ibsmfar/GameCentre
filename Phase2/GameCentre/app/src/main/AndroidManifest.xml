@@ -21,6 +21,9 @@
         <activity android:name="a207phase1.fall2018.gamecentre.SlidingTilesGameActivity"></activity>
         <activity android:name=".GameRegisterActivity"></activity>
         <activity android:name="a207phase1.fall2018.gamecentre.SlidingTilesPreNewGameActivity"></activity>
+        <activity android:name="a207phase1.fall2018.gamecentre.HangmanMenuActivity"></activity>
+        <activity android:name="a207phase1.fall2018.gamecentre.HangmanGameActivity"></activity>
+        <activity android:name="a207phase1.fall2018.gamecentre.HangmanPreNewGameActivity"></activity>
 
 
     </application>
