@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="a207phase1.fall2018.gamecentre.HangmanGameActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/txtUsedLetters"
+            android:layout_width="116dp"
+            android:layout_height="34dp"
+            android:text="" />
+
+        <ImageView
+            android:id="@+id/hang"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center"
+            android:src="@drawable/hang0" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Enter the letter : "
+                android:textSize="15dp" />
+
+            <EditText
+                android:id="@+id/txtLetter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="letter" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/txtWord"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center"
+            android:text=""
+            android:textSize="40sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btnPlayHangman"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:onClick="play"
+                android:text="PLAY" />
+
+            <Button
+                android:id="@+id/btnResetHangman"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="reset"
+                android:text="RESET" />
+
+            <Button
+                android:id="@+id/btnSolveHangman"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="SOLVE" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="Your score"
+                android:textColor="#4CAF50"
+                android:textSize="20dp" />
+
+            <TextView
+                android:id="@+id/score"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="8dp"
+                android:onClick="score"
+                android:text=" 0 "
+                android:textColor="#4CAF50"
+                android:textSize="20dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="High score"
+                android:textColor="#FF5722"
+                android:textSize="20dp" />
+
+            <TextView
+                android:id="@+id/high"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="8dp"
+                android:onClick="high"
+                android:text=" 0 "
+                android:textColor="#FF5722"
+                android:textSize="20dp" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btnSaveHangman"
+        android:layout_width="76dp"
+        android:layout_height="36dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"
+        android:text="Save" />
+
+    <Button
+        android:id="@+id/btnHint"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginEnd="12dp"
+        android:layout_marginTop="233dp"
+        android:enabled="false"
+        android:text="Hints: 3" />
+</RelativeLayout>
