@@ -24,7 +24,7 @@
         <activity android:name="a207phase1.fall2018.gamecentre.HangmanMenuActivity"></activity>
         <activity android:name="a207phase1.fall2018.gamecentre.HangmanGameActivity"></activity>
         <activity android:name="a207phase1.fall2018.gamecentre.HangmanPreNewGameActivity"></activity>
-
+        <activity android:name="a207phase1.fall2018.gamecentre.MainActivity"></activity>
 
     </application>
 
