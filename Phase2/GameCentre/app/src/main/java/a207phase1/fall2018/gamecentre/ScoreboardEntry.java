@@ -8,9 +8,9 @@ public class ScoreboardEntry {
      * and the next three elements are the Minutes, Seconds, and Milliseconds.
      * This represents the score of the player in this game
      */
-    private String user;
-    private int minutes, seconds, milliseconds;
-    private int complexity; //either 3, 4, or 5
+    String user;
+    int minutes, seconds, milliseconds;
+    int complexity; //either 3, 4, or 5
 
     ScoreboardEntry(User user, int minutes, int seconds, int milliseconds, int complexity){
         this.user = user.getUsername();

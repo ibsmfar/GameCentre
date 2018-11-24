@@ -6,8 +6,6 @@ import android.widget.Button;
 
 import java.io.Serializable;
 
-import fall2018.csc2017.slidingtiles.R;
-
 /**
  * A Tile in a sliding tiles puzzle.
  */

@@ -8,6 +8,7 @@ public class User implements Serializable {
     private String username;
     private String password;
     private ArrayList<BoardManager> boardList;
+    saveTuple2048 saveTuple2048 = new saveTuple2048();
 
 
 
@@ -28,6 +29,8 @@ public class User implements Serializable {
     public ArrayList<BoardManager> getBoardList(){
         return boardList;
     }
+
+
 
     public void addBoardManager(BoardManager b){
         boardList.add(b);

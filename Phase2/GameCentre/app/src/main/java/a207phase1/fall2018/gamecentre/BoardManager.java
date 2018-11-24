@@ -245,7 +245,7 @@ class BoardManager implements Serializable {
 
     }
     void undo() {
-        SavesTuple toTakeFrom = this.movesMade.getPreviousSave();
+        SavesTuple toTakeFrom = (SavesTuple) this.movesMade.getPreviousSave();
         int row1 = toTakeFrom.getRow1();
         int row2 = toTakeFrom.getRow2();
         int col1 = toTakeFrom.getCol1();

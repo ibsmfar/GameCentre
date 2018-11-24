@@ -70,7 +70,7 @@ public class HangmanMenuActivity extends AppCompatActivity {
                 load(SAVE_FILENAME);
                 saveToFile(TEMP_SAVE_FILENAME);
                 makeToastLoadedText();
-                SlidingTilesGameActivity.loaded = true;
+               // SlidingTilesGameActivity.loaded = true;
                 switchToGame();
             }
         });
@@ -124,7 +124,7 @@ public class HangmanMenuActivity extends AppCompatActivity {
 
     public void switchToGame() {
         Intent tmp = new Intent(this, HangmanGameActivity.class);
-        saveToFile(SlidingTilesMenuActivity.TEMP_SAVE_FILENAME);
+       // saveToFile(SlidingTilesMenuActivity.TEMP_SAVE_FILENAME);
         startActivity(tmp);
     }
 

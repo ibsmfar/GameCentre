@@ -26,6 +26,7 @@ public class saveTuple2048 {
      * @param gameState indicator of whether the game is won, lost, or ongoing
      * @param lastGameState indicator of the gameState from the last move
      */
+
     public saveTuple2048(int width, int height, long score, long highScore,
                          long lastScore, boolean canUndo, int gameState, int lastGameState) {
         this.width = width;
@@ -36,6 +37,8 @@ public class saveTuple2048 {
         this.canUndo = canUndo;
         this.gameState = gameState;
         this.lastGameState = lastGameState;
+    }
+    saveTuple2048(){
     }
 
     public int getWidth() {
