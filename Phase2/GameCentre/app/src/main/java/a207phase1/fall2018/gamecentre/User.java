@@ -1,61 +1,42 @@
 package a207phase1.fall2018.gamecentre;
 
-import java.util.ArrayList;
 import java.io.Serializable;
+import java.util.ArrayList;
 
-/**
- * Class representation of a User.
- */
-public class User implements Serializable{
-    /**
-     * The username of the user.
-     */
+public class User implements Serializable {
+
     private String username;
-
-    /**
-     * The password of the user.
-     */
     private String password;
+    private ArrayList<BoardManager> boardList;
 
-    /**
-     * ArrayList which stores all the games containing all their boards which
-     * the user has saved.
-     */
-    public ArrayList<GameStatesContainer> games = new ArrayList<>();
 
-    /**
-     * Constructor for User class.
-     */
-    public User(String username, String password) {
-        setUsername(username);
-        setPassword(password);
-    }
-    /**
-     * Setter for the user's username.
-     */
-    public void setUsername(String username){
+
+    User(String username, String password){
         this.username = username;
-    }
-    /**
-     * Getter for the user's username.
-     */
-    public String getUsername(){
-        return this.username;
-    }
-    /**
-     * Setter for the user's password.
-     */
-    public void setPassword(String password){
         this.password = password;
+        boardList = new ArrayList<>();
     }
-    /**
-     * Getter for the user's password.
-     */
-    public String getPassword(){
-        return this.password;
+
+    public String getUsername(){
+        return username;
     }
-    /**
-     * String representation of the user.
-     */
-    public String toString(){ return this.username + this.password; }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public ArrayList<BoardManager> getBoardList(){
+        return boardList;
+    }
+
+    public void addBoardManager(BoardManager b){
+        boardList.add(b);
+    }
+
+    public void changeBoardManager(BoardManager b, int index){
+        boardList.set(index, b);
+    }
+
+
 }
+

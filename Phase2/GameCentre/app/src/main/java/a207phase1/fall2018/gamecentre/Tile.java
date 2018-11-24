@@ -6,7 +6,7 @@ import android.widget.Button;
 
 import java.io.Serializable;
 
-import a207phase1.fall2018.gamecentre.R;
+import fall2018.csc2017.slidingtiles.R;
 
 /**
  * A Tile in a sliding tiles puzzle.
@@ -23,15 +23,12 @@ public class Tile implements Comparable<Tile>, Serializable {
      */
     private int id;
 
-    public static int dimension;
-
     /**
      * Return the background id.
      *
      * @return the background id
      */
     public int getBackground() {
-
         return background;
     }
 
@@ -41,7 +38,6 @@ public class Tile implements Comparable<Tile>, Serializable {
      * @return the tile id
      */
     public int getId() {
-
         return id;
     }
 
@@ -55,7 +51,6 @@ public class Tile implements Comparable<Tile>, Serializable {
         this.id = id;
         this.background = background;
     }
-
 
     public void numberTile(int backgroundId, int numTiles) {
         id = backgroundId + 1;
@@ -514,33 +509,32 @@ public class Tile implements Comparable<Tile>, Serializable {
     public Tile(int picture, int backgroundId, int numTiles) {
         // id = backgroundId + 1;
         // This looks so ugly.
-            if (SlidingTilesPreNewGameActivity.picture == 0) {
-                numberTile(backgroundId, numTiles);
+        if (SlidingTilesPreNewGameActivity.picture == 0) {
+            numberTile(backgroundId, numTiles);
+        }
+        else if (SlidingTilesPreNewGameActivity.picture == 1) {
+            if (numTiles == 9) {
+                penguin3x3(backgroundId);
             }
-            else if (SlidingTilesPreNewGameActivity.picture == 1) {
-                if (numTiles == 9) {
-                    penguin3x3(backgroundId);
-                }
-                else if (numTiles == 16) {
-                    penguin4x4(backgroundId);
-                }
-                else {
-                    penguin5x5(backgroundId);
-                }
+            else if (numTiles == 16) {
+                penguin4x4(backgroundId);
             }
-            else if (SlidingTilesPreNewGameActivity.picture == 2) {
-                if (numTiles == 9) {
-                    uoftTile3x3(backgroundId);
-                }
-                else if (numTiles == 16) {
-                    uoftTile4x4(backgroundId);
-                }
-                else {
-                    uoftTile5x5(backgroundId);
-                }
+            else {
+                penguin5x5(backgroundId);
             }
+        }
+        else if (SlidingTilesPreNewGameActivity.picture == 2) {
+            if (numTiles == 9) {
+                uoftTile3x3(backgroundId);
+            }
+            else if (numTiles == 16) {
+                uoftTile4x4(backgroundId);
+            }
+            else {
+                uoftTile5x5(backgroundId);
+            }
+        }
     }
-
     @Override
     public int compareTo(@NonNull Tile o) {
         return o.id - this.id;

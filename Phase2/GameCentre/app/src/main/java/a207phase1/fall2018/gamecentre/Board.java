@@ -17,88 +17,52 @@ public class Board extends Observable implements Serializable, Iterable<Tile> {
     /**
      * The number of rows.
      */
-    public static int NUM_ROWS; // changed from final static
-    public int num_rows;
+    private int num_rows;
 
     /**
      * The number of rows.
      */
-    public static int NUM_COLS; //changed from final static
-    public int num_cols;
-
-    public static int picture;
+    private int num_cols;
 
     /**
      * The tiles on the board in row-major order.
      */
-    // public static Tile[][] tiles = new Tile[SlidingTilesPreNewGameActivity.NUM_ROWS][SlidingTilesPreNewGameActivity.NUM_COLS];
-    public Tile[][] tiles = new Tile[num_rows][num_cols];
-
-    //public static Tile[][] tiles;
-    /**
-     * Return an iterator over the tiles in board.
-     *
-     * @return an iterator
-     */
-    @Override
-    @NonNull
-    public Iterator<Tile> iterator() {
-        return new MyIterator();
-    }
-
-    /**
-     * Implementation of the iterator for the board class
-     */
-    private class MyIterator implements Iterator<Tile> {
-        int rowIndex = 0;
-        int columnIndex = 0;
-
-        /**
-         * The next tile in the board
-         *
-         * @return the next tile
-         */
-        @Override
-        public Tile next() {
-            Tile result = tiles[rowIndex][columnIndex];
-            if (columnIndex == SlidingTilesPreNewGameActivity.NUM_COLS - 1) {
-                columnIndex = 0;
-                rowIndex++;
-
-            } else {
-                columnIndex++;
-            }
-            return result;
-        }
-
-        /**
-         * Whether or not there is one more tile to check
-         *
-         * @return true if there is a next tile, false otherwise
-         */
-        @Override
-        public boolean hasNext() {
-            return (columnIndex < SlidingTilesPreNewGameActivity.NUM_COLS && rowIndex < SlidingTilesPreNewGameActivity.NUM_ROWS);
-        }
-    }
+    private Tile[][] tiles;
 
     /**
      * A new board of tiles in row-major order.
-     * Precondition: len(tiles) == SlidingTilesPreNewGameActivity.NUM_ROWS * SlidingTilesPreNewGameActivity.NUM_COLS
+     * Precondition: len(tiles) == NUM_ROWS * NUM_COLS
      *
      * @param tiles the tiles for the board
      */
-    Board(List<Tile> tiles) {
-        picture = SlidingTilesPreNewGameActivity.picture;
-        this.tiles = new Tile[SlidingTilesPreNewGameActivity.NUM_ROWS][SlidingTilesPreNewGameActivity.NUM_COLS];
-        //this.tiles = new Tile[num_rows][num_cols];
+    Board(List<Tile> tiles, int num_rows, int num_cols) {
         Iterator<Tile> iter = tiles.iterator();
+        this.num_rows = num_rows;
+        this.num_cols = num_cols;
+        this.tiles =  new Tile[num_cols][num_rows];
 
-        for (int row = 0; row != SlidingTilesPreNewGameActivity.NUM_ROWS; row++) {
-            for (int col = 0; col != SlidingTilesPreNewGameActivity.NUM_COLS; col++) {
+
+        for (int row = 0; row != this.num_rows; row++) {
+            for (int col = 0; col != num_cols; col++) {
                 this.tiles[row][col] = iter.next();
             }
         }
+    }
+    /**
+     * Return the number of rows on the board
+     *
+     * @return the number of rows on the board
+     */
+    int getNum_rows(){
+        return this.num_rows;
+    }
+    /**
+     * Return the number of columns on the board
+     *
+     * @return the number of columns on the board
+     */
+    int getNum_cols(){
+        return this.num_cols;
     }
 
     /**
@@ -107,7 +71,7 @@ public class Board extends Observable implements Serializable, Iterable<Tile> {
      * @return the number of tiles on the board
      */
     int numTiles() {
-        return SlidingTilesPreNewGameActivity.NUM_COLS * SlidingTilesPreNewGameActivity.NUM_ROWS;
+        return num_cols * num_rows;
     }
 
     /**
@@ -136,6 +100,53 @@ public class Board extends Observable implements Serializable, Iterable<Tile> {
 
         setChanged();
         notifyObservers();
+    }
+
+    /**
+     * Return an iterator over the tiles in board.
+     *
+     * @return an iterator
+     */
+    @Override
+    @NonNull
+    public Iterator<Tile> iterator() {
+        return new MyIterator();
+    }
+
+    /**
+     * Implementation of the iterator for the board class
+     */
+    private class MyIterator implements Iterator<Tile> {
+        int rowIndex = 0;
+        int columnIndex = 0;
+
+        /**
+         * The next tile in the board
+         *
+         * @return the next tile
+         */
+        @Override
+        public Tile next() {
+            Tile result = tiles[rowIndex][columnIndex];
+            if (columnIndex == num_cols - 1) {
+                columnIndex = 0;
+                rowIndex++;
+
+            } else {
+                columnIndex++;
+            }
+            return result;
+        }
+
+        /**
+         * Whether or not there is one more tile to check
+         *
+         * @return true if there is a next tile, false otherwise
+         */
+        @Override
+        public boolean hasNext() {
+            return (columnIndex < num_cols && rowIndex < num_rows);
+        }
     }
 
     @Override
