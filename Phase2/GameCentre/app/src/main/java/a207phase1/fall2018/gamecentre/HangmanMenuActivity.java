@@ -70,7 +70,6 @@ public class HangmanMenuActivity extends AppCompatActivity {
                 load(SAVE_FILENAME);
                 saveToFile(TEMP_SAVE_FILENAME);
                 makeToastLoadedText();
-                SlidingTilesGameActivity.loaded = true;
                 switchToGame();
             }
         });

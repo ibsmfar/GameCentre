@@ -81,6 +81,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="SOLVE" />
+
         </LinearLayout>
 
         <LinearLayout
@@ -137,7 +138,7 @@
 
     <Button
         android:id="@+id/btnSaveHangman"
-        android:layout_width="76dp"
+        android:layout_width="wrap_content"
         android:layout_height="36dp"
         android:layout_alignParentEnd="true"
         android:layout_alignParentTop="true"
@@ -146,11 +147,19 @@
     <Button
         android:id="@+id/btnHint"
         android:layout_width="wrap_content"
+        android:layout_height="37dp"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@+id/btnSaveHangman"
+        android:text="Hints: 3" />
+
+    <!--<Button
+        android:id="@+id/btnHint"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentTop="true"
         android:layout_marginEnd="12dp"
         android:layout_marginTop="233dp"
         android:enabled="false"
-        android:text="Hints: 3" />
+        android:text="Hints: 3" />-->
 </RelativeLayout>

@@ -17,16 +17,21 @@ public class HangmanManager implements Serializable {
     private boolean difficulty;
     private String wordSoFar;
     private int hints;
+    private int score;
+    private int max;
 
 
     public HangmanManager(String wordToGuess, ArrayList<String> lettersGuessed,
-                          int manState, boolean difficulty, String wordSoFar, int hints){
+                          int manState, boolean difficulty, String wordSoFar, int hints, int score,
+                          int max){
         this.wordToGuess = wordToGuess;
         this.lettersGuessed = lettersGuessed;
         this.manState = manState;
         this.difficulty = difficulty;
         this.wordSoFar = wordSoFar;
         this.hints = hints;
+        this.score = score;
+        this.max = max;
     }
 
     /*public void setBoard(HangmanGameActivity HangmanBoard){
@@ -84,4 +89,19 @@ public class HangmanManager implements Serializable {
         return this.hints;
     }
 
+    public void setScore(int score) {
+        this.score = score;
+    }
+
+    public int getScore() {
+        return score;
+    }
+
+    public void setMax(int max) {
+        this.max = max;
+    }
+
+    public int getMax() {
+        return max;
+    }
 }

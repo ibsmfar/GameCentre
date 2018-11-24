@@ -56,6 +56,7 @@ public class HangmanGameActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         loadFromFile(HangmanMenuActivity.TEMP_SAVE_FILENAME);
         setContentView(R.layout.activity_hangman_game);
+        word = findViewById(R.id.txtWord);
 
         loadData();
         currUser = GLC.currentUser;
@@ -77,11 +78,21 @@ public class HangmanGameActivity extends AppCompatActivity {
             count = game.getManState();
             REGULAR = game.getDifficulty();
             result = game.getWordSoFar();
+            hints = game.getHints();
+            sc = game.getScore();
+            max = game.getMax();
             createUsedLetterDisplay(USED);
-            word = findViewById(R.id.txtWord);
+            //word = findViewById(R.id.txtWord);
             TextView usedLetters = findViewById(R.id.txtUsedLetters);
             word.setText(result);
             usedLetters.setText(createUsedLetterDisplay(USED));
+            TextView score = findViewById(R.id.score);
+            TextView high = findViewById(R.id.high);
+            score.setText("" + sc);
+            high.setText("" + max);
+            //hintButton = findViewById(R.id.btnHint);
+            hintButton.setText("Hints: " + hints);
+
             int r_id = getResources().getIdentifier("hang" + count, "drawable", getApplication().getPackageName());
             ((ImageView) findViewById(R.id.hang)).setImageDrawable(getDrawable(r_id));
             HangmanMenuActivity.loaded = false;
@@ -115,11 +126,15 @@ public class HangmanGameActivity extends AppCompatActivity {
                 }
                 word.setText(result);
                 EditText editText = findViewById(R.id.txtLetter);
+                USED = new ArrayList();
+                TextView usedLetters = findViewById(R.id.txtUsedLetters);
+                usedLetters.setText("");
                 editText.setEnabled(true);
                 editText.requestFocus();
                 InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                 imm.showSoftInput(editText, InputMethodManager.SHOW_IMPLICIT);
-                game = new HangmanManager(currentWord, USED, count, REGULAR, result, hints);
+                game = new HangmanManager(currentWord, USED, count, REGULAR, result, hints, sc, max);
+                autoSave();
             }
         });
         ((Button) findViewById(R.id.btnSolveHangman)).setOnClickListener(new View.OnClickListener() {
@@ -127,7 +142,8 @@ public class HangmanGameActivity extends AppCompatActivity {
             public void onClick(View view) {
                 word = (findViewById(R.id.txtWord));
                 word.setText(currentWord);
-                game = new HangmanManager(currentWord, USED, count, REGULAR, result, hints);
+                result = currentWord;
+                autoSave();
             }
         });
         ((Button) findViewById(R.id.btnPlayHangman)).setOnClickListener(new View.OnClickListener() {
@@ -147,25 +163,44 @@ public class HangmanGameActivity extends AppCompatActivity {
                 editText.requestFocus();
                 InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                 imm.showSoftInput(editText, InputMethodManager.SHOW_IMPLICIT);
-                game = new HangmanManager(currentWord, USED, count, REGULAR, result, hints);
+                autoSave();
             }
         });
         ((Button) findViewById(R.id.btnHint)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (hints > 0) {
+                    int k = 0;
                     String wordToSend = "";
+                    String wordSoFar;
+                    wordSoFar = word.getText().toString();
                     for (int j = 0; j < currentWord.length(); j++) {
-                        if (currentWord.charAt(j) != result.charAt(j)) {
+                        if (!wordSoFar.contains(Character.toString(currentWord.charAt(j)))) {
                             wordToSend += currentWord.charAt(j);
                         }
                     }
                     char hintLetter = selectChar(wordToSend);
-                    for (int i = 0; i < currentWord.length(); i++) {
+                    //result = "";
+                    /*for (int i = 0; i < currentWord.length(); i++) {
                         if (currentWord.charAt(i) == hintLetter) {
-                            char[] resultArray = result.toCharArray();
+                            *//*char[] resultArray = result.toCharArray();
                             resultArray[i] = hintLetter;
-                            result = String.valueOf(resultArray);
+                            result = String.valueOf(resultArray);*//*
+                            result += hintLetter;
+                        }
+                        else if (wordSoFar.contains(Character.toString(currentWord.charAt(i)))) {
+                            result += currentWord.charAt(i);
+                        }
+                        else {
+                            result += "_ ";
+                        }
+                    }*/
+                    for(int i = 0; i < currentWord.length(); ++i) {
+                        if (currentWord.indexOf(hintLetter, i) != -1) {
+                            k = currentWord.indexOf(hintLetter, i);
+                            result = result.substring(0, 2 * k) + hintLetter + " " + result.substring(2 * k + 2);
+                            game.setWordSoFar(result);
+                            word.setText(result);
                         }
                     }
                     TextView usedLetters = findViewById(R.id.txtUsedLetters);
@@ -178,6 +213,10 @@ public class HangmanGameActivity extends AppCompatActivity {
                     game.setHints(hints);
                     game.setWordSoFar(result);
                     game.setLettersGuessed(USED);
+                    autoSave();
+                }
+                else {
+                    //Toast.makeText(this, "No hints remaining!", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -243,6 +282,7 @@ public class HangmanGameActivity extends AppCompatActivity {
                 word.setText(currentWord);
                 USED = new ArrayList();
                 game.setLettersGuessed(USED);
+                count = 6;
                 game.setManState(count);
                 usedLetters.setText("");
                 sc=0;
@@ -251,12 +291,17 @@ public class HangmanGameActivity extends AppCompatActivity {
             }
             game.setManState(count);
             int r_id = getResources().getIdentifier("hang" + count, "drawable", getApplication().getPackageName());
+            count = 0;
             ((ImageView) findViewById(R.id.hang)).setImageDrawable(getDrawable(r_id));
         }
-        game = new HangmanManager(currentWord, USED, count, REGULAR, result, hints);
+        autoSave();
+        editText.setText("");
+    }
+
+    private void autoSave() {
+        game = new HangmanManager(currentWord, USED, count, REGULAR, result, hints, sc, max);
         saveToFile(HangmanMenuActivity.SAVE_FILENAME);
         saveToFile(HangmanMenuActivity.TEMP_SAVE_FILENAME);
-        editText.setText("");
     }
 
     private String createUsedLetterDisplay(ArrayList<String> list){
@@ -290,8 +335,11 @@ public class HangmanGameActivity extends AppCompatActivity {
                 count = game.getManState();
                 REGULAR = game.getDifficulty();
                 result = game.getWordSoFar();
+                hints = game.getHints();
+                sc = game.getScore();
+                max = game.getMax();
                 createUsedLetterDisplay(USED);
-                TextView word = findViewById(R.id.txtWord);
+                //word = findViewById(R.id.txtWord);
                 word.setText(result);
                 inputStream.close();
             }
