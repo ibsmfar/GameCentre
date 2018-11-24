@@ -12,4 +12,4 @@ will be used and cited but most of it will be changed to fit our dessired specif
 adding different complexity (MEDIUM AND HARD LEVELS)
 * Elias completed those HANGMAN game tasks
 * Since the repo was not working at that point all files that Elias was working on were sent to Dhruv
-and Dhruv continued to work on HANGMAN based on those original files  
+and Dhruv continued to work on HANGMAN based on those original files
