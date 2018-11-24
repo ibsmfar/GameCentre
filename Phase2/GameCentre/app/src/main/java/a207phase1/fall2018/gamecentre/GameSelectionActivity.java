@@ -14,10 +14,18 @@ import java.util.ArrayList;
 public class GameSelectionActivity extends AppCompatActivity {
     Spinner spinner;
     String spinnerSelection;
+    String username;
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_choice);
+
+        Intent gamescreen = getIntent();
+        Bundle userBundle = gamescreen.getExtras();
+
+        if(userBundle != null){
+            username = userBundle.getString("Username");
+        }
 
         spinner = findViewById(R.id.spinner);
         spinnerSelection = "poop";
@@ -70,7 +78,8 @@ public class GameSelectionActivity extends AppCompatActivity {
         startActivity(slidingMenu);
     }
     private void switchTo2048(){
-        Intent slidingMenu = new Intent(this, HangmanMenuActivity.class);
+        Intent slidingMenu = new Intent(this, MainActivity.class);
+        slidingMenu.putExtra("Username", username);
         startActivity(slidingMenu);
     }
 }

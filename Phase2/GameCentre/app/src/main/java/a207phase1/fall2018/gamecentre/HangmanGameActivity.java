@@ -304,11 +304,8 @@ public class HangmanGameActivity extends AppCompatActivity {
         saveToFile(HangmanMenuActivity.TEMP_SAVE_FILENAME);
     }
 
-    private String createUsedLetterDisplay(ArrayList<String> list){
+    public String createUsedLetterDisplay(ArrayList<String> list){
         String toReturn = "";
-        /*if (list.size() == 1) {
-            toReturn += list.get(0);
-        }*/
             for (int i = 0; i < list.size(); ++i) {
                 toReturn += list.get(i) + ", ";
             }
@@ -396,18 +393,4 @@ public class HangmanGameActivity extends AppCompatActivity {
     private void makeToastSavedText() {
         Toast.makeText(this, "Successfully Saved!", Toast.LENGTH_SHORT).show();
     }
-
-//    private void addUndoButtonListener() {
-//        undoButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                if (boardManager.movesMade.currentMoveCounter == boardManager.movesMade.undoMoveCounter) {
-//                    makeToastOutOfUndos();
-//                }
-//                else{
-//                    boardManager.undo();
-//                }
-//            }
-//        });
-//    }
 }

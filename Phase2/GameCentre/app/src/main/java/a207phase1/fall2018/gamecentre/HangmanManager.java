@@ -34,15 +34,6 @@ public class HangmanManager implements Serializable {
         this.max = max;
     }
 
-    /*public void setBoard(HangmanGameActivity HangmanBoard){
-
-        this.HangmanBoard = HangmanBoard;
-    }*/
-
-    /*public MainActivity getBoard(){
-        return this.HangmanBoard;
-    }*/
-
     public String getWordToGuess(){
         return this.wordToGuess;
     }

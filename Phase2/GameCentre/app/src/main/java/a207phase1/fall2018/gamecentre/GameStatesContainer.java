@@ -7,11 +7,11 @@ import java.util.ArrayList;
  * Stack-Like Container for saved GameStates
  *
  */
-public class GameStatesContainer implements Serializable {
+public class GameStatesContainer<T> implements Serializable {
     /**
      * ArrayList created which will store GameStates
      */
-    public ArrayList<savesTuple> contents = new ArrayList<>();
+    public ArrayList<T> contents = new ArrayList<>();
 
     /**
      * Max number of undos.
@@ -40,17 +40,26 @@ public class GameStatesContainer implements Serializable {
      * Constructor for GameStatesContainer which initializes the number of
      * undos and adds the initialGameState to the GameStatesContainer.
      */
-    public GameStatesContainer( int numUndos) {
+    public GameStatesContainer(int numUndos) {
         this.numUndos = numUndos;
     }
 
     /**
      * Returns the most recent autosave available from the container
      */
-    public savesTuple getPreviousSave(){
+    public T getPreviousSave(){
         return this.contents.get(currentMoveCounter - 1);
     }
 
+    public void addSavesTuple(T t){
+        this.contents.add(t);
+    }
+    public void updateCounters(){
+        currentMoveCounter++;
+        if (currentMoveCounter - undoMoveCounter > numUndos) {
+            undoMoveCounter++;
+        }
 
+    }
 }
 
