@@ -70,7 +70,7 @@ public class GameSelectionActivity extends AppCompatActivity {
         startActivity(slidingMenu);
     }
     private void switchTo2048(){
-        Intent slidingMenu = new Intent(this, HangmanMenuActivity.class);
+        Intent slidingMenu = new Intent(this, MainActivity.class);
         startActivity(slidingMenu);
     }
 }
