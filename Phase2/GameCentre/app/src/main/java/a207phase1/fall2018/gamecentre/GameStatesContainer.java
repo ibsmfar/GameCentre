@@ -40,7 +40,7 @@ public class GameStatesContainer<T> implements Serializable {
      * Constructor for GameStatesContainer which initializes the number of
      * undos and adds the initialGameState to the GameStatesContainer.
      */
-    public GameStatesContainer( int numUndos) {
+    public GameStatesContainer(int numUndos) {
         this.numUndos = numUndos;
     }
 
@@ -51,6 +51,15 @@ public class GameStatesContainer<T> implements Serializable {
         return this.contents.get(currentMoveCounter - 1);
     }
 
+    public void addSavesTuple(T t){
+        this.contents.add(t);
+    }
+    public void updateCounters(){
+        currentMoveCounter++;
+        if (currentMoveCounter - undoMoveCounter > numUndos) {
+            undoMoveCounter++;
+        }
 
+    }
 }
 

@@ -1,4 +1,5 @@
 package a207phase1.fall2018.gamecentre;
+
 import android.app.Activity;
 import android.content.Context;
 import android.util.Log;
