@@ -1,8 +1,9 @@
 package a207phase1.fall2018.gamecentre;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class saveTuple2048 {
+public class saveTuple2048 implements Serializable {
 
     private int width;
     private int height;

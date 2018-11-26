@@ -14,16 +14,16 @@ import android.view.View;
 import java.util.ArrayList;
 
 @SuppressWarnings("deprecation")
-public class MainView extends View {
+public class MainView2048 extends View {
 
     //Internal Constants
     static final int BASE_ANIMATION_TIME = 100000000;
-    private static final String TAG = MainView.class.getSimpleName();
+    private static final String TAG = MainView2048.class.getSimpleName();
     private static final float MERGING_ACCELERATION = (float) -0.5;
     private static final float INITIAL_VELOCITY = (1 - MERGING_ACCELERATION) / 4;
     public final int numCellTypes = 21;
     private final BitmapDrawable[] bitmapCell = new BitmapDrawable[numCellTypes];
-    public final MainGame game;
+    public final MainGame2048 game;
     //Internal variables
     private final Paint paint = new Paint();
     public boolean hasSaveState = false;
@@ -71,12 +71,12 @@ public class MainView extends View {
     private int titleWidthHighScore;
     private int titleWidthScore;
 
-    public MainView(Context context) {
+    public MainView2048(Context context) {
         super(context);
 
         Resources resources = context.getResources();
         //Loading resources
-        game = new MainGame(context, this);
+        game = new MainGame2048(context, this);
         try {
             //Getting assets
             backgroundRectangle = resources.getDrawable(R.drawable.background_rectangle);
@@ -304,14 +304,14 @@ public class MainView extends View {
                     for (int i = aArray.size() - 1; i >= 0; i--) {
                         AnimationCell aCell = aArray.get(i);
                         //If this animation is not active, skip it
-                        if (aCell.getAnimationType() == MainGame.SPAWN_ANIMATION) {
+                        if (aCell.getAnimationType() == MainGame2048.SPAWN_ANIMATION) {
                             animated = true;
                         }
                         if (!aCell.isActive()) {
                             continue;
                         }
 
-                        if (aCell.getAnimationType() == MainGame.SPAWN_ANIMATION) { // Spawning animation
+                        if (aCell.getAnimationType() == MainGame2048.SPAWN_ANIMATION) { // Spawning animation
                             double percentDone = aCell.getPercentageDone();
                             float textScaleSize = (float) (percentDone);
                             paint.setTextSize(textSize * textScaleSize);
@@ -319,7 +319,7 @@ public class MainView extends View {
                             float cellScaleSize = cellSize / 2 * (1 - textScaleSize);
                             bitmapCell[index].setBounds((int) (sX + cellScaleSize), (int) (sY + cellScaleSize), (int) (eX - cellScaleSize), (int) (eY - cellScaleSize));
                             bitmapCell[index].draw(canvas);
-                        } else if (aCell.getAnimationType() == MainGame.MERGE_ANIMATION) { // Merging Animation
+                        } else if (aCell.getAnimationType() == MainGame2048.MERGE_ANIMATION) { // Merging Animation
                             double percentDone = aCell.getPercentageDone();
                             float textScaleSize = (float) (1 + INITIAL_VELOCITY * percentDone
                                     + MERGING_ACCELERATION * percentDone * percentDone / 2);
@@ -328,7 +328,7 @@ public class MainView extends View {
                             float cellScaleSize = cellSize / 2 * (1 - textScaleSize);
                             bitmapCell[index].setBounds((int) (sX + cellScaleSize), (int) (sY + cellScaleSize), (int) (eX - cellScaleSize), (int) (eY - cellScaleSize));
                             bitmapCell[index].draw(canvas);
-                        } else if (aCell.getAnimationType() == MainGame.MOVE_ANIMATION) {  // Moving animation
+                        } else if (aCell.getAnimationType() == MainGame2048.MOVE_ANIMATION) {  // Moving animation
                             double percentDone = aCell.getPercentageDone();
                             int tempIndex = index;
                             if (aArray.size() >= 2) {
@@ -360,7 +360,7 @@ public class MainView extends View {
         double alphaChange = 1;
         continueButtonEnabled = false;
         for (AnimationCell animation : game.aGrid.globalAnimation) {
-            if (animation.getAnimationType() == MainGame.FADE_GLOBAL_ANIMATION) {
+            if (animation.getAnimationType() == MainGame2048.FADE_GLOBAL_ANIMATION) {
                 alphaChange = animation.getPercentageDone();
             }
         }

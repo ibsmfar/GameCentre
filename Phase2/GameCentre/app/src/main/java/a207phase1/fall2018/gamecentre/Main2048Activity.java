@@ -9,7 +9,7 @@ import android.view.KeyEvent;
 
 import java.util.ArrayList;
 
-public class MainActivity extends AppCompatActivity {
+public class Main2048Activity extends AppCompatActivity {
 
     ArrayList<User> listOfUsers;
     String username;
@@ -24,34 +24,34 @@ public class MainActivity extends AppCompatActivity {
     private static final String UNDO_GRID = "undo";
     private static final String GAME_STATE = "game state";
     private static final String UNDO_GAME_STATE = "undo game state";
-    private MainView view;
+    private MainView2048 view;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         listOfUsers = SavingData.loadFromFile(SavingData.USER_LIST, this);
-        Intent gamescreen = getIntent();
-        Bundle userBundle = gamescreen.getExtras();
+        Intent gameScreen = getIntent();
+        Bundle userBundle = gameScreen.getExtras();
 
         if(userBundle != null){
             username = userBundle.getString("Username");
         }
         setUser();
-        view = new MainView(this);
+        view = new MainView2048(this);
 
 
         if (user.saveTuple2048 != null){
             load();
         }
 
-//        SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(this);
-////        view.hasSaveState = settings.getBoolean("save_state", false);
-////
-////        if (savedInstanceState != null) {
-////            if (savedInstanceState.getBoolean("hasState")) {
-////                load();
-////            }
-////        }
+       SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(this);
+       view.hasSaveState = settings.getBoolean("save_state", false);
+
+       if (savedInstanceState != null) {
+            if (savedInstanceState.getBoolean("hasState")) {
+               load();
+            }
+        }
         setContentView(view);
     }
 
@@ -121,42 +121,42 @@ public class MainActivity extends AppCompatActivity {
         toSave.currentTiles = tiles;
         toSave.undoTiles = undoTiles;
 
-        user.saveTuple2048 = toSave;
+        updateUserBoard(toSave);
         SavingData.saveToFile(SavingData.USER_LIST, this, listOfUsers);
 
     }
 
     protected void onResume() {
         super.onResume();
-        if (user.saveTuple2048 != null){
-            load();
-        }
+        load();
     }
 
     private void load() {
         //Stopping all animations
         view.game.aGrid.cancelAnimations();
+        listOfUsers = SavingData.loadFromFile(SavingData.USER_LIST, this);
+        setUser();
         saveTuple2048 toTake = user.saveTuple2048;
 
-        SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(this);
+        //SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(this);
 
         ArrayList<TileContainer2048> currrentTiles = toTake.currentTiles;
         ArrayList<TileContainer2048> undoTiles = toTake.undoTiles;
 
         for (TileContainer2048 T: currrentTiles){
             if(T.getValue() > 0){
-                view.game.grid.field[T.getXPosition()][T.getXPosition()] = new Tile2048(
-                        T.getXPosition(), T.getXPosition(), T.getValue());
+                view.game.grid.field[T.getXPosition()][T.getYPosition()] = new Tile2048(
+                        T.getXPosition(), T.getYPosition(), T.getValue());
             }
             else if(T.getValue() == 0){
-                view.game.grid.field[T.getXPosition()][T.getXPosition()] = null;
+                view.game.grid.field[T.getXPosition()][T.getYPosition()] = null;
             }
         }
 
         for (TileContainer2048 T: undoTiles){
             if(T.getValue() > 0){
-                view.game.grid.undoField[T.getXPosition()][T.getXPosition()] = new Tile2048(
-                        T.getXPosition(), T.getXPosition(), T.getValue());
+                view.game.grid.undoField[T.getXPosition()][T.getYPosition()] = new Tile2048(
+                        T.getXPosition(), T.getYPosition(), T.getValue());
             }
             else if(T.getValue() == 0){
                 view.game.grid.undoField[T.getXPosition()][T.getXPosition()] = null;
@@ -193,11 +193,19 @@ public class MainActivity extends AppCompatActivity {
     /**
      * Setting the current user of the game
      */
-    public void setUser() {
+    void setUser() {
         for (User u : listOfUsers) {
             if (u.getUsername().equals(username))
                 user = u;
         }
     }
+    void updateUserBoard(saveTuple2048 s){
+        for (User u: listOfUsers){
+            if (u.getUsername().equals(username)){
+                u.saveTuple2048 = s;
+            }
+        }
+    }
+
 
 }

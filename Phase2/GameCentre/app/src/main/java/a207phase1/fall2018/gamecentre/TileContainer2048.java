@@ -1,6 +1,8 @@
 package a207phase1.fall2018.gamecentre;
 
-public class TileContainer2048 {
+import java.io.Serializable;
+
+public class TileContainer2048 implements Serializable {
 
     private int xPosition;
     private int yPosition;

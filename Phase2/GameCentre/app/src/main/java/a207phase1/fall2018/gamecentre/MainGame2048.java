@@ -8,17 +8,17 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class MainGame {
+public class MainGame2048 {
 
     public static final int SPAWN_ANIMATION = -1;
     public static final int MOVE_ANIMATION = 0;
     public static final int MERGE_ANIMATION = 1;
 
     public static final int FADE_GLOBAL_ANIMATION = 0;
-    private static final long MOVE_ANIMATION_TIME = MainView.BASE_ANIMATION_TIME;
-    private static final long SPAWN_ANIMATION_TIME = MainView.BASE_ANIMATION_TIME;
+    private static final long MOVE_ANIMATION_TIME = MainView2048.BASE_ANIMATION_TIME;
+    private static final long SPAWN_ANIMATION_TIME = MainView2048.BASE_ANIMATION_TIME;
     private static final long NOTIFICATION_DELAY_TIME = MOVE_ANIMATION_TIME + SPAWN_ANIMATION_TIME;
-    private static final long NOTIFICATION_ANIMATION_TIME = MainView.BASE_ANIMATION_TIME * 5;
+    private static final long NOTIFICATION_ANIMATION_TIME = MainView2048.BASE_ANIMATION_TIME * 5;
     private static final int startingMaxValue = 2048;
     //Odd state = game is not active
     //Even state = game is active
@@ -37,7 +37,7 @@ public class MainGame {
     final int numSquaresX = 4;
     final int numSquaresY = 4;
     private final Context mContext;
-    private final MainView mView;
+    private final MainView2048 mView;
     public Grid2048 grid = null;
     public AnimationGrid aGrid;
     public boolean canUndo;
@@ -47,7 +47,7 @@ public class MainGame {
     private long bufferScore = 0;
     private GameStatesContainer<saveTuple2048> movesMade = new GameStatesContainer<>(3);
 
-    public MainGame(Context context, MainView view) {
+    public MainGame2048(Context context, MainView2048 view) {
         mContext = context;
         mView = view;
         endingMaxValue = (int) Math.pow(2, view.numCellTypes - 1);

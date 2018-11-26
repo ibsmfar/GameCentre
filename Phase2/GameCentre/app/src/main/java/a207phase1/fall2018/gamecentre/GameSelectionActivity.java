@@ -78,8 +78,8 @@ public class GameSelectionActivity extends AppCompatActivity {
         startActivity(slidingMenu);
     }
     private void switchTo2048(){
-        Intent slidingMenu = new Intent(this, MainActivity.class);
-        slidingMenu.putExtra("Username", username);
-        startActivity(slidingMenu);
+        Intent menu2048 = new Intent(this, Main2048Activity.class);
+        menu2048.putExtra("Username", username);
+        startActivity(menu2048);
     }
 }
