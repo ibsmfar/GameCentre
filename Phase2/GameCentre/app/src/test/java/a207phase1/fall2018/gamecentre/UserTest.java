@@ -2,8 +2,8 @@ package a207phase1.fall2018.gamecentre;
 
 import org.junit.Before;
 import org.junit.Test;
+
 import static org.junit.Assert.assertSame;
-import java.util.ArrayList;
 
 public class UserTest {
     User user;
@@ -26,5 +26,3 @@ public class UserTest {
     }
 
     }
-
-}
