@@ -22,7 +22,8 @@ public class HangmanManager implements Serializable {
 
 
     public HangmanManager(String wordToGuess, ArrayList<String> lettersGuessed,
-                          int manState, boolean difficulty, String wordSoFar, int hints, int score,
+                          int manState, boolean difficulty, String wordSoFar,
+                          int hints, int score,
                           int max){
         this.wordToGuess = wordToGuess;
         this.lettersGuessed = lettersGuessed;
