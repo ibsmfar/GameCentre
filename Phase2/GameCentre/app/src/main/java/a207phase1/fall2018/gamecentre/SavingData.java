@@ -20,7 +20,9 @@ import static android.content.Context.MODE_PRIVATE;
 class SavingData {
     final static String USER_LIST = "user_list.ser";
     final static String ST_SCOREBOARD = "sliding_tiles_scoreboard";
-    final static String USER_SCOREBOARD = "sliding_tiles_scoreboard";
+    final static String ST_USER_SCOREBOARD = "sliding_tiles_scoreboard";
+    final static String GAME_SCOREBOARD_2048 = "2048_game_scoreboard";
+    //final static String USER_SCOREBOARD_2048 = "2048_user_scoreboard";
 
     static <T> T loadFromFile(String fileName, Context context) {
 

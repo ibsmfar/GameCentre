@@ -25,7 +25,9 @@
         <activity android:name="a207phase1.fall2018.gamecentre.HangmanMenuActivity"></activity>
         <activity android:name="a207phase1.fall2018.gamecentre.HangmanGameActivity"></activity>
         <activity android:name="a207phase1.fall2018.gamecentre.HangmanPreNewGameActivity"></activity>
-        <activity android:name="a207phase1.fall2018.gamecentre.MainActivity"></activity>
+        <activity android:name=".Main2048Activity"></activity>
+        <activity android:name=".Menu2048Activity"></activity>
+        <activity android:name=".Scoreboard2048Activity"></activity>
 
     </application>
 

@@ -8,6 +8,7 @@ public class User implements Serializable {
     private String username;
     private String password;
     private ArrayList<BoardManager> boardList;
+    HangmanManager hangmanManager;
     saveTuple2048 saveTuple2048 = new saveTuple2048();
 
 

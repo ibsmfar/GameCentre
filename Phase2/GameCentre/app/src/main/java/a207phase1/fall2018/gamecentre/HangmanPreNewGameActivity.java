@@ -26,8 +26,9 @@ public class HangmanPreNewGameActivity extends AppCompatActivity {
 
     public RadioGroup rgComplexity;
 
-    public static boolean Regular = false;
-
+    boolean Regular = false;
+    String username;
+    boolean newGame;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +36,14 @@ public class HangmanPreNewGameActivity extends AppCompatActivity {
         HangmanGameActivity.myActivity = this;
 
         setContentView(R.layout.activity_hangman_newgame);
+
+        Intent gameSelection = getIntent();
+        Bundle userBundle = gameSelection.getExtras();
+
+        if(userBundle != null){
+            username = userBundle.getString("Username");
+            newGame = userBundle.getBoolean("NewGame");
+        }
         rbRegular = findViewById(R.id.rbRegular);
         rbHard = findViewById(R.id.rbHard);
         addNewGameButtonListener();
@@ -65,17 +74,20 @@ public class HangmanPreNewGameActivity extends AppCompatActivity {
 
     public void switchToGame() {
         Intent tmp = new Intent(this, HangmanGameActivity.class);
-        saveToFile(HangmanMenuActivity.TEMP_SAVE_FILENAME);
+        //saveToFile(HangmanMenuActivity.TEMP_SAVE_FILENAME);
+        tmp.putExtra("Username", username);
+        tmp.putExtra("NewGame", true);
+        tmp.putExtra("Difficulty", Regular);
         startActivity(tmp);
     }
 
-    public void saveToFile(String fileName) {
-        try {
-            ObjectOutputStream outputStream = new ObjectOutputStream(
-                    this.openFileOutput(fileName, MODE_PRIVATE));
-            outputStream.close();
-        } catch (IOException e) {
-            Log.e("Exception", "File write failed: " + e.toString());
-        }
-    }
+//    public void saveToFile(String fileName) {
+//        try {
+//            ObjectOutputStream outputStream = new ObjectOutputStream(
+//                    this.openFileOutput(fileName, MODE_PRIVATE));
+//            outputStream.close();
+//        } catch (IOException e) {
+//            Log.e("Exception", "File write failed: " + e.toString());
+//        }
+//    }
 }

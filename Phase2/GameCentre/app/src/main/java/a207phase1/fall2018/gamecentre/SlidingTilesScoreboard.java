@@ -1,9 +1,5 @@
 package a207phase1.fall2018.gamecentre;
 
-import android.support.annotation.NonNull;
-
-import java.util.Iterator;
-
 public class SlidingTilesScoreboard {
     /**
      * Stores scores for either a user or a game
@@ -14,7 +10,7 @@ public class SlidingTilesScoreboard {
      */
     final static int NUM_COMPLEXITIES = 3;
     final static int NUM_SCORES = 3;
-    ScoreboardEntry[][] scores = new ScoreboardEntry[NUM_COMPLEXITIES][NUM_SCORES];
+    SlidingTilesScoreboardEntry[][] scores = new SlidingTilesScoreboardEntry[NUM_COMPLEXITIES][NUM_SCORES];
     String userOrGame;
 
     /**
@@ -31,7 +27,7 @@ public class SlidingTilesScoreboard {
         int indexToCheck = complexity - 3;
 
     }
-    public void sortScores(ScoreboardEntry[] arr){
+    public void sortScores(SlidingTilesScoreboardEntry[] arr){
         int n = arr.length;
         for (int i = 0; i < n-1; i++)
             for (int j = 0; j < n-i-1; j++)
@@ -45,15 +41,15 @@ public class SlidingTilesScoreboard {
                 else if (totalMilliseconds(arr[j]) > totalMilliseconds(arr[j+1]))
                 {
                     // swap temp and arr[i]
-                    ScoreboardEntry temp = arr[j];
+                    SlidingTilesScoreboardEntry temp = arr[j];
                     arr[j] = arr[j+1];
                     arr[j+1] = temp;
                 }
     }
-    public void addScore(ScoreboardEntry s){
+    public void addScore(SlidingTilesScoreboardEntry s){
         if (isScoreGood(s)){
             int complexity = s.complexity - 3;
-            ScoreboardEntry[] fourScores = new ScoreboardEntry[4];
+            SlidingTilesScoreboardEntry[] fourScores = new SlidingTilesScoreboardEntry[4];
             for (int i = 0; i < NUM_COMPLEXITIES; i++){
                 fourScores[i] = scores[complexity][i];
             }
@@ -70,11 +66,11 @@ public class SlidingTilesScoreboard {
      * Checks if a score is better than the entries already present (if they are there)
      * @return if the scores is good
      */
-    public boolean isScoreGood(ScoreboardEntry s){
+    public boolean isScoreGood(SlidingTilesScoreboardEntry s){
         int indexTOSearch = s.complexity - 3;
         int sTime = totalMilliseconds(s);
         for (int i = 0; i < NUM_SCORES; i++){
-            ScoreboardEntry currscore = scores[indexTOSearch][i];
+            SlidingTilesScoreboardEntry currscore = scores[indexTOSearch][i];
             if (currscore != null){
                 int currscoreTime = totalMilliseconds(currscore);
                 if (sTime < currscoreTime){
@@ -86,7 +82,7 @@ public class SlidingTilesScoreboard {
         }
         return false;
     }
-    public int totalMilliseconds(ScoreboardEntry s){
+    public int totalMilliseconds(SlidingTilesScoreboardEntry s){
         return 60000*s.minutes + 1000*s.seconds + s.milliseconds;
     }
 

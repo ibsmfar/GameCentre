@@ -14,7 +14,7 @@
         android:layout_alignParentStart="true"
         android:layout_centerVertical="true"
         android:gravity="center"
-        android:text="Welcome To Hangman \n A Puzzle Game where you must guess the correct word."
+        android:text="Welcome to 2048, a game where you combine tiles to get the highest score!"
         android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
 
     <Button
@@ -23,21 +23,16 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/GameText"
         android:layout_centerHorizontal="true"
-        android:text="New Game" />
+        android:text="Play!" />
 
     <Button
-        android:id="@+id/btnLoadHangman"
+        android:id="@+id/btn2048Scoreboard"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/GameText"
+        android:layout_marginTop="91dp"
+        android:layout_marginEnd="-121dp"
         android:layout_toStartOf="@+id/Play2048Btn"
-        android:text="Load Saved Game" />
+        android:text="2048 Scoreboard" />
 
-    <Button
-        android:id="@+id/btnSaveHangman"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/GameText"
-        android:layout_toEndOf="@+id/Play2048Btn"
-        android:text="Save Game" />
 </RelativeLayout>

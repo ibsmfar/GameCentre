@@ -71,14 +71,16 @@ public class GameSelectionActivity extends AppCompatActivity {
     }
     private void switchToSlidingTiles(){
         Intent slidingMenu = new Intent(this, SlidingTilesMenuActivity.class);
+        slidingMenu.putExtra("Username", username);
         startActivity(slidingMenu);
     }
     private void switchToHangman(){
-        Intent slidingMenu = new Intent(this, HangmanMenuActivity.class);
-        startActivity(slidingMenu);
+        Intent hangmanMenu = new Intent(this, HangmanMenuActivity.class);
+        hangmanMenu.putExtra("Username", username);
+        startActivity(hangmanMenu);
     }
     private void switchTo2048(){
-        Intent menu2048 = new Intent(this, Main2048Activity.class);
+        Intent menu2048 = new Intent(this, Menu2048Activity.class);
         menu2048.putExtra("Username", username);
         startActivity(menu2048);
     }

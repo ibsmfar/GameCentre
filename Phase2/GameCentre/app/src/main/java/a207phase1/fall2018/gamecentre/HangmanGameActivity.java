@@ -2,6 +2,7 @@ package a207phase1.fall2018.gamecentre;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.AssetManager;
 import android.os.Bundle;
@@ -33,7 +34,7 @@ import java.util.Random;
 public class HangmanGameActivity extends AppCompatActivity {
 
     public ArrayList<String> USED = new ArrayList();
-    private boolean REGULAR;
+    private boolean regular;
     private Hangdiction dictionary;
     private TextView word;
     int sc=0,max=0;
@@ -44,7 +45,9 @@ public class HangmanGameActivity extends AppCompatActivity {
     private int hints = 3;
 
     public static Activity myActivity;
-    GameLaunchCentre GLC;
+    String username;
+    boolean newGame;
+    ArrayList<User> listOfUsers;
     User currUser;
 
     Button undoButton;
@@ -54,29 +57,41 @@ public class HangmanGameActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        loadFromFile(HangmanMenuActivity.TEMP_SAVE_FILENAME);
         setContentView(R.layout.activity_hangman_game);
+
+        Intent gameSelection = getIntent();
+        Bundle userBundle = gameSelection.getExtras();
+
+        if(userBundle != null){
+            username = userBundle.getString("Username");
+            newGame = userBundle.getBoolean("NewGame");
+            if (newGame){
+                regular = userBundle.getBoolean("Difficulty", true);
+            }
+        }
+
+        listOfUsers = SavingData.loadFromFile(SavingData.USER_LIST, this);
+        setUser();
+
+
         word = findViewById(R.id.txtWord);
 
-        loadData();
-        currUser = GLC.currentUser;
         // undoButton = (Button) findViewById(R.id.btUndo);
         saveButton = findViewById(R.id.btnSaveHangman);
         hintButton = findViewById(R.id.btnHint);
 
-        addSaveButtonListener();
+        addSaveButtonListener(this);
 
         //addUndoButtonListener();
 
-        REGULAR = HangmanPreNewGameActivity.Regular;
         final EditText editText = findViewById(R.id.txtLetter);
 
-        if (HangmanMenuActivity.loaded == true) {
-            game = HangmanMenuActivity.game;
+        if (!newGame) {
+            game = currUser.hangmanManager;
             currentWord = game.getWordToGuess();
             USED = game.getLettersGuessed();
             count = game.getManState();
-            REGULAR = game.getDifficulty();
+            regular = game.getDifficulty();
             result = game.getWordSoFar();
             hints = game.getHints();
             sc = game.getScore();
@@ -95,7 +110,6 @@ public class HangmanGameActivity extends AppCompatActivity {
 
             int r_id = getResources().getIdentifier("hang" + count, "drawable", getApplication().getPackageName());
             ((ImageView) findViewById(R.id.hang)).setImageDrawable(getDrawable(r_id));
-            HangmanMenuActivity.loaded = false;
         }
 
         editText.setRawInputType(InputType.TYPE_CLASS_TEXT);
@@ -133,7 +147,7 @@ public class HangmanGameActivity extends AppCompatActivity {
                 editText.requestFocus();
                 InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                 imm.showSoftInput(editText, InputMethodManager.SHOW_IMPLICIT);
-                game = new HangmanManager(currentWord, USED, count, REGULAR, result, hints, sc, max);
+                game = new HangmanManager(currentWord, USED, count, regular, result, hints, sc, max);
                 autoSave();
             }
         });
@@ -230,10 +244,36 @@ public class HangmanGameActivity extends AppCompatActivity {
         }
     }
 
+    private void addSaveButtonListener(final Context context) {
+        Button saveButton = findViewById(R.id.btnSaveHangman);
+        saveButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                updateManager();
+                SavingData.saveToFile(SavingData.USER_LIST, context, listOfUsers);
+                makeToastSavedText();
+            }
+        });
+    }
+
     public char selectChar(String s) {
         Random randomChar = new Random();
         int indexOfChar = randomChar.nextInt(s.length());
         return s.charAt(indexOfChar);
+    }
+    void setUser(){
+        for (User u: listOfUsers){
+            if (u.getUsername().equals(username)){
+                currUser = u;
+            }
+        }
+    }
+    void updateManager(){
+        for (User u: listOfUsers){
+            if (u.getUsername().equals(username)){
+                u.hangmanManager = game;
+            }
+        }
     }
 
     private void checkLetter(EditText editText) {
@@ -241,7 +281,11 @@ public class HangmanGameActivity extends AppCompatActivity {
         TextView word = findViewById(R.id.txtWord);
         TextView usedLetters = findViewById(R.id.txtUsedLetters);
         String letter = editText.getText().toString().trim().toLowerCase();
-        if(! USED.contains(letter)) {
+        if (letter.length() != 1){
+            makeEnterALetterToast();
+        }
+
+        else if (! USED.contains(letter)) {
             USED.add(letter);
             game.setLettersGuessed(USED);
         }
@@ -272,7 +316,7 @@ public class HangmanGameActivity extends AppCompatActivity {
         }
         if(flag==0){
             usedLetters.setText(createUsedLetterDisplay(USED));
-            if(!REGULAR){
+            if(!regular){
                 count=count+2;
             }
             else{
@@ -299,9 +343,9 @@ public class HangmanGameActivity extends AppCompatActivity {
     }
 
     private void autoSave() {
-        game = new HangmanManager(currentWord, USED, count, REGULAR, result, hints, sc, max);
-        saveToFile(HangmanMenuActivity.SAVE_FILENAME);
-        saveToFile(HangmanMenuActivity.TEMP_SAVE_FILENAME);
+        game = new HangmanManager(currentWord, USED, count, regular, result, hints, sc, max);
+        updateManager();
+        SavingData.saveToFile(SavingData.USER_LIST, this, listOfUsers);
     }
 
     public String createUsedLetterDisplay(ArrayList<String> list){
@@ -316,81 +360,12 @@ public class HangmanGameActivity extends AppCompatActivity {
         return toReturn.substring(0,len-2);
     }
 
-    /**
-     * Load the board manager from fileName.
-     *
-     * @param fileName the name of the file
-     */
-    public void loadFromFile(String fileName) {
-        try {
-            InputStream inputStream = this.openFileInput(fileName);
-            if (inputStream != null) {
-                ObjectInputStream input = new ObjectInputStream(inputStream);
-                game = (HangmanManager) input.readObject();
-                currentWord = game.getWordToGuess();
-                USED = game.getLettersGuessed();
-                count = game.getManState();
-                REGULAR = game.getDifficulty();
-                result = game.getWordSoFar();
-                hints = game.getHints();
-                sc = game.getScore();
-                max = game.getMax();
-                createUsedLetterDisplay(USED);
-                //word = findViewById(R.id.txtWord);
-                word.setText(result);
-                inputStream.close();
-            }
-        } catch (FileNotFoundException e) {
-            Log.e("login activity", "File not found: " + e.toString());
-        } catch (IOException e) {
-            Log.e("login activity", "Can not read file: " + e.toString());
-        } catch (ClassNotFoundException e) {
-            Log.e("login activity", "File contained unexpected data type: " + e.toString());
-        }
-    }
 
-    /**
-     * Save the board manager to fileName.
-     *
-     * @param fileName the name of the file
-     */
-    public void saveToFile(String fileName) {
-        try {
-            ObjectOutputStream outputStream = new ObjectOutputStream(
-                    this.openFileOutput(fileName, MODE_PRIVATE));
-            outputStream.writeObject(game);
-            outputStream.close();
-        } catch (IOException e) {
-            Log.e("Exception", "File write failed: " + e.toString());
-        }
-    }
 
-    private void loadData() {
-        SharedPreferences sharedPreferences = getSharedPreferences("shared preferences", MODE_PRIVATE);
-        Gson gson = new Gson();
-        String json = sharedPreferences.getString("GameLaunchCentre", null);
-        Type type = new TypeToken<GameLaunchCentre>() {
-        }.getType();
-        GLC = gson.fromJson(json, type);
-
-        if (GLC == null) {
-            GLC = new GameLaunchCentre();
-        }
-    }
-
-    private void addSaveButtonListener() {
-        Button saveButton = findViewById(R.id.btnSaveHangman);
-        saveButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                saveToFile(HangmanMenuActivity.SAVE_FILENAME);
-                saveToFile(HangmanMenuActivity.TEMP_SAVE_FILENAME);
-                makeToastSavedText();
-            }
-        });
-    }
-    
     private void makeToastSavedText() {
         Toast.makeText(this, "Successfully Saved!", Toast.LENGTH_SHORT).show();
+}
+    private void makeEnterALetterToast(){
+        Toast.makeText(this, "Enter one letter only!", Toast.LENGTH_SHORT).show();
     }
 }

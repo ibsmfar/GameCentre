@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="a207phase1.fall2018.gamecentre.HangmanMenuActivity">
+    tools:context="a207phase1.fall2018.gamecentre.SlidingTilesMenuActivity">
 
     <TextView
         android:id="@+id/GameText"
@@ -14,11 +13,11 @@
         android:layout_alignParentStart="true"
         android:layout_centerVertical="true"
         android:gravity="center"
-        android:text="Welcome To Hangman \n A Puzzle Game where you must guess the correct word."
+        android:text="Welcome To Sliding Tiles \n A Puzzle Game where you must arrange the numbers in the correct order"
         android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
 
     <Button
-        android:id="@+id/Play2048Btn"
+        android:id="@+id/StartButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/GameText"
@@ -26,18 +25,28 @@
         android:text="New Game" />
 
     <Button
-        android:id="@+id/btnLoadHangman"
+        android:id="@+id/LoadButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/GameText"
-        android:layout_toStartOf="@+id/Play2048Btn"
+        android:layout_toStartOf="@+id/StartButton"
         android:text="Load Saved Game" />
 
     <Button
-        android:id="@+id/btnSaveHangman"
+        android:id="@+id/SaveButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/GameText"
-        android:layout_toEndOf="@+id/Play2048Btn"
+        android:layout_toEndOf="@+id/StartButton"
         android:text="Save Game" />
+
+    <TextView
+        android:id="@+id/userTest"
+        android:layout_width="124dp"
+        android:layout_height="57dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="100dp"
+        android:text="TextView" />
+
 </RelativeLayout>
