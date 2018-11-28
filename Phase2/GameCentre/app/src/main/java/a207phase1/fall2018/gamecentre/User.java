@@ -31,8 +31,6 @@ public class User implements Serializable {
         return boardList;
     }
 
-
-
     public void addBoardManager(BoardManager b){
         boardList.add(b);
     }

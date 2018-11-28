@@ -12,8 +12,8 @@ public class HangmanManagerTest {
 
     @Before
     public void create(){
-        hangmanManager = new HangmanManager("apple",lettersGuessed,
-                0, true, "a", 3);
+        hangmanManager = new HangmanManager("apple", lettersGuessed,
+                0, true, "a", 3, 4, 4);
     }
 
     @Test
