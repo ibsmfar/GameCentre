@@ -71,12 +71,12 @@ public class MainView2048 extends View {
     private int titleWidthHighScore;
     private int titleWidthScore;
 
-    public MainView2048(Context context) {
+    public MainView2048(Context context, String username) {
         super(context);
 
         Resources resources = context.getResources();
         //Loading resources
-        game = new MainGame2048(context, this);
+        game = new MainGame2048(context, this, username);
         try {
             //Getting assets
             backgroundRectangle = resources.getDrawable(R.drawable.background_rectangle);

@@ -45,11 +45,15 @@ public class MainGame2048 {
     public long highScore = 0;
     public long lastScore = 0;
     private long bufferScore = 0;
+    String username;
+    ArrayList<Game2048ScoreboardEntry> gameScores;
     private GameStatesContainer<saveTuple2048> movesMade = new GameStatesContainer<>(3);
 
-    public MainGame2048(Context context, MainView2048 view) {
+    public MainGame2048(Context context, MainView2048 view, String username) {
+        gameScores = SavingData.loadFromFile(SavingData.GAME_SCOREBOARD_2048, context);
         mContext = context;
         mView = view;
+        this.username = username;
         endingMaxValue = (int) Math.pow(2, view.numCellTypes - 1);
     }
 
@@ -215,6 +219,7 @@ public class MainGame2048 {
 
                         // Update the score
                         score = score + merged.getValue();
+
                         highScore = Math.max(score, highScore);
 
                         // The mighty 2048 tile
@@ -254,6 +259,8 @@ public class MainGame2048 {
 
     private void endGame() {
         aGrid.startAnimation(-1, -1, FADE_GLOBAL_ANIMATION, NOTIFICATION_ANIMATION_TIME, NOTIFICATION_DELAY_TIME, null);
+        Game2048ScoreboardEntry g = new Game2048ScoreboardEntry(username, (int) score);
+        updateScoreBoard(g);
         if (score >= highScore) {
             highScore = score;
             recordHighScore();
@@ -393,6 +400,15 @@ public class MainGame2048 {
     public TileContainer2048 saveTile(int xPosition, int yPosition, int value) {
         return new TileContainer2048(xPosition, yPosition, value);
     }
+    void updateScoreBoard(Game2048ScoreboardEntry g){
+        gameScores.add(g);
+        Collections.sort(gameScores, new SortByScore());
+        if (gameScores.size() == 6){
+            gameScores.remove(gameScores.size() - 1);
+       }
+        SavingData.saveToFile(SavingData.GAME_SCOREBOARD_2048, mContext, gameScores);
+    }
+
 
     public void load() {
 

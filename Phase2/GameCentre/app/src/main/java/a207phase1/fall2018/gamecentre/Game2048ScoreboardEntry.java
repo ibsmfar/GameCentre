@@ -10,7 +10,7 @@ public class Game2048ScoreboardEntry implements Serializable {
     int score;
 
     Game2048ScoreboardEntry(){
-        this.user = "-";
+        this.user = "None";
         this.score = 0;
     }
     Game2048ScoreboardEntry(String user, int score){
@@ -20,16 +20,16 @@ public class Game2048ScoreboardEntry implements Serializable {
     @Override
     @NonNull
     public String toString() {
-        return user + ": " + score;
+        return "     User: " + user + "    Score: " + score;
     }
 
 }
 class SortByScore implements Comparator<Game2048ScoreboardEntry>{
     public int compare(Game2048ScoreboardEntry a, Game2048ScoreboardEntry b){
-        if (a.score > b.score){
+        if (a.score < b.score){
             return 1;
         }
-        else if (a.score < b.score){
+        else if (a.score > b.score){
             return -1;
         }
         else{

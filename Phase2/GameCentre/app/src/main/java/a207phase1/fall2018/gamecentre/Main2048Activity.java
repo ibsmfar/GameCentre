@@ -6,12 +6,15 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
+import android.view.WindowManager;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class Main2048Activity extends AppCompatActivity {
 
     ArrayList<User> listOfUsers;
+    //ArrayList<Game2048ScoreboardEntry> gameScores;
     String username;
     User user;
 
@@ -30,6 +33,8 @@ public class Main2048Activity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         listOfUsers = SavingData.loadFromFile(SavingData.USER_LIST, this);
+        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
         Intent gameScreen = getIntent();
         Bundle userBundle = gameScreen.getExtras();
 
@@ -37,7 +42,7 @@ public class Main2048Activity extends AppCompatActivity {
             username = userBundle.getString("Username");
         }
         setUser();
-        view = new MainView2048(this);
+        view = new MainView2048(this, username);
 
 
         if (user.saveTuple2048 != null){
@@ -62,6 +67,8 @@ public class Main2048Activity extends AppCompatActivity {
             return true;
         } else if (keyCode == KeyEvent.KEYCODE_DPAD_DOWN) {
             view.game.move(2);
+            Game2048ScoreboardEntry g = new Game2048ScoreboardEntry(username, (int) view.game.score);
+
             return true;
         } else if (keyCode == KeyEvent.KEYCODE_DPAD_UP) {
             view.game.move(0);
@@ -162,26 +169,6 @@ public class Main2048Activity extends AppCompatActivity {
                 view.game.grid.undoField[T.getXPosition()][T.getXPosition()] = null;
             }
         }
-
-
-
-//        for (int xx = 0; xx < view.game.grid.field.length; xx++) {
-//            for (int yy = 0; yy < view.game.grid.field[0].length; yy++) {
-//                int value = settings.getInt(xx + " " + yy, -1);
-//                if (value > 0) {
-//                    view.game.grid.field[xx][yy] = new Tile2048(xx, yy, value);
-//                } else if (value == 0) {
-//                    view.game.grid.field[xx][yy] = null;
-//                }
-//
-//                int undoValue = settings.getInt(UNDO_GRID + xx + " " + yy, -1);
-//                if (undoValue > 0) {
-//                    view.game.grid.undoField[xx][yy] = new Tile2048(xx, yy, undoValue);
-//                } else if (value == 0) {
-//                    view.game.grid.undoField[xx][yy] = null;
-//                }
-//            }
-//        }
 
         view.game.score = toTake.getScore();
         view.game.highScore = toTake.getHighScore();
