@@ -28,6 +28,7 @@
         <activity android:name=".Main2048Activity"></activity>
         <activity android:name=".Menu2048Activity"></activity>
         <activity android:name=".Scoreboard2048Activity"></activity>
+        <activity android:name=".SlidingTilesScoreboardActivity"></activity>
 
     </application>
 

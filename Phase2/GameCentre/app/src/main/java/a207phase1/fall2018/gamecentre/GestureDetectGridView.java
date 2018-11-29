@@ -20,7 +20,7 @@ public class GestureDetectGridView extends GridView {
     public static final int SWIPE_MAX_OFF_PATH = 100;
     public static final int SWIPE_THRESHOLD_VELOCITY = 100;
     private GestureDetector gDetector;
-    private MovementController mController;
+    MovementController mController;
     private boolean mFlingConfirmed = false;
     private float mTouchX;
     private float mTouchY;

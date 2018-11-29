@@ -41,7 +41,9 @@ public class GameLaunchActivity extends AppCompatActivity{
         //loadFromFile(SavingData.USER_LIST);
         username = (EditText)findViewById(R.id.UserNameLogin);
         password = (EditText)findViewById(R.id.PasswordLogin);
-
+        if (!areSlidingTilesGameScoresSetUp() && !areSlidingTilesUserScoresSetUp()){
+            setUpSlidingTilesScoreboard();
+        }
         addGoButtonListener();
         addSignUpButtonListener();
 
@@ -168,7 +170,33 @@ public class GameLaunchActivity extends AppCompatActivity{
         }
         return false;
     }
+    boolean areSlidingTilesGameScoresSetUp(){
+        SlidingTilesScoreboard gameScores = SavingData.loadFromFile(SavingData.ST_SCOREBOARD, this);
+        if (gameScores != null){
+            return true;
+        }
+        return false;
+    }
+    boolean areSlidingTilesUserScoresSetUp(){
+        ArrayList<SlidingTilesScoreboard> userScoreList = SavingData.loadFromFile(SavingData.ST_USER_SCOREBOARD, this);
+        if (userScoreList != null){
+            return true;
+        }
+        return false;
+    }
+     void setUpSlidingTilesScoreboard(){
+        ArrayList<SlidingTilesScoreboard> userScoreList = new ArrayList<>();
+        SlidingTilesScoreboard gameScores = new SlidingTilesScoreboard(SlidingTilesScoreboard.GAME);
 
+         for (int i = 0; i < 3; i++){
+             gameScores.addScoreboardEntry(new SlidingTilesScoreboardEntry(SlidingTilesScoreboard.GAME),  3);
+             gameScores.addScoreboardEntry(new SlidingTilesScoreboardEntry(SlidingTilesScoreboard.GAME),  4);
+             gameScores.addScoreboardEntry(new SlidingTilesScoreboardEntry(SlidingTilesScoreboard.GAME),  5);
+         }
+
+        SavingData.saveToFile(SavingData.ST_USER_SCOREBOARD, this, userScoreList);
+        SavingData.saveToFile(SavingData.ST_SCOREBOARD, this, gameScores);
+     }
 
 
 

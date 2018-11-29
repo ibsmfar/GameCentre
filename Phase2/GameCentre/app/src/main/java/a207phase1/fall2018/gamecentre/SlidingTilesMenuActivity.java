@@ -42,7 +42,8 @@ public class SlidingTilesMenuActivity extends AppCompatActivity {
         userText.setText(username);
         listOfUsers = SavingData.loadFromFile(SavingData.USER_LIST, this);
 
-
+        addGameScoreboardButtonListener();
+        addUserScoreboardButtonListener();
         addStartButtonListener();
         addLoadButtonListener();
     }
@@ -72,6 +73,24 @@ public class SlidingTilesMenuActivity extends AppCompatActivity {
                     switchToLoadScreen();
                 }
                 noSavesText();
+            }
+        });
+    }
+    private void addGameScoreboardButtonListener(){
+        Button gameScoresButton = findViewById(R.id.btnSTGameScoreboard);
+        gameScoresButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                switchToGameScoreboard();
+            }
+        });
+    }
+    private void addUserScoreboardButtonListener(){
+        Button userScoresButton = findViewById(R.id.btnUserSTScores);
+        userScoresButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                switchToUserScoreboard();
             }
         });
     }
@@ -118,6 +137,18 @@ public class SlidingTilesMenuActivity extends AppCompatActivity {
     private void switchToLoadScreen(){
         Intent tmp = new Intent(this, GameLoadActivity.class);
         tmp.putExtra("Username", username);
+        startActivity(tmp);
+    }
+    private void switchToGameScoreboard(){
+        Intent tmp = new Intent(this, SlidingTilesScoreboardActivity.class);
+        tmp.putExtra("Username", username);
+        tmp.putExtra("displayGameScores?", true);
+        startActivity(tmp);
+    }
+    private void switchToUserScoreboard(){
+        Intent tmp = new Intent(this, SlidingTilesScoreboardActivity.class);
+        tmp.putExtra("Username", username);
+        tmp.putExtra("displayGameScores?", false);
         startActivity(tmp);
     }
 

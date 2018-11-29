@@ -107,6 +107,7 @@ public class SlidingTilesGameActivity extends AppCompatActivity implements Obser
         // Add View to activity
         gridView = findViewById(R.id.grid);
         gridView.setNumColumns(boardManager.getBoard().getNum_cols());
+        gridView.mController.username = username;
         gridView.setBoardManager(boardManager);
         boardManager.getBoard().addObserver(this);
 
@@ -185,10 +186,18 @@ public class SlidingTilesGameActivity extends AppCompatActivity implements Obser
     public void updateUserBoard(){
         for (User u: listOfUsers){
             if (u.getUsername().equals(username)){
-                boardManager.setMilliseconds(MilliSeconds);
-                boardManager.setSeconds(Seconds);
-                boardManager.setMinutes(Minutes);
-                u.changeBoardManager(boardManager, index);
+                if (!boardManager.puzzleSolved()) {
+                    boardManager.setMilliseconds(MilliSeconds);
+                    boardManager.setSeconds(Seconds);
+                    boardManager.setMinutes(Minutes);
+                    u.changeBoardManager(boardManager, index);
+                }
+                else{
+                    u.getBoardList().remove(index);
+                    u.getBoardList().trimToSize();
+                    getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                            WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                }
             }
         }
     }
@@ -258,7 +267,12 @@ public class SlidingTilesGameActivity extends AppCompatActivity implements Obser
                     + String.format("%02d", Seconds) + ":"
                     + String.format("%03d", MilliSeconds));
 
-            handler.postDelayed(this, 0);
+            if (boardManager.puzzleSolved()){
+                handler.removeCallbacks(this);
+            }
+            else {
+                handler.postDelayed(this, 0);
+            }
         }
     };
 

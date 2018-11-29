@@ -6,6 +6,25 @@
     android:layout_height="match_parent"
     tools:context="a207phase1.fall2018.gamecentre.SlidingTilesMenuActivity">
 
+    <Button
+        android:id="@+id/btnSTGameScoreboard"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="136dp"
+        android:layout_marginBottom="130dp"
+        android:text="Leaderboard" />
+
+    <Button
+        android:id="@+id/btnUserSTScores"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="62dp"
+        android:text="Your Scores" />
+
     <TextView
         android:id="@+id/GameText"
         android:layout_width="wrap_content"
@@ -44,9 +63,10 @@
         android:id="@+id/userTest"
         android:layout_width="124dp"
         android:layout_height="57dp"
+        android:layout_alignParentStart="true"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="100dp"
+        android:layout_marginStart="13dp"
+        android:layout_marginBottom="374dp"
         android:text="TextView" />
 
 </RelativeLayout>
