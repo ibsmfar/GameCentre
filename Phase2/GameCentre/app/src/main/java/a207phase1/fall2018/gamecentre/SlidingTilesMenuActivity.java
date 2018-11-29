@@ -38,6 +38,7 @@ public class SlidingTilesMenuActivity extends AppCompatActivity {
         if(userBundle != null){
             username = userBundle.getString("Username");
         }
+        listOfUsers = SavingData.loadFromFile(SavingData.USER_LIST, this);
         //TextView userText = findViewById(R.id.userTest);
         //userText.setText(username);
         //listOfUsers = SavingData.loadFromFile(SavingData.USER_LIST, this);
@@ -65,7 +66,7 @@ public class SlidingTilesMenuActivity extends AppCompatActivity {
      * Activate the load button.
      */
     private void addLoadButtonListener() {
-        Button loadButton = findViewById(R.id.btnLoad);
+        Button loadButton = findViewById(R.id.LoadButton);
         loadButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

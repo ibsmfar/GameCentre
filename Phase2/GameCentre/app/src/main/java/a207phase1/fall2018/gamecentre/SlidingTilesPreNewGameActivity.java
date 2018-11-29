@@ -128,12 +128,8 @@ public class SlidingTilesPreNewGameActivity extends AppCompatActivity {
             if(u.getUsername().equals(username)){
                 u.addBoardManager(b);
                 indexToPass = u.getBoardList().size() - 1; //the index of the board so it can be easily referenced later
-                userNameNotExistToast();
             }
         }
-    }
-    private void userNameNotExistToast(){
-        Toast.makeText(this, "Username does not exist", Toast.LENGTH_SHORT).show();
     }
 
     public void switchToGame() {
