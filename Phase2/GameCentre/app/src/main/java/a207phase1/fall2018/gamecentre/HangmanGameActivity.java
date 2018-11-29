@@ -84,6 +84,7 @@ public class HangmanGameActivity extends AppCompatActivity {
 
         //addUndoButtonListener();
 
+        //regular = HangmanPreNewGameActivity.regular;
         final EditText editText = findViewById(R.id.txtLetter);
 
         if (!newGame) {
@@ -110,6 +111,7 @@ public class HangmanGameActivity extends AppCompatActivity {
 
             int r_id = getResources().getIdentifier("hang" + count, "drawable", getApplication().getPackageName());
             ((ImageView) findViewById(R.id.hang)).setImageDrawable(getDrawable(r_id));
+            HangmanMenuActivity.loaded = false;
         }
 
         editText.setRawInputType(InputType.TYPE_CLASS_TEXT);
@@ -335,7 +337,9 @@ public class HangmanGameActivity extends AppCompatActivity {
             }
             game.setManState(count);
             int r_id = getResources().getIdentifier("hang" + count, "drawable", getApplication().getPackageName());
-            count = 0;
+            if (count >= 6) {
+                count = 0;
+            }
             ((ImageView) findViewById(R.id.hang)).setImageDrawable(getDrawable(r_id));
         }
         autoSave();
