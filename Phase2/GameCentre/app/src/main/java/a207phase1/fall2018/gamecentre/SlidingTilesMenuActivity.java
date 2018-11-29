@@ -30,7 +30,7 @@ public class SlidingTilesMenuActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_starting_);
+        setContentView(R.layout.activity_slidingtiles_newgame);
         // This is for getting the username of the current user
         Intent gameSelection = getIntent();
         Bundle userBundle = gameSelection.getExtras();
@@ -38,9 +38,9 @@ public class SlidingTilesMenuActivity extends AppCompatActivity {
         if(userBundle != null){
             username = userBundle.getString("Username");
         }
-        TextView userText = findViewById(R.id.userTest);
-        userText.setText(username);
-        listOfUsers = SavingData.loadFromFile(SavingData.USER_LIST, this);
+        //TextView userText = findViewById(R.id.userTest);
+        //userText.setText(username);
+        //listOfUsers = SavingData.loadFromFile(SavingData.USER_LIST, this);
 
         addGameScoreboardButtonListener();
         addUserScoreboardButtonListener();
@@ -65,7 +65,7 @@ public class SlidingTilesMenuActivity extends AppCompatActivity {
      * Activate the load button.
      */
     private void addLoadButtonListener() {
-        Button loadButton = findViewById(R.id.LoadButton);
+        Button loadButton = findViewById(R.id.btnLoad);
         loadButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
