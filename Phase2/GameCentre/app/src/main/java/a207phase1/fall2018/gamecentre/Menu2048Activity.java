@@ -11,6 +11,7 @@ import java.util.ArrayList;
 
 public class Menu2048Activity extends AppCompatActivity {
     String username;
+
     ArrayList<Game2048ScoreboardEntry> gameScores;
 
     protected void onCreate(Bundle savedInstanceState) {

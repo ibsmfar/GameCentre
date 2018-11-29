@@ -8,8 +8,8 @@ public class User implements Serializable {
     private String username;
     private String password;
     private ArrayList<BoardManager> boardList;
-    HangmanManager hangmanManager;
-    saveTuple2048 saveTuple2048 = new saveTuple2048();
+    UserHangmanManager userHangmanManager;
+    saveTuple2048 saveTuple2048;
 
 
 
@@ -17,6 +17,8 @@ public class User implements Serializable {
         this.username = username;
         this.password = password;
         boardList = new ArrayList<>();
+        userHangmanManager = new UserHangmanManager();
+        saveTuple2048 = new saveTuple2048();
     }
 
     public String getUsername(){

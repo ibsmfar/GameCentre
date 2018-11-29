@@ -19,9 +19,12 @@ public class HangmanMenuActivity extends AppCompatActivity {
 
     String username;
 
-    HangmanManager game;
+    UserHangmanManager game;
 
     User user;
+
+    ArrayList<HangmanScoreboardEntry> easyGameScores;
+    ArrayList<HangmanScoreboardEntry> hardGameScores;
 
     public static boolean loaded = false;
 
@@ -39,15 +42,38 @@ public class HangmanMenuActivity extends AppCompatActivity {
         }
         listOfUsers = SavingData.loadFromFile(SavingData.USER_LIST, this);
         setUser();
-        game = user.hangmanManager;
+
+        easyGameScores = SavingData.loadFromFile(SavingData.HANGMAN_SCOREBOARD_EASY, this);
+        hardGameScores = SavingData.loadFromFile(SavingData.HANGMAN_SCOREBOARD_HARD, this);
+        if (easyGameScores == null){
+            setUpHangmanEasyScoreboard();
+            SavingData.saveToFile(SavingData.HANGMAN_SCOREBOARD_EASY, this, easyGameScores);
+        }
+        if(hardGameScores == null){
+            setUpHangmanHardScoreboard();
+            SavingData.saveToFile(SavingData.HANGMAN_SCOREBOARD_HARD, this, hardGameScores);
+        }
+
+
+        game = user.userHangmanManager;
 
         //HangmanGameActivity.myActivity = this;
 
         addStartButtonListener();
         addLoadButtonListener(this);
+        addScoreboardButtonListener();
         //addSaveButtonListener();
     }
 
+    private void addScoreboardButtonListener(){
+        Button scoreboardButton = findViewById(R.id.btnHangmanLeaderboard);
+        scoreboardButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                switchToLeaderboard();
+            }
+        });
+    }
     /**
      * Activate the start button.
      */
@@ -71,13 +97,14 @@ public class HangmanMenuActivity extends AppCompatActivity {
             public void onClick(View v) {
                 listOfUsers = SavingData.loadFromFile(SavingData.USER_LIST, context);
                 setUser();
-                game = user.hangmanManager;
-                if (game != null){
-                    makeToastLoadedText();
-                    switchToGame();
+                game = user.userHangmanManager;
+                if (game.easy == null && game.hard == null){
+                    makeToastNoSaves();
                 }
                 else {
-                    makeToastNoSaves();
+                    makeToastLoadedText();
+                    switchToSaves();
+
                 }
             }
         });
@@ -133,10 +160,20 @@ public class HangmanMenuActivity extends AppCompatActivity {
         startActivity(tmp);
     }
 
-    public void switchToGame() {
-        Intent tmp = new Intent(this, HangmanGameActivity.class);
+//    public void switchToGame() {
+//        Intent tmp = new Intent(this, HangmanGameActivity.class);
+//        tmp.putExtra("Username", username);
+//        tmp.putExtra("NewGame", false);
+//        startActivity(tmp);
+//    }
+    public void switchToSaves(){
+        Intent tmp = new Intent(this, HangmanLoadActivity.class);
         tmp.putExtra("Username", username);
-        tmp.putExtra("NewGame", false);
+        startActivity(tmp);
+    }
+
+    private void switchToLeaderboard(){
+        Intent tmp = new Intent(this, HangmanScoreboardActivity.class);
         startActivity(tmp);
     }
 
@@ -146,6 +183,22 @@ public class HangmanMenuActivity extends AppCompatActivity {
                 user = u;
             }
         }
+    }
+
+    void setUpHangmanEasyScoreboard(){
+        easyGameScores= new ArrayList<>();
+        for (int i = 0; i < 3; i ++){
+            easyGameScores.add(new HangmanScoreboardEntry());
+        }
+        SavingData.saveToFile(SavingData.HANGMAN_SCOREBOARD_EASY, this, easyGameScores);
+    }
+
+    void setUpHangmanHardScoreboard(){
+        hardGameScores = new ArrayList<>();
+        for (int i = 0; i < 3; i++){
+            hardGameScores.add(new HangmanScoreboardEntry());
+        }
+        SavingData.saveToFile(SavingData.HANGMAN_SCOREBOARD_HARD, this, hardGameScores);
     }
 
 
