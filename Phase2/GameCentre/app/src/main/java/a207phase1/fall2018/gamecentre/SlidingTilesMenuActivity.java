@@ -30,7 +30,7 @@ public class SlidingTilesMenuActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_slidingtiles_newgame);
+        setContentView(R.layout.activity_slidingtiles_menu);
         // This is for getting the username of the current user
         Intent gameSelection = getIntent();
         Bundle userBundle = gameSelection.getExtras();
