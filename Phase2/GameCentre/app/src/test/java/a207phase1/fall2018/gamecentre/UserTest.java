@@ -25,4 +25,4 @@ public class UserTest {
         assertSame("username", user.getUsername());
     }
 
-    }
+}

@@ -65,6 +65,7 @@ public class GameRegisterActivity extends AppCompatActivity {
                     }
                     listOfUsers.add(u);
                     SavingData.saveToFile(SavingData.USER_LIST, context, listOfUsers);
+                    setUpUserSlidingTilesScoreboard(username.getText().toString());
                     //saveToFile(SavingData.USER_LIST);
                     switchToSignIn();
 
@@ -154,6 +155,18 @@ public class GameRegisterActivity extends AppCompatActivity {
             }
         }
         return false;
+    }
+    void setUpUserSlidingTilesScoreboard(String username){
+        SlidingTilesScoreboard s = new SlidingTilesScoreboard(username);
+        for (int i = 0; i < 3; i++){
+            s.addScoreboardEntry(new SlidingTilesScoreboardEntry(username),  3);
+            s.addScoreboardEntry(new SlidingTilesScoreboardEntry(username),  4);
+            s.addScoreboardEntry(new SlidingTilesScoreboardEntry(username),  5);
+        }
+
+        ArrayList<SlidingTilesScoreboard> userScores = SavingData.loadFromFile(SavingData.ST_USER_SCOREBOARD, this);
+        userScores.add(s);
+        SavingData.saveToFile(SavingData.ST_USER_SCOREBOARD, this, userScores);
     }
 
 }

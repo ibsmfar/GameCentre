@@ -30,7 +30,7 @@ public class SlidingTilesMenuActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_starting_);
+        setContentView(R.layout.activity_slidingtiles_newgame);
         // This is for getting the username of the current user
         Intent gameSelection = getIntent();
         Bundle userBundle = gameSelection.getExtras();
@@ -38,11 +38,12 @@ public class SlidingTilesMenuActivity extends AppCompatActivity {
         if(userBundle != null){
             username = userBundle.getString("Username");
         }
-        TextView userText = findViewById(R.id.userTest);
-        userText.setText(username);
-        listOfUsers = SavingData.loadFromFile(SavingData.USER_LIST, this);
+        //TextView userText = findViewById(R.id.userTest);
+        //userText.setText(username);
+        //listOfUsers = SavingData.loadFromFile(SavingData.USER_LIST, this);
 
-
+        addGameScoreboardButtonListener();
+        addUserScoreboardButtonListener();
         addStartButtonListener();
         addLoadButtonListener();
     }
@@ -64,7 +65,7 @@ public class SlidingTilesMenuActivity extends AppCompatActivity {
      * Activate the load button.
      */
     private void addLoadButtonListener() {
-        Button loadButton = findViewById(R.id.LoadButton);
+        Button loadButton = findViewById(R.id.btnLoad);
         loadButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -72,6 +73,24 @@ public class SlidingTilesMenuActivity extends AppCompatActivity {
                     switchToLoadScreen();
                 }
                 noSavesText();
+            }
+        });
+    }
+    private void addGameScoreboardButtonListener(){
+        Button gameScoresButton = findViewById(R.id.btnSTGameScoreboard);
+        gameScoresButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                switchToGameScoreboard();
+            }
+        });
+    }
+    private void addUserScoreboardButtonListener(){
+        Button userScoresButton = findViewById(R.id.btnUserSTScores);
+        userScoresButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                switchToUserScoreboard();
             }
         });
     }
@@ -118,6 +137,18 @@ public class SlidingTilesMenuActivity extends AppCompatActivity {
     private void switchToLoadScreen(){
         Intent tmp = new Intent(this, GameLoadActivity.class);
         tmp.putExtra("Username", username);
+        startActivity(tmp);
+    }
+    private void switchToGameScoreboard(){
+        Intent tmp = new Intent(this, SlidingTilesScoreboardActivity.class);
+        tmp.putExtra("Username", username);
+        tmp.putExtra("displayGameScores?", true);
+        startActivity(tmp);
+    }
+    private void switchToUserScoreboard(){
+        Intent tmp = new Intent(this, SlidingTilesScoreboardActivity.class);
+        tmp.putExtra("Username", username);
+        tmp.putExtra("displayGameScores?", false);
         startActivity(tmp);
     }
 

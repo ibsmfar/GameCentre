@@ -22,7 +22,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/GameText"
-        android:layout_centerHorizontal="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="3dp"
+        android:layout_marginEnd="64dp"
         android:text="New Game" />
 
     <Button
@@ -30,15 +32,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/GameText"
+        android:layout_marginTop="3dp"
+        android:layout_marginEnd="51dp"
         android:layout_toStartOf="@+id/StartButton"
         android:text="Load Saved Game" />
-
-    <Button
-        android:id="@+id/SaveButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/GameText"
-        android:layout_toEndOf="@+id/StartButton"
-        android:text="Save Game" />
 
 </RelativeLayout>
