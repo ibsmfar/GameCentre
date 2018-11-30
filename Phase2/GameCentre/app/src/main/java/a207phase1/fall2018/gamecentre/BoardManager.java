@@ -105,6 +105,14 @@ class BoardManager implements Serializable {
     }
 
     /**
+     * Manage a board that has been pre-populated.
+     *
+     * @param board the board
+     */
+    BoardManager(Board board) {
+        this.board = board;
+    }
+    /**
      * Manage and setup a new shuffled board
      *
      * @param num_rows the number of rows.
@@ -282,8 +290,7 @@ class BoardManager implements Serializable {
     @Override
     public String toString(){
         int complexity = this.board.getNum_cols();
-        String s = "A " + complexity + " by " + complexity + "board with time: " + minutes + "."
-                + seconds + "." + milliseconds;
+        String s = "A board manager with a " + complexity + " by " + complexity + " board.";
         return s;
     }
 }

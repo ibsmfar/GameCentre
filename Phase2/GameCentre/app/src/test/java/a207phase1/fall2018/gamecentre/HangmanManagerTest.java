@@ -2,11 +2,11 @@ package a207phase1.fall2018.gamecentre;
 
 import org.junit.Before;
 import org.junit.Test;
-import static org.junit.Assert.assertSame;
+
+import static org.junit.Assert.assertEquals;
 import java.util.ArrayList;
 
 public class HangmanManagerTest {
-    HangmanGameActivity hangmanGameActivity;
     ArrayList<String> lettersGuessed;
     HangmanManager hangmanManager;
 
@@ -18,46 +18,86 @@ public class HangmanManagerTest {
 
     @Test
     public void getWordToGuessTest() {
-        assertSame("apple", hangmanManager.getWordToGuess());
+        assertEquals("apple", hangmanManager.getWordToGuess());
     }
     @Test
     public void setWordToGuessTest() {
         hangmanManager.setWordToGuess("banana");
-        assertSame("banana", hangmanManager.getWordToGuess());
+        assertEquals("banana", hangmanManager.getWordToGuess());
     }
     @Test
     public void getLettersGuessedTest() {
-        assertSame(lettersGuessed, hangmanManager.getLettersGuessed());
+        assertEquals(lettersGuessed, hangmanManager.getLettersGuessed());
     }
     @Test
     public void setLettersGuessedTest() {
         ArrayList<String> letters = new ArrayList<>();
         hangmanManager.setLettersGuessed(letters);
-        assertSame(letters, hangmanManager.getLettersGuessed());
+        assertEquals(letters, hangmanManager.getLettersGuessed());
     }
     @Test
     public void getManStateTest() {
-        assertSame(0, hangmanManager.getManState());
+
+        assertEquals(0, hangmanManager.getManState());
     }
+
     @Test
     public void setManStateTest() {
         hangmanManager.setManState(2);
-        assertSame(2, hangmanManager.getManState());
+        assertEquals(2, hangmanManager.getManState());
     }
+
     @Test
     public void getDifficultyTest() {
-        assertSame(true, hangmanManager.getDifficulty());
+        assertEquals(true, hangmanManager.getDifficulty());
     }
+
     @Test
     public void getWordSoFarTest() {
-        assertSame("a", hangmanManager.getWordSoFar());
+        assertEquals("a", hangmanManager.getWordSoFar());
     }
+
     @Test
     public void setWordSoFarTest() {
         String word = "app";
         hangmanManager.setWordSoFar(word);
-        assertSame("app", hangmanManager.getWordSoFar());
+        assertEquals("app", hangmanManager.getWordSoFar());
     }
 
+    @Test
+    public void getHints() {
+        assertEquals(3, hangmanManager.getHints());
+    }
+
+    @Test
+    public void setHints() {
+        int hints = 1;
+        hangmanManager.setHints(hints);
+        assertEquals(1, hangmanManager.getHints());
+    }
+
+    @Test
+    public void getScore() {
+        assertEquals(4, hangmanManager.getScore());
+    }
+
+    @Test
+    public void setScore() {
+        int score = 10;
+        hangmanManager.setScore(score);
+        assertEquals(10, hangmanManager.getScore());
+    }
+
+    @Test
+    public void getMax() {
+        assertEquals(4, hangmanManager.getMax());
+    }
+
+    @Test
+    public void setMax() {
+        int score = 10;
+        hangmanManager.setMax(score);
+        assertEquals(10, hangmanManager.getMax());
+    }
 
 }

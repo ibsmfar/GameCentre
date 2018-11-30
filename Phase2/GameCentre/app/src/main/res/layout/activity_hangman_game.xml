@@ -150,6 +150,7 @@
         android:layout_height="37dp"
         android:layout_alignParentEnd="true"
         android:layout_below="@+id/btnSaveHangman"
+        android:enabled="false"
         android:text="Hints: 3" />
 
     <!--<Button
