@@ -29,6 +29,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Random;
 
 public class HangmanGameActivity extends AppCompatActivity {
@@ -65,14 +66,23 @@ public class HangmanGameActivity extends AppCompatActivity {
         if (userBundle != null) {
             username = userBundle.getString("Username");
             newGame = userBundle.getBoolean("NewGame");
-            if (newGame) {
-                regular = userBundle.getBoolean("Difficulty", true);
-            }
+            regular = userBundle.getBoolean("Difficulty", true);
+
         }
 
         listOfUsers = SavingData.loadFromFile(SavingData.USER_LIST, this);
         setUser();
 
+        if (regular){
+            max = currUser.userHangmanManager.easyHighScore;
+            TextView high = findViewById(R.id.high);
+            high.setText(""+max);
+        }
+        else{
+            max = currUser.userHangmanManager.hardHighScore;
+            TextView high = findViewById(R.id.high);
+            high.setText(""+max);
+        }
 
         word = findViewById(R.id.txtWord);
 
@@ -88,33 +98,7 @@ public class HangmanGameActivity extends AppCompatActivity {
         final EditText editText = findViewById(R.id.txtLetter);
 
         if (!newGame) {
-            game = currUser.hangmanManager;
-            currentWord = game.getWordToGuess();
-            USED = game.getLettersGuessed();
-            count = game.getManState();
-            regular = game.getDifficulty();
-            result = game.getWordSoFar();
-            hints = game.getHints();
-            sc = game.getScore();
-            max = game.getMax();
-            createUsedLetterDisplay(USED);
-            //word = findViewById(R.id.txtWord);
-            TextView usedLetters = findViewById(R.id.txtUsedLetters);
-            word.setText(result);
-            usedLetters.setText(createUsedLetterDisplay(USED));
-            TextView score = findViewById(R.id.score);
-            TextView high = findViewById(R.id.high);
-            score.setText("" + sc);
-            high.setText("" + max);
-            //hintButton = findViewById(R.id.btnHint);
-            hintButton.setText("Hints: " + hints);
-            if (currentWord.equals(result)) {
-                hintButton.setEnabled(false);
-            }
-
-            int r_id = getResources().getIdentifier("hang" + count, "drawable", getApplication().getPackageName());
-            ((ImageView) findViewById(R.id.hang)).setImageDrawable(getDrawable(r_id));
-            HangmanMenuActivity.loaded = false;
+            loadHangmanManager();
         }
 
         editText.setRawInputType(InputType.TYPE_CLASS_TEXT);
@@ -253,13 +237,45 @@ public class HangmanGameActivity extends AppCompatActivity {
             toast.show();
         }
     }
+    private void loadHangmanManager(){
+        if (regular){
+            game = currUser.userHangmanManager.easy;
+            max = currUser.userHangmanManager.easyHighScore;
+        }
+        else{
+            game = currUser.userHangmanManager.hard;
+            max = currUser.userHangmanManager.hardHighScore;
+        }
+        currentWord = game.getWordToGuess();
+        USED = game.getLettersGuessed();
+        count = game.getManState();
+        regular = game.getDifficulty();
+        result = game.getWordSoFar();
+        hints = game.getHints();
+        sc = game.getScore();
+        createUsedLetterDisplay(USED);
+        //word = findViewById(R.id.txtWord);
+        TextView usedLetters = findViewById(R.id.txtUsedLetters);
+        word.setText(result);
+        usedLetters.setText(createUsedLetterDisplay(USED));
+        TextView score = findViewById(R.id.score);
+        TextView high = findViewById(R.id.high);
+        score.setText("" + sc);
+        high.setText("" + max);
+        //hintButton = findViewById(R.id.btnHint);
+        hintButton.setText("Hints: " + hints);
+
+        int r_id = getResources().getIdentifier("hang" + count, "drawable", getApplication().getPackageName());
+        ((ImageView) findViewById(R.id.hang)).setImageDrawable(getDrawable(r_id));
+        HangmanMenuActivity.loaded = false;
+    }
 
     private void addSaveButtonListener(final Context context) {
         Button saveButton = findViewById(R.id.btnSaveHangman);
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                updateManager();
+                updateManager(regular);
                 SavingData.saveToFile(SavingData.USER_LIST, context, listOfUsers);
                 makeToastSavedText();
             }
@@ -279,11 +295,18 @@ public class HangmanGameActivity extends AppCompatActivity {
             }
         }
     }
+    void updateManager(boolean regular){
+        for (User u: listOfUsers){
+            if (u.getUsername().equals(username)){
+                if(regular){
+                    u.userHangmanManager.easy = game;
+                    u.userHangmanManager.easyHighScore = max;
+                }
+                else{
+                    u.userHangmanManager.hard = game;
+                    u.userHangmanManager.hardHighScore = max;
+                }
 
-    void updateManager() {
-        for (User u : listOfUsers) {
-            if (u.getUsername().equals(username)) {
-                u.hangmanManager = game;
             }
         }
     }
@@ -362,7 +385,9 @@ public class HangmanGameActivity extends AppCompatActivity {
                 count = 6;
                 game.setManState(count);
                 usedLetters.setText("");
-                sc = 0;
+                checkAndAddScoreboardEntry();
+                hintButton.setText("Hints: " + hints);
+                sc=0;
                 TextView score = findViewById(R.id.score);
                 score.setText("" + sc);
             }
@@ -382,8 +407,34 @@ public class HangmanGameActivity extends AppCompatActivity {
 
     private void autoSave() {
         game = new HangmanManager(currentWord, USED, count, regular, result, hints, sc, max);
-        updateManager();
+        updateManager(regular);
         SavingData.saveToFile(SavingData.USER_LIST, this, listOfUsers);
+    }
+    void checkAndAddScoreboardEntry(){
+        if(regular){
+            ArrayList<HangmanScoreboardEntry> gameScores = SavingData.loadFromFile(
+                    SavingData.HANGMAN_SCOREBOARD_EASY, this);
+            HangmanScoreboardEntry newEntry = new HangmanScoreboardEntry(username, sc);
+            gameScores.add(newEntry);
+            Collections.sort(gameScores, new SortByHangmanScore());
+            if (gameScores.size() == 4){
+                gameScores.remove(3);
+            }
+            SavingData.saveToFile(SavingData.HANGMAN_SCOREBOARD_EASY, this, gameScores);
+        }
+        else{
+            ArrayList<HangmanScoreboardEntry> gameScores = SavingData.loadFromFile(
+                    SavingData.HANGMAN_SCOREBOARD_HARD, this);
+            HangmanScoreboardEntry newEntry = new HangmanScoreboardEntry(username, sc);
+            gameScores.add(newEntry);
+            Collections.sort(gameScores, new SortByHangmanScore());
+            if (gameScores.size() == 4){
+                gameScores.remove(3);
+            }
+            SavingData.saveToFile(SavingData.HANGMAN_SCOREBOARD_HARD, this, gameScores);
+
+
+        }
     }
 
     public String createUsedLetterDisplay(ArrayList <String> list) {

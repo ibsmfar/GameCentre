@@ -67,8 +67,6 @@ public class Main2048Activity extends AppCompatActivity {
             return true;
         } else if (keyCode == KeyEvent.KEYCODE_DPAD_DOWN) {
             view.game.move(2);
-            Game2048ScoreboardEntry g = new Game2048ScoreboardEntry(username, (int) view.game.score);
-
             return true;
         } else if (keyCode == KeyEvent.KEYCODE_DPAD_UP) {
             view.game.move(0);

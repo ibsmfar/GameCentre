@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background"
+    tools:layout_editor_absoluteY="25dp">
+
+    <TextView
+        android:id="@+id/textView17"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="69dp"
+        android:layout_marginEnd="16dp"
+        android:text="3"
+        app:layout_constraintBaseline_toBaselineOf="@+id/txtThirdHangmanHard"
+        app:layout_constraintEnd_toStartOf="@+id/txtThirdHangmanHard"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/textView16"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="69dp"
+        android:layout_marginEnd="16dp"
+        android:text="2"
+        app:layout_constraintBaseline_toBaselineOf="@+id/txtSecondHangmanHard"
+        app:layout_constraintEnd_toStartOf="@+id/txtSecondHangmanHard"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/textView15"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="69dp"
+        android:layout_marginEnd="16dp"
+        android:text="1"
+        app:layout_constraintBaseline_toBaselineOf="@+id/txtFirstHangmanHard"
+        app:layout_constraintEnd_toStartOf="@+id/txtFirstHangmanHard"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/textView13"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="69dp"
+        android:layout_marginEnd="16dp"
+        android:text="3"
+        app:layout_constraintBaseline_toBaselineOf="@+id/txtThirdHangmanEasy"
+        app:layout_constraintEnd_toStartOf="@+id/txtThirdHangmanEasy"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/textView12"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="69dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginEnd="16dp"
+        android:text="2"
+        app:layout_constraintEnd_toStartOf="@+id/txtSecondHangmanEasy"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/txtSecondHangmanEasy" />
+
+    <TextView
+        android:id="@+id/txtHangmanScoreboard"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="39dp"
+        android:layout_marginBottom="59dp"
+        android:text="Leaderboard"
+        android:textSize="30sp"
+        app:layout_constraintBottom_toTopOf="@+id/txtEasyGameScoresTitle"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/txtDifficutGameScoresTitle"
+        android:layout_width="194dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="29dp"
+        android:text="Difficult Game Scores"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/txtFirstHangmanHard"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtThirdHangmanEasy" />
+
+    <TextView
+        android:id="@+id/txtEasyGameScoresTitle"
+        android:layout_width="180dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="34dp"
+        android:text="Regular Game Scores"
+        android:textAlignment="textStart"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/txtFirstHangmanEasy"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtHangmanScoreboard" />
+
+    <TextView
+        android:id="@+id/textView11"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="69dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginEnd="16dp"
+        android:text="1"
+        app:layout_constraintEnd_toStartOf="@+id/txtFirstHangmanEasy"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/txtFirstHangmanEasy" />
+
+    <TextView
+        android:id="@+id/textView14"
+        android:layout_width="1dp"
+        android:layout_height="1dp"
+        android:text="Difficult Game Scores"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="parent"
+        app:layout_constraintEnd_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/txtFirstHangmanEasy"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginEnd="96dp"
+        android:layout_marginBottom="15dp"
+        android:text="TextView"
+        app:layout_constraintBottom_toTopOf="@+id/txtSecondHangmanEasy"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textView11"
+        app:layout_constraintTop_toBottomOf="@+id/txtEasyGameScoresTitle" />
+
+    <TextView
+        android:id="@+id/txtSecondHangmanEasy"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginEnd="96dp"
+        android:layout_marginBottom="17dp"
+        android:text="TextView"
+        app:layout_constraintBottom_toTopOf="@+id/txtThirdHangmanEasy"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textView12"
+        app:layout_constraintTop_toBottomOf="@+id/txtFirstHangmanEasy" />
+
+    <TextView
+        android:id="@+id/txtThirdHangmanEasy"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginEnd="98dp"
+        android:layout_marginBottom="24dp"
+        android:text="TextView"
+        app:layout_constraintBottom_toTopOf="@+id/txtDifficutGameScoresTitle"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textView13"
+        app:layout_constraintTop_toBottomOf="@+id/txtSecondHangmanEasy" />
+
+    <TextView
+        android:id="@+id/txtFirstHangmanHard"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginEnd="107dp"
+        android:layout_marginBottom="17dp"
+        android:text="TextView"
+        app:layout_constraintBottom_toTopOf="@+id/txtSecondHangmanHard"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textView15"
+        app:layout_constraintTop_toBottomOf="@+id/txtDifficutGameScoresTitle" />
+
+    <TextView
+        android:id="@+id/txtSecondHangmanHard"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginEnd="95dp"
+        android:layout_marginBottom="10dp"
+        android:text="TextView"
+        app:layout_constraintBottom_toTopOf="@+id/txtThirdHangmanHard"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textView16"
+        app:layout_constraintTop_toBottomOf="@+id/txtFirstHangmanHard" />
+
+    <TextView
+        android:id="@+id/txtThirdHangmanHard"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginEnd="101dp"
+        android:layout_marginBottom="54dp"
+        android:text="TextView"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textView17"
+        app:layout_constraintTop_toBottomOf="@+id/txtSecondHangmanHard" />
+
+</android.support.constraint.ConstraintLayout>
