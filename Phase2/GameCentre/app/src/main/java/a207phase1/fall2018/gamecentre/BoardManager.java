@@ -105,6 +105,13 @@ class BoardManager implements Serializable {
     }
 
     /**
+     * simpler constructor
+     * @param b board to be managed
+     */
+    BoardManager(Board b){
+        this.board = b;
+    }
+    /**
      * Manage and setup a new shuffled board
      *
      * @param num_rows the number of rows.

@@ -69,25 +69,6 @@ public class BoardManagerTest {
         assertEquals(true, isSolvable2);
     }
 
-    /*@Test
-    public void testCreatingUnsolvableBoard() {
-        List<Tile> tiles = new ArrayList<>();
-        final int numTiles = 3 * 3;
-        for (int tileNum = 0; tileNum != numTiles; tileNum++) {
-            tiles.add(new Tile(SlidingTilesPreNewGameActivity.picture, tileNum, numTiles));
-        }
-
-        setUpCorrect();
-        boardManager.getBoard().swapTiles(0, 0, 2, 1);
-        tiles.set(0, new Tile(SlidingTilesPreNewGameActivity.picture, 6, 9));
-        tiles.set(6, new Tile(SlidingTilesPreNewGameActivity.picture, 0, 9));
-        boolean isSolvable = boardManager.isSolvable(3, 3, 2, tiles, 9);
-        assertEquals(false, isSolvable);
-
-        boardManager = new BoardManager(3, 3);
-
-    }*/
-
     /**
      * Test whether swapping two tiles makes a solved board unsolved.
      */

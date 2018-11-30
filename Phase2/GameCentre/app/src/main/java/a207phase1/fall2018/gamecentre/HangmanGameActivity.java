@@ -159,6 +159,9 @@ public class HangmanGameActivity extends AppCompatActivity {
                 editText.requestFocus();
                 InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                 imm.showSoftInput(editText, InputMethodManager.SHOW_IMPLICIT);
+                if (hints > 0){
+                    hintButton.setEnabled(true);
+                }
                 game = new HangmanManager(currentWord, USED, count, regular, result, hints, sc, max);
                 autoSave();
             }
