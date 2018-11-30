@@ -282,7 +282,7 @@ class BoardManager implements Serializable {
     @Override
     public String toString(){
         int complexity = this.board.getNum_cols();
-        String s = "A " + complexity + " by " + complexity + "board with time: " + minutes + "."
+        String s = "A " + complexity + " by " + complexity + " board with time: " + minutes + "."
                 + seconds + "." + milliseconds;
         return s;
     }

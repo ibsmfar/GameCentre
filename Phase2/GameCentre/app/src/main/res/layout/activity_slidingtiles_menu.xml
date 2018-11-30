@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/background"
     tools:context="a207phase1.fall2018.gamecentre.SlidingTilesMenuActivity">
 
     <Button
@@ -12,17 +13,17 @@
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginStart="136dp"
-        android:layout_marginBottom="130dp"
+        android:layout_marginStart="132dp"
+        android:layout_marginBottom="84dp"
         android:text="Leaderboard" />
 
     <Button
         android:id="@+id/btnUserSTScores"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/btnSTGameScoreboard"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="62dp"
+        android:layout_marginBottom="26dp"
         android:text="Your Scores" />
 
     <TextView
@@ -40,8 +41,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/GameText"
-        android:layout_marginStart="-20dp"
-        android:layout_marginTop="-1dp"
+        android:layout_marginStart="-105dp"
+        android:layout_marginTop="8dp"
         android:layout_toEndOf="@+id/btnUserSTScores"
         android:text="New Game" />
 
@@ -50,9 +51,23 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/GameText"
-        android:layout_marginTop="0dp"
-        android:layout_marginEnd="83dp"
+        android:layout_marginTop="69dp"
+        android:layout_marginEnd="-21dp"
         android:layout_toStartOf="@+id/StartButton"
         android:text="Load Saved Game" />
+
+    <TextView
+        android:id="@+id/textView8"
+        android:layout_width="279dp"
+        android:layout_height="85dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="75dp"
+        android:fontFamily="@font/mclaren"
+        android:text="SlidingTiles"
+        android:textAlignment="center"
+        android:textColor="@color/icon_background"
+        android:textSize="45sp"
+        android:textStyle="bold" />
 
 </RelativeLayout>

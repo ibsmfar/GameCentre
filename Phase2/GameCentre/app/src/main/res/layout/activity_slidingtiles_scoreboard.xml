@@ -8,228 +8,172 @@
     tools:layout_editor_absoluteY="25dp">
 
     <TextView
-        android:id="@+id/textView27"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="149dp"
-        android:text="3"
-        app:layout_constraintBaseline_toBaselineOf="@+id/txt5Third"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <TextView
-        android:id="@+id/textView26"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="26dp"
-        android:layout_marginEnd="14dp"
-        android:text="3"
-        app:layout_constraintEnd_toStartOf="@+id/txt4Third"
-        app:layout_constraintTop_toBottomOf="@+id/textView23" />
-
-    <TextView
-        android:id="@+id/textView25"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:text="3"
-        app:layout_constraintBaseline_toBaselineOf="@+id/txt3Third"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <TextView
-        android:id="@+id/textView24"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="2"
-        app:layout_constraintBaseline_toBaselineOf="@+id/txt5Second"
-        app:layout_constraintStart_toStartOf="@+id/textView27" />
-
-    <TextView
-        android:id="@+id/textView23"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="31dp"
-        android:layout_marginEnd="14dp"
-        android:text="2"
-        app:layout_constraintEnd_toStartOf="@+id/txt4Second"
-        app:layout_constraintTop_toBottomOf="@+id/textView20" />
-
-    <TextView
-        android:id="@+id/textView22"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:text="2"
-        app:layout_constraintBaseline_toBaselineOf="@+id/txt3Second"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <TextView
-        android:id="@+id/textView21"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="1"
-        app:layout_constraintBaseline_toBaselineOf="@+id/txt5First"
-        app:layout_constraintStart_toStartOf="@+id/textView24" />
-
-    <TextView
-        android:id="@+id/textView20"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="38dp"
-        android:layout_marginEnd="14dp"
-        android:text="1"
-        app:layout_constraintEnd_toStartOf="@+id/txt4First"
-        app:layout_constraintStart_toEndOf="@+id/txt3First"
-        app:layout_constraintTop_toBottomOf="@+id/fourScoresTile" />
-
-    <TextView
         android:id="@+id/txt3First"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="117dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="31dp"
+        android:layout_marginBottom="4dp"
         android:text="TextView"
-        app:layout_constraintBottom_toBottomOf="@+id/textView20"
-        app:layout_constraintEnd_toStartOf="@+id/textView20"
-        app:layout_constraintStart_toEndOf="@+id/textView19"
-        app:layout_constraintTop_toTopOf="@+id/textView20" />
+        app:layout_constraintBottom_toTopOf="@+id/txt3Second"
+        app:layout_constraintEnd_toStartOf="@+id/txt4First"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/threeScoresTitle" />
 
     <TextView
         android:id="@+id/txt3Second"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="15dp"
-        android:layout_marginTop="31dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="31dp"
         android:text="TextView"
-        app:layout_constraintStart_toEndOf="@+id/textView22"
+        app:layout_constraintBottom_toTopOf="@+id/txt3Third"
+        app:layout_constraintEnd_toStartOf="@+id/txt4Second"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txt3First" />
 
     <TextView
         android:id="@+id/txt3Third"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="15dp"
-        android:layout_marginTop="26dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="31dp"
+        android:layout_marginBottom="21dp"
         android:text="TextView"
-        app:layout_constraintStart_toEndOf="@+id/textView25"
+        app:layout_constraintBottom_toTopOf="@+id/fiveScoreTitle"
+        app:layout_constraintEnd_toStartOf="@+id/txt4Third"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txt3Second" />
 
     <TextView
         android:id="@+id/txt4Second"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="0dp"
+        android:layout_height="43dp"
+        android:layout_marginEnd="53dp"
         android:text="TextView"
-        app:layout_constraintBaseline_toBaselineOf="@+id/textView23"
-        app:layout_constraintStart_toStartOf="@+id/txt4First" />
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/txt3Second"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/txt4Third"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="0dp"
+        android:layout_height="37dp"
+        android:layout_marginTop="82dp"
+        android:layout_marginEnd="51dp"
+        android:layout_marginBottom="78dp"
         android:text="TextView"
-        app:layout_constraintBaseline_toBaselineOf="@+id/textView26"
-        app:layout_constraintStart_toStartOf="@+id/txt4Second" />
+        app:layout_constraintBottom_toTopOf="@+id/txt5First"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/txt3Third"
+        app:layout_constraintTop_toTopOf="@+id/txt4First" />
 
     <TextView
         android:id="@+id/txt5First"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="14dp"
+        android:layout_width="189dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="49dp"
         android:text="TextView"
-        app:layout_constraintBottom_toTopOf="@+id/txt5Second"
-        app:layout_constraintStart_toStartOf="@+id/txt5Second" />
+        app:layout_constraintBottom_toTopOf="@+id/txt5Third"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/fiveScoreTitle" />
 
     <TextView
         android:id="@+id/txt4First"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="74dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginEnd="51dp"
+        android:layout_marginBottom="3dp"
         android:text="TextView"
-        app:layout_constraintBaseline_toBaselineOf="@+id/textView20"
+        app:layout_constraintBottom_toTopOf="@+id/txt4Second"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/textView20" />
+        app:layout_constraintStart_toEndOf="@+id/txt3First"
+        app:layout_constraintTop_toTopOf="@+id/txt3First" />
 
     <TextView
         android:id="@+id/txt5Second"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="15dp"
-        android:layout_marginBottom="24dp"
+        android:layout_width="189dp"
+        android:layout_height="46dp"
+        android:layout_marginTop="46dp"
+        android:layout_marginBottom="51dp"
         android:text="TextView"
-        app:layout_constraintBottom_toTopOf="@+id/txt5Third"
-        app:layout_constraintStart_toEndOf="@+id/textView24" />
+        app:layout_constraintBottom_toBottomOf="@+id/txt5Third"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/txt5First" />
 
     <TextView
         android:id="@+id/txt5Third"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="15dp"
-        android:layout_marginBottom="70dp"
+        android:layout_width="189dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="45dp"
         android:text="TextView"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/textView27" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txt5First" />
 
     <TextView
         android:id="@+id/threeScoresTitle"
-        android:layout_width="44dp"
-        android:layout_height="39dp"
-        android:layout_marginStart="15dp"
-        android:layout_marginTop="59dp"
-        android:layout_marginEnd="14dp"
-        android:layout_marginBottom="57dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginEnd="93dp"
+        android:layout_marginBottom="20dp"
         android:text="3x3"
         android:textAlignment="center"
         android:textSize="24sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/txt3First"
-        app:layout_constraintEnd_toEndOf="@+id/txt3First"
-        app:layout_constraintStart_toEndOf="@+id/textView19"
+        app:layout_constraintBottom_toTopOf="@+id/txt3First"
+        app:layout_constraintEnd_toStartOf="@+id/fourScoresTitle"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/TxtUserOrGameTitle" />
 
     <TextView
-        android:id="@+id/fourScoresTile"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="66dp"
+        android:id="@+id/fourScoresTitle"
+        android:layout_width="0dp"
+        android:layout_height="54dp"
+        android:layout_marginEnd="84dp"
+        android:layout_marginBottom="12dp"
         android:text="4x4"
-        android:textAlignment="textStart"
+        android:textAlignment="center"
         android:textSize="24sp"
         android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="@+id/txt4First"
-        app:layout_constraintTop_toBottomOf="@+id/TxtUserOrGameTitle" />
+        app:layout_constraintBottom_toTopOf="@+id/txt4First"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/threeScoresTitle" />
 
     <TextView
         android:id="@+id/fiveScoreTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="7dp"
-        android:layout_marginEnd="18dp"
+        android:layout_width="108dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="121dp"
+        android:layout_marginEnd="115dp"
+        android:layout_marginBottom="9dp"
         android:text="5x5"
         android:textAlignment="center"
         android:textSize="24sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toStartOf="@+id/textView26"
-        app:layout_constraintTop_toBottomOf="@+id/textView26" />
+        app:layout_constraintBottom_toTopOf="@+id/txt5First"
+        app:layout_constraintEnd_toEndOf="@+id/txt4Third"
+        app:layout_constraintStart_toStartOf="@+id/txt3Third"
+        app:layout_constraintTop_toBottomOf="@+id/txt3Third" />
 
     <TextView
         android:id="@+id/TxtUserOrGameTitle"
-        android:layout_width="143dp"
-        android:layout_height="45dp"
-        android:layout_marginTop="43dp"
-        android:text="TextView"
+        android:layout_width="153dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="128dp"
+        android:text="Scores"
         android:textAlignment="center"
         android:textSize="30sp"
         android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/threeScoresTitle"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/textView19"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginEnd="15dp"
-        android:text="1"
-        app:layout_constraintBaseline_toBaselineOf="@+id/txt3First"
-        app:layout_constraintEnd_toStartOf="@+id/txt3First"
-        app:layout_constraintStart_toStartOf="parent" />
 </android.support.constraint.ConstraintLayout>

@@ -41,6 +41,16 @@ public class SlidingTilesMenuActivity extends AppCompatActivity {
         addStartButtonListener();
         addLoadButtonListener();
     }
+    @Override
+    public void onBackPressed(){
+        super.onBackPressed();
+        switchToGameSelection();
+    }
+    private void switchToGameSelection(){
+        Intent tmp = new Intent(this, GameSelectionActivity.class);
+        tmp.putExtra("Username", username);
+        startActivity(tmp);
+    }
 
     /**
      * Activate the start button.
@@ -66,7 +76,10 @@ public class SlidingTilesMenuActivity extends AppCompatActivity {
                 if(doesUserHasSaves(username)){
                     switchToLoadScreen();
                 }
-                noSavesText();
+                else{
+                    noSavesText();
+                }
+
             }
         });
     }

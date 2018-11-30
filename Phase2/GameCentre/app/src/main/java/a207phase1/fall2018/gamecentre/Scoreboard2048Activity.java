@@ -2,6 +2,7 @@ package a207phase1.fall2018.gamecentre;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.WindowManager;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -19,6 +20,7 @@ public class Scoreboard2048Activity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_2048_scoreboard);
         gameScores = SavingData.loadFromFile(SavingData.GAME_SCOREBOARD_2048, this);
+        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         //sets the top 5 scores
 

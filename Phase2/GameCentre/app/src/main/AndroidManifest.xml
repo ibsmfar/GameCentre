@@ -8,6 +8,7 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
+        android:largeHeap="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
         <activity android:name="a207phase1.fall2018.gamecentre.GameLaunchActivity">
             <intent-filter>
@@ -31,6 +32,10 @@
         <activity android:name=".Menu2048Activity"></activity>
         <activity android:name=".Scoreboard2048Activity"></activity>
         <activity android:name=".SlidingTilesScoreboardActivity"></activity>
+
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
 
     </application>
 

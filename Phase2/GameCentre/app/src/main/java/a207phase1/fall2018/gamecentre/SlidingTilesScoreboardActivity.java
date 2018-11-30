@@ -42,15 +42,11 @@ public class SlidingTilesScoreboardActivity extends AppCompatActivity {
         if (displayGameScores){
             //displays the scores for the game
             scoresToDisplay = SavingData.loadFromFile(SavingData.ST_SCOREBOARD, this);
-            TextView t = findViewById(R.id.TxtUserOrGameTitle);
-            String title = "Leaderboard";
-            t.setText(title);
+
         }
         else{//displays the scores for the user
             ArrayList<SlidingTilesScoreboard> userScores = SavingData.loadFromFile(SavingData.ST_USER_SCOREBOARD, this);
-            TextView t = findViewById(R.id.TxtUserOrGameTitle);
-            String title = "Your Scores";
-            t.setText(title);
+
             for (SlidingTilesScoreboard s: userScores){
                 if (s.username.equals(username)){
                     scoresToDisplay = s;
@@ -71,9 +67,13 @@ public class SlidingTilesScoreboardActivity extends AppCompatActivity {
         TextView second3by3 = findViewById(R.id.txt3Second);
         TextView third3by3 = findViewById(R.id.txt3Third);
 
-        first3by3.setText(scoresToDisplay.threeComplexityScores.get(0).toString());
-        second3by3.setText(scoresToDisplay.threeComplexityScores.get(1).toString());
-        third3by3.setText(scoresToDisplay.threeComplexityScores.get(2).toString());
+        String s1 = "1. " + scoresToDisplay.threeComplexityScores.get(0).toString();
+        String s2 = "2. " + scoresToDisplay.threeComplexityScores.get(1).toString();
+        String s3 = "3. " + scoresToDisplay.threeComplexityScores.get(2).toString();
+
+        first3by3.setText(s1);
+        second3by3.setText(s2);
+        third3by3.setText(s3);
     }
     /**
      * Setup the scores of 4by4 complexity
@@ -83,9 +83,12 @@ public class SlidingTilesScoreboardActivity extends AppCompatActivity {
         TextView second4by4 = findViewById(R.id.txt4Second);
         TextView third4by4 = findViewById(R.id.txt4Third);
 
-        first4by4.setText(scoresToDisplay.fourComplexityScores.get(0).toString());
-        second4by4.setText(scoresToDisplay.fourComplexityScores.get(1).toString());
-        third4by4.setText(scoresToDisplay.fourComplexityScores.get(2).toString());
+        String s1 = "1. " + scoresToDisplay.fourComplexityScores.get(0).toString();
+        String s2 = "2. " + scoresToDisplay.fourComplexityScores.get(1).toString();
+        String s3 = "3. " + scoresToDisplay.fourComplexityScores.get(2).toString();
+        first4by4.setText(s1);
+        second4by4.setText(s2);
+        third4by4.setText(s3);
     }
     /**
      * Setup the scores of 5by5 complexity
@@ -95,8 +98,12 @@ public class SlidingTilesScoreboardActivity extends AppCompatActivity {
         TextView second5by5 = findViewById(R.id.txt5Second);
         TextView third5by5 = findViewById(R.id.txt5Third);
 
-        first5by5.setText(scoresToDisplay.fiveComplexityScores.get(0).toString());
-        second5by5.setText(scoresToDisplay.fiveComplexityScores.get(1).toString());
-        third5by5.setText(scoresToDisplay.fiveComplexityScores.get(2).toString());
+        String s1 = "1. " + scoresToDisplay.fiveComplexityScores.get(0).toString();
+        String s2 = "2. " + scoresToDisplay.fiveComplexityScores.get(1).toString();
+        String s3 = "3. " + scoresToDisplay.fiveComplexityScores.get(2).toString();
+
+        first5by5.setText(s1);
+        second5by5.setText(s2);
+        third5by5.setText(s3);
     }
 }

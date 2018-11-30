@@ -81,6 +81,15 @@ public class GameSelectionActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        switchToSignin();
+    }
+    private void switchToSignin(){
+        Intent tmp = new Intent(this, GameLaunchActivity.class);
+        startActivity(tmp);
+    }
     /**
      * switch to the SlidingTiles menu
      */

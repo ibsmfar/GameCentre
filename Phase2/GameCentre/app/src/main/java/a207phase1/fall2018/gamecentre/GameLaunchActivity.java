@@ -47,8 +47,8 @@ public class GameLaunchActivity extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_launch);
-        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
+        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         listOfUsers = SavingData.loadFromFile(SavingData.USER_LIST, this);
 
         username = findViewById(R.id.UserNameLogin);
@@ -60,6 +60,11 @@ public class GameLaunchActivity extends AppCompatActivity{
         addGoButtonListener();
         addSignUpButtonListener();
 
+    }
+    @Override
+    public void onBackPressed() {
+        //  super.onBackPressed();
+        moveTaskToBack(true);
     }
 
     private void addGoButtonListener(){

@@ -25,11 +25,12 @@ public class MovementController {
         if (boardManager.isValidTap(position)) {
             boardManager.touchMove(position);
             if (boardManager.puzzleSolved()) {
-                Toast.makeText(context, "YOU WIN!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "YOU WIN! Press back to go back to the menu", Toast.LENGTH_SHORT).show();
                 SlidingTilesScoreboardEntry newScore = new SlidingTilesScoreboardEntry(username, boardManager.getMinutes(),
                         boardManager.getSeconds(), boardManager.getMilliseconds());
                 ArrayList<SlidingTilesScoreboard> userScores = SavingData.loadFromFile(SavingData.ST_USER_SCOREBOARD, context);
                 SlidingTilesScoreboard gameScores = SavingData.loadFromFile(SavingData.ST_SCOREBOARD, context);
+
                 for (SlidingTilesScoreboard s: userScores){
                     if (s.username.equals(username)){
                         s.addScoreboardEntry(newScore, boardManager.getBoard().getNum_cols());

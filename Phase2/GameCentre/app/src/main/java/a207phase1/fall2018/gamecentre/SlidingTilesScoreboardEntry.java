@@ -16,7 +16,11 @@ public class SlidingTilesScoreboardEntry implements Serializable {
      * @param username of the user
      */
     SlidingTilesScoreboardEntry(String username){
-        this.username = username;
+        if (username.equals("game"))
+            this.username = "-";
+        else{
+            this.username = username;
+        }
         this.minutes = 0;
         this.milliseconds = 0;
         this.seconds = 0;
@@ -51,6 +55,7 @@ public class SlidingTilesScoreboardEntry implements Serializable {
     }
     @Override
     public String toString(){
+
         return username + "  " + minutes + "." + seconds + "." + milliseconds;
     }
 
@@ -61,7 +66,16 @@ public class SlidingTilesScoreboardEntry implements Serializable {
  */
 class SortByTime implements Comparator<SlidingTilesScoreboardEntry>{
     public int compare(SlidingTilesScoreboardEntry a, SlidingTilesScoreboardEntry b){
-        if (a.totalmilliseconds > b.totalmilliseconds){
+        if(a.totalmilliseconds == 0 && b.totalmilliseconds == 0){
+            return 0;
+        }
+        else if(a.totalmilliseconds == 0){
+            return 1;
+        }
+        else if(b.totalmilliseconds == 0){
+            return - 1;
+        }
+        else if(a.totalmilliseconds > b.totalmilliseconds){
             return 1;
         }
         else if(a.totalmilliseconds < b.totalmilliseconds){

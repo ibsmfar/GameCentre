@@ -195,11 +195,19 @@ public class SlidingTilesGameActivity extends AppCompatActivity implements Obser
                 else{
                     u.getBoardList().remove(index);
                     u.getBoardList().trimToSize();
-                    getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
-                            WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                 }
             }
         }
+    }
+    @Override
+    public void onBackPressed(){
+        super.onBackPressed();
+        switchToMenu();
+    }
+    private void switchToMenu(){
+        Intent tmp = new Intent(this, SlidingTilesMenuActivity.class);
+        tmp.putExtra("Username", username);
+        startActivity(tmp);
     }
 
     /**
@@ -241,21 +249,21 @@ public class SlidingTilesGameActivity extends AppCompatActivity implements Obser
         }
     }
 
-    @Override
-    protected void onPause() {
-        // TimeBuff += MillisecondTime;
-        super.onPause();
-        handler.removeCallbacks(runnable);
-        updateUserBoard();
-        SavingData.saveToFile(SavingData.USER_LIST, this, boardManager);
-
-
-    }
-    @Override
-    protected void onResume(){
-        super.onResume();
-        handler.postDelayed(runnable, 0);
-    }
+//    @Override
+//    protected void onPause() {
+//        // TimeBuff += MillisecondTime;
+//        super.onPause();
+//        handler.removeCallbacks(runnable);
+//        updateUserBoard();
+//        SavingData.saveToFile(SavingData.USER_LIST, this, listOfUsers);
+//
+//
+//    }
+//    @Override
+//    protected void onResume(){
+//        super.onResume();
+//        handler.postDelayed(runnable, 0);
+//    }
 
     /**
      * What helps the timer run

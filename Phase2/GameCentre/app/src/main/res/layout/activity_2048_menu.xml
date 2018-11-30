@@ -24,6 +24,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/GameText"
         android:layout_centerHorizontal="true"
+        android:layout_marginTop="65dp"
         android:text="Play!" />
 
     <Button
@@ -31,9 +32,23 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/GameText"
-        android:layout_marginTop="91dp"
-        android:layout_marginEnd="-121dp"
+        android:layout_marginTop="161dp"
+        android:layout_marginEnd="-123dp"
         android:layout_toStartOf="@+id/Play2048Btn"
         android:text="2048 Scoreboard" />
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="210dp"
+        android:layout_height="66dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="117dp"
+        android:fontFamily="@font/luckiest_guy"
+        android:text="2048"
+        android:textAlignment="center"
+        android:textColor="@android:color/holo_orange_dark"
+        android:textSize="70sp"
+        android:textStyle="bold" />
 
 </RelativeLayout>

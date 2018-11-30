@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.Toast;
 
@@ -44,6 +45,7 @@ public class HangmanMenuActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hangman_menu);
+        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         Intent gameSelection = getIntent();
         Bundle userBundle = gameSelection.getExtras();
@@ -93,6 +95,17 @@ public class HangmanMenuActivity extends AppCompatActivity {
                 switchToPreGame();
             }
         });
+    }
+
+    @Override
+    public void onBackPressed(){
+        super.onBackPressed();
+        switchToGameSelection();
+    }
+    private void switchToGameSelection(){
+        Intent tmp = new Intent(this, GameSelectionActivity.class);
+        tmp.putExtra("Username", username);
+        startActivity(tmp);
     }
 
     /**
