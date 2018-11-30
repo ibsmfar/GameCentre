@@ -31,7 +31,7 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
-
+ 
 public class HangmanGameActivity extends AppCompatActivity {
 
     public ArrayList<String> USED = new ArrayList();
