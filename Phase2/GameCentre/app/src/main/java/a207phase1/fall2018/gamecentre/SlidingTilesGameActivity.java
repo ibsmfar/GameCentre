@@ -306,6 +306,7 @@ public class SlidingTilesGameActivity extends AppCompatActivity implements Obser
 
     @Override
     public void update(Observable o, Object arg) {
+
         display();
     }
 }

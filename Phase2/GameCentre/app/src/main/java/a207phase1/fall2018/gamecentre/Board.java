@@ -148,16 +148,4 @@ public class Board extends Observable implements Serializable, Iterable<Tile> {
             return (columnIndex < num_cols && rowIndex < num_rows);
         }
     }
-
-
-    /**
-     * Return  a string representation of this board
-     */
-    @Override
-    @NonNull
-    public String toString() {
-        return "Board{" +
-                "tiles=" + Arrays.toString(tiles) +
-                '}';
-    }
 }
