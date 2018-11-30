@@ -249,22 +249,6 @@ public class SlidingTilesGameActivity extends AppCompatActivity implements Obser
         }
     }
 
-//    @Override
-//    protected void onPause() {
-//        // TimeBuff += MillisecondTime;
-//        super.onPause();
-//        handler.removeCallbacks(runnable);
-//        updateUserBoard();
-//        SavingData.saveToFile(SavingData.USER_LIST, this, listOfUsers);
-//
-//
-//    }
-//    @Override
-//    protected void onResume(){
-//        super.onResume();
-//        handler.postDelayed(runnable, 0);
-//    }
-
     /**
      * What helps the timer run
      */
@@ -306,7 +290,6 @@ public class SlidingTilesGameActivity extends AppCompatActivity implements Obser
 
     @Override
     public void update(Observable o, Object arg) {
-
         display();
     }
 }
