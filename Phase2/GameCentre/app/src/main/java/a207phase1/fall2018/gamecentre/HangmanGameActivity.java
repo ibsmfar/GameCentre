@@ -37,10 +37,10 @@ public class HangmanGameActivity extends AppCompatActivity {
     private boolean regular;
     private Hangdiction dictionary;
     private TextView word;
-    int sc=0,max=0;
+    int sc = 0, max = 0;
     public String result = " ";
     public String currentWord;
-    private int count=0;
+    private int count = 0;
     private HangmanManager game;
     private int hints = 3;
 
@@ -62,10 +62,10 @@ public class HangmanGameActivity extends AppCompatActivity {
         Intent gameSelection = getIntent();
         Bundle userBundle = gameSelection.getExtras();
 
-        if(userBundle != null){
+        if (userBundle != null) {
             username = userBundle.getString("Username");
             newGame = userBundle.getBoolean("NewGame");
-            if (newGame){
+            if (newGame) {
                 regular = userBundle.getBoolean("Difficulty", true);
             }
         }
@@ -108,6 +108,9 @@ public class HangmanGameActivity extends AppCompatActivity {
             high.setText("" + max);
             //hintButton = findViewById(R.id.btnHint);
             hintButton.setText("Hints: " + hints);
+            if (currentWord.equals(result)) {
+                hintButton.setEnabled(false);
+            }
 
             int r_id = getResources().getIdentifier("hang" + count, "drawable", getApplication().getPackageName());
             ((ImageView) findViewById(R.id.hang)).setImageDrawable(getDrawable(r_id));
@@ -159,27 +162,33 @@ public class HangmanGameActivity extends AppCompatActivity {
                 word = (findViewById(R.id.txtWord));
                 word.setText(currentWord);
                 result = currentWord;
+                findViewById(R.id.btnHint).setEnabled(false);
                 autoSave();
             }
         });
         ((Button) findViewById(R.id.btnPlayHangman)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                hintButton.setEnabled(true);
-                if (currentWord == null) {
-                    currentWord = dictionary.pickGoodStarterWord();
-                    word = (findViewById(R.id.txtWord));
-                    for (int i = 0; i < currentWord.length(); i += 1) {
-                        result += "_ ";
+                if (currentWord == null || !currentWord.equals(result)) {
+                    hintButton.setEnabled(true);
+                    if (currentWord == null) {
+                        currentWord = dictionary.pickGoodStarterWord();
+                        word = (findViewById(R.id.txtWord));
+                        for (int i = 0; i < currentWord.length(); i += 1) {
+                            result += "_ ";
+                        }
+                        word.setText(result);
                     }
-                    word.setText(result);
+                    EditText editText = findViewById(R.id.txtLetter);
+                    editText.setEnabled(true);
+                    editText.requestFocus();
+                    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.showSoftInput(editText, InputMethodManager.SHOW_IMPLICIT);
+                    autoSave();
                 }
-                EditText editText = findViewById(R.id.txtLetter);
-                editText.setEnabled(true);
-                editText.requestFocus();
-                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-                imm.showSoftInput(editText, InputMethodManager.SHOW_IMPLICIT);
-                autoSave();
+                else {
+                    makeResetToast();
+                }
             }
         });
         ((Button) findViewById(R.id.btnHint)).setOnClickListener(new View.OnClickListener() {
@@ -211,7 +220,7 @@ public class HangmanGameActivity extends AppCompatActivity {
                             result += "_ ";
                         }
                     }*/
-                    for(int i = 0; i < currentWord.length(); ++i) {
+                    for (int i = 0; i < currentWord.length(); ++i) {
                         if (currentWord.indexOf(hintLetter, i) != -1) {
                             k = currentWord.indexOf(hintLetter, i);
                             result = result.substring(0, 2 * k) + hintLetter + " " + result.substring(2 * k + 2);
@@ -230,8 +239,7 @@ public class HangmanGameActivity extends AppCompatActivity {
                     game.setWordSoFar(result);
                     game.setLettersGuessed(USED);
                     autoSave();
-                }
-                else {
+                } else {
                     //Toast.makeText(this, "No hints remaining!", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -263,84 +271,110 @@ public class HangmanGameActivity extends AppCompatActivity {
         int indexOfChar = randomChar.nextInt(s.length());
         return s.charAt(indexOfChar);
     }
-    void setUser(){
-        for (User u: listOfUsers){
-            if (u.getUsername().equals(username)){
+
+    void setUser() {
+        for (User u : listOfUsers) {
+            if (u.getUsername().equals(username)) {
                 currUser = u;
             }
         }
     }
-    void updateManager(){
-        for (User u: listOfUsers){
-            if (u.getUsername().equals(username)){
+
+    void updateManager() {
+        for (User u : listOfUsers) {
+            if (u.getUsername().equals(username)) {
                 u.hangmanManager = game;
             }
         }
     }
 
     private void checkLetter(EditText editText) {
-        int i=0,flag=0,k=0;
+        int i = 0, flag = 0, k = 0;
         TextView word = findViewById(R.id.txtWord);
         TextView usedLetters = findViewById(R.id.txtUsedLetters);
         String letter = editText.getText().toString().trim().toLowerCase();
-        if (letter.length() != 1){
+        if (letter.length() != 1) {
             makeEnterALetterToast();
+        } else if (!USED.contains(letter)) {
+            //USED.add(letter);
+            //game.setLettersGuessed(USED);
         }
-
-        else if (! USED.contains(letter)) {
-            USED.add(letter);
-            game.setLettersGuessed(USED);
-        }
-        for(i=0;i<currentWord.length();++i){
-            usedLetters.setText(createUsedLetterDisplay(USED));
-            if (currentWord.indexOf(letter,i)!=-1) {
-                k = currentWord.indexOf(letter,i);
-                result = result.substring(0, 2 * k) + letter + " " + result.substring(2 * k + 2);
-                game.setWordSoFar(result);
-                word.setText(result);
-                i=k;
-                flag=1;
-                if(result.indexOf("_")==-1) {
-                    word.setText("You won !!");
-                    USED = new ArrayList();
-                    game.setLettersGuessed(USED);
-                    usedLetters.setText("");
-                    sc+=1;
-                    TextView score = findViewById(R.id.score);
-                    score.setText(""+sc);
-                    if(max<sc){
-                        max=sc;
-                        TextView high = findViewById(R.id.high);
-                        high.setText(""+max);
-                    }
+        for (i = 0; i < currentWord.length(); ++i) {
+            //usedLetters.setText(createUsedLetterDisplay(USED));
+            if (currentWord.indexOf(letter, i) != -1) {
+                if (!USED.contains(letter)) {
+                    k = currentWord.indexOf(letter, i);
+                    result = result.substring(0, 2 * k) + letter + " " + result.substring(2 * k + 2);
+                    game.setWordSoFar(result);
+                    word.setText(result);
+                    i = k;
+                    flag = 1;
+                    /*if (result.indexOf("_") == -1) {
+                        word.setText("You won !!");
+                        USED = new ArrayList();
+                        game.setLettersGuessed(USED);
+                        usedLetters.setText("");
+                        sc += 1;
+                        TextView score = findViewById(R.id.score);
+                        score.setText("" + sc);
+                        if (max < sc) {
+                            max = sc;
+                            TextView high = findViewById(R.id.high);
+                            high.setText("" + max);
+                        }
+                    }*/
+                }
+                else {
+                    flag = 1;
                 }
             }
         }
-        if(flag==0){
+        if (!USED.contains(letter)) {
+            USED.add(letter);
+            game.setLettersGuessed(USED);
+        }
+        usedLetters.setText(createUsedLetterDisplay(USED));
+        if (result.indexOf("_") == -1) {
+            word.setText("You won !!");
+            USED = new ArrayList();
+            game.setLettersGuessed(USED);
+            usedLetters.setText("");
+            sc += 1;
+            TextView score = findViewById(R.id.score);
+            score.setText("" + sc);
+            if (max < sc) {
+                max = sc;
+                TextView high = findViewById(R.id.high);
+                high.setText("" + max);
+            }
+        }
+        if (flag == 0) {
             usedLetters.setText(createUsedLetterDisplay(USED));
-            if(!regular){
-                count=count+2;
+            if (!regular) {
+                count = count + 2;
+            } else {
+                count = count + 1;
             }
-            else{
-                count=count+1;
-            }
-            if(count>=6) {
+            if (count >= 6) {
                 word.setText(currentWord);
                 USED = new ArrayList();
                 game.setLettersGuessed(USED);
                 count = 6;
                 game.setManState(count);
                 usedLetters.setText("");
-                sc=0;
+                sc = 0;
                 TextView score = findViewById(R.id.score);
-                score.setText(""+sc);
+                score.setText("" + sc);
             }
             game.setManState(count);
             int r_id = getResources().getIdentifier("hang" + count, "drawable", getApplication().getPackageName());
-            if (count >= 6) {
+            if (count > 6) {
                 count = 0;
+                ((ImageView) findViewById(R.id.hang)).setImageDrawable(getDrawable(r_id));
             }
-            ((ImageView) findViewById(R.id.hang)).setImageDrawable(getDrawable(r_id));
+            else {
+                ((ImageView) findViewById(R.id.hang)).setImageDrawable(getDrawable(r_id));
+            }
         }
         autoSave();
         editText.setText("");
@@ -352,24 +386,27 @@ public class HangmanGameActivity extends AppCompatActivity {
         SavingData.saveToFile(SavingData.USER_LIST, this, listOfUsers);
     }
 
-    public String createUsedLetterDisplay(ArrayList<String> list){
+    public String createUsedLetterDisplay(ArrayList <String> list) {
         String toReturn = "";
-            for (int i = 0; i < list.size(); ++i) {
-                toReturn += list.get(i) + ", ";
-            }
+        for (int i = 0; i < list.size(); ++i) {
+            toReturn += list.get(i) + ", ";
+        }
         int len = toReturn.length();
         if (len == 0) {
             return toReturn;
         }
-        return toReturn.substring(0,len-2);
+        return toReturn.substring(0, len - 2);
     }
-
 
 
     private void makeToastSavedText() {
         Toast.makeText(this, "Successfully Saved!", Toast.LENGTH_SHORT).show();
-}
-    private void makeEnterALetterToast(){
+    }
+    private void makeEnterALetterToast() {
         Toast.makeText(this, "Enter one letter only!", Toast.LENGTH_SHORT).show();
     }
+    private void makeResetToast() {
+        Toast.makeText(this, "Press Reset!", Toast.LENGTH_SHORT).show();
+    }
 }
+
