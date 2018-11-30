@@ -9,9 +9,17 @@ import android.widget.Button;
 
 import java.util.ArrayList;
 
+/**
+ * The starting menu for the game of 2048
+ */
 public class Menu2048Activity extends AppCompatActivity {
+    /**
+     * The username of the user
+     */
     String username;
-
+    /**
+     * The Scores for the game of 2048
+     */
     ArrayList<Game2048ScoreboardEntry> gameScores;
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,15 +62,27 @@ public class Menu2048Activity extends AppCompatActivity {
             }
         });
     }
+
+    /**
+     * switch to a game of 2048
+     */
     private void switchToGame(){
         Intent tmp = new Intent(this, Main2048Activity.class);
         tmp.putExtra("Username", username);
         startActivity(tmp);
     }
+
+    /**
+     * switch to the scoreboard for 2048
+     */
     private void switchToScoreboard(){
         Intent tmp = new Intent(this, Scoreboard2048Activity.class);
         startActivity(tmp);
     }
+
+    /**
+     * set up the scoreboard for 2048 with blank entries and save it
+     */
     private void setUpScoreboard(){
         gameScores = new ArrayList<>();
         for (int i = 0; i < 5; i ++){

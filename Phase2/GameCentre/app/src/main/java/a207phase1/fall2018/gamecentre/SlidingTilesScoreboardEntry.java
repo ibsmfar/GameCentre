@@ -3,17 +3,18 @@ package a207phase1.fall2018.gamecentre;
 import java.io.Serializable;
 import java.util.Comparator;
 
+/**
+ * A SlidingTiles Scoreboard Entry
+ */
 public class SlidingTilesScoreboardEntry implements Serializable {
-    /**
-     * An entry to but put into a Scoreboard.
-     * AN ENTRY SHOULD BE CREATED WHEN THE GAME IS FINISHED
-     * The first element of the Scoreboard list is the name of the user
-     * and the next three elements are the Minutes, Seconds, and Milliseconds.
-     * This represents the score of the player in this game
-     */
+
     String username;
     int minutes, seconds, milliseconds, totalmilliseconds;
 
+    /**
+     * An empty entry
+     * @param username of the user
+     */
     SlidingTilesScoreboardEntry(String username){
         this.username = username;
         this.minutes = 0;
@@ -22,6 +23,13 @@ public class SlidingTilesScoreboardEntry implements Serializable {
         this.totalmilliseconds = 0;
     }
 
+    /**
+     * a new entry
+     * @param username of the user
+     * @param minutes played
+     * @param seconds played
+     * @param milliseconds played
+     */
     SlidingTilesScoreboardEntry(String username, int minutes, int seconds, int milliseconds){
         this.username = username;
         this.minutes = minutes;
@@ -31,6 +39,13 @@ public class SlidingTilesScoreboardEntry implements Serializable {
 
     }
 
+    /**
+     *
+     * @param minutes minutes
+     * @param seconds seconds
+     * @param milliseconds milliseconds
+     * @return the total number of milliseconds
+     */
     int convertToMilliseconds(int minutes, int seconds, int milliseconds){
         return minutes * 60000 + seconds * 1000 + milliseconds;
     }
@@ -41,6 +56,9 @@ public class SlidingTilesScoreboardEntry implements Serializable {
 
 }
 
+/**
+ * A class for sorting SlidingTilesScoreboardEntries in a Collection
+ */
 class SortByTime implements Comparator<SlidingTilesScoreboardEntry>{
     public int compare(SlidingTilesScoreboardEntry a, SlidingTilesScoreboardEntry b){
         if (a.totalmilliseconds > b.totalmilliseconds){

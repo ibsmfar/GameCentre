@@ -26,7 +26,7 @@ import java.util.Observable;
 import java.util.Observer;
 
 /**
- * The game activity.
+ * The SlidingTiles game activity.
  */
 public class SlidingTilesGameActivity extends AppCompatActivity implements Observer {
 
@@ -45,7 +45,7 @@ public class SlidingTilesGameActivity extends AppCompatActivity implements Obser
      */
     private ArrayList<User> listOfUsers;
     /**
-     * Currently logged in user
+     * Currently logged in username
      */
     private String username;
     /**
@@ -53,7 +53,6 @@ public class SlidingTilesGameActivity extends AppCompatActivity implements Obser
      */
     private int index;
 
-    /***********************************************/
     /**
      * This is not primitive obsession; these are vital to making the timer run properly
      */
@@ -87,9 +86,10 @@ public class SlidingTilesGameActivity extends AppCompatActivity implements Obser
         setContentView(R.layout.activity_slidingtiles_game);
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
+        // get information from previous activities
         Intent i = getIntent();
         Bundle b = i.getExtras();
-        // get information from previous activities
+
         if (b != null) {
             index = b.getInt("index");
             username = b.getString("Username");
@@ -181,7 +181,7 @@ public class SlidingTilesGameActivity extends AppCompatActivity implements Obser
         }
     }
     /*
-     * Update the user's boardmanager
+     * Update the username's boardmanager
      */
     public void updateUserBoard(){
         for (User u: listOfUsers){
@@ -201,6 +201,10 @@ public class SlidingTilesGameActivity extends AppCompatActivity implements Obser
             }
         }
     }
+
+    /**
+     * set the timer based on the user's board
+     */
     void setTimeVars(){
         MilliSeconds = boardManager.getMilliseconds();
         Seconds = boardManager.getSeconds();
@@ -237,16 +241,25 @@ public class SlidingTilesGameActivity extends AppCompatActivity implements Obser
         }
     }
 
-//    @Override
-//    protected void onPause() {
-//        // TimeBuff += MillisecondTime;
-//        handler.removeCallbacks(runnable);
-//
-//        super.onPause();
-//        saveToFile(StartingActivity.TEMP_SAVE_FILENAME);
-//    }
+    @Override
+    protected void onPause() {
+        // TimeBuff += MillisecondTime;
+        super.onPause();
+        handler.removeCallbacks(runnable);
+        updateUserBoard();
+        SavingData.saveToFile(SavingData.USER_LIST, this, boardManager);
 
 
+    }
+    @Override
+    protected void onResume(){
+        super.onResume();
+        handler.postDelayed(runnable, 0);
+    }
+
+    /**
+     * What helps the timer run
+     */
     public Runnable runnable = new Runnable() {
 
         public void run() {

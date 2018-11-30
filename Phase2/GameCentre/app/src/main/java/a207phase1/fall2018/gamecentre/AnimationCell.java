@@ -1,5 +1,8 @@
 package a207phase1.fall2018.gamecentre;
 
+/**
+ * A cell in the animation grid
+ */
 class AnimationCell extends Cell {
     public final int[] extras;
     private final int animationType;
@@ -7,7 +10,7 @@ class AnimationCell extends Cell {
     private final long delayTime;
     private long timeElapsed;
 
-    public AnimationCell(int x, int y, int animationType, long length, long delay, int[] extras) {
+    AnimationCell(int x, int y, int animationType, long length, long delay, int[] extras) {
         super(x, y);
         this.animationType = animationType;
         animationTime = length;
@@ -15,23 +18,23 @@ class AnimationCell extends Cell {
         this.extras = extras;
     }
 
-    public int getAnimationType() {
+    int getAnimationType() {
         return animationType;
     }
 
-    public void tick(long timeElapsed) {
+    void tick(long timeElapsed) {
         this.timeElapsed = this.timeElapsed + timeElapsed;
     }
 
-    public boolean animationDone() {
+    boolean animationDone() {
         return animationTime + delayTime < timeElapsed;
     }
 
-    public double getPercentageDone() {
+    double getPercentageDone() {
         return Math.max(0, 1.0 * (timeElapsed - delayTime) / animationTime);
     }
 
-    public boolean isActive() {
+    boolean isActive() {
         return (timeElapsed >= delayTime);
     }
 

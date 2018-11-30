@@ -25,9 +25,17 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 
 public class GameRegisterActivity extends AppCompatActivity {
-
+    /**
+     * The list of users
+     */
     ArrayList<User> listOfUsers;
+    /**
+     * The username that is trying to be created
+     */
     EditText username;
+    /**
+     * The corresponding password to the username trying to be created
+     */
     EditText password;
 
     @Override
@@ -35,16 +43,15 @@ public class GameRegisterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_launch_signup);
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
         listOfUsers = SavingData.loadFromFile(SavingData.USER_LIST, this);
         if (listOfUsers == null){
-            listOfUsers = new ArrayList<User>();
+            listOfUsers = new ArrayList<>();
         }
         username = findViewById(R.id.UsernameSignUp);
         password = findViewById(R.id.PasswordSignup);
 
         addRegisterButtonListener(this);
-
-
 
     }
     private void addRegisterButtonListener(final Context context){
@@ -60,42 +67,20 @@ public class GameRegisterActivity extends AppCompatActivity {
                 }
                 else{
                     User u = new User(username.getText().toString(), password.getText().toString());
-                    if (listOfUsers == null){
+
+                    if (listOfUsers == null){ //first user to ever sign up
                         listOfUsers = new ArrayList<>();
                     }
                     listOfUsers.add(u);
                     SavingData.saveToFile(SavingData.USER_LIST, context, listOfUsers);
                     setUpUserSlidingTilesScoreboard(username.getText().toString());
-                    //saveToFile(SavingData.USER_LIST);
                     switchToSignIn();
 
                 }
-
-
             }
         });
-
     }
-//    private void saveData(){
-//        SharedPreferences sharedPreferences = getSharedPreferences("shared preferences", MODE_PRIVATE);
-//        SharedPreferences.Editor editor =  sharedPreferences.edit();
-//        Gson gson = new Gson();
-//        String json = gson.toJson(GLC);
-//        editor.putString("GameLaunchCentre", json);
-//        editor.apply();
-//    }
-//    private void loadData(){
-//        SharedPreferences sharedPreferences = getSharedPreferences("shared preferences", MODE_PRIVATE);
-//        Gson gson = new Gson();
-//        String json = sharedPreferences.getString("GameLaunchCentre", null);
-//        Type type = new TypeToken<GameLaunchCentre>() {}.getType();
-//        GLC = gson.fromJson(json, type);
-//
-//        if (GLC == null){
-//            GLC = new GameLaunchCentre();
-//        }
-//
-//    }
+
     private void userNameTakenToast(){
         Toast.makeText(this, "Username is taken", Toast.LENGTH_SHORT).show();
     }
@@ -106,45 +91,19 @@ public class GameRegisterActivity extends AppCompatActivity {
         return TextUtils.isEmpty(text.getText().toString());
     }
 
-//    private void switchToGameChoice(String username){
-//        Intent gameScreen = new Intent(this, GameSelectionActivity.class);
-//        gameScreen.putExtra("Username", username);
-//        startActivity(gameScreen);
-//    }
+    /**
+     * Go back to the sign in screen when an account has been successfully created
+     */
     private void switchToSignIn(){
         Intent signIn = new Intent(this, GameLaunchActivity.class);
         startActivity(signIn);
     }
-//    private void loadFromFile(String fileName) {
-//
-//        try {
-//            InputStream inputStream = this.openFileInput(fileName);
-//            if (inputStream != null) {
-//                ObjectInputStream input = new ObjectInputStream(inputStream);
-//                listOfUsers = (ArrayList<User>) input.readObject();
-//                inputStream.close();
-//            }
-//            else{
-//                listOfUsers = new ArrayList<>();
-//            }
-//        } catch (FileNotFoundException e) {
-//            Log.e("login activity", "File not found: " + e.toString());
-//        } catch (IOException e) {
-//            Log.e("login activity", "Can not read file: " + e.toString());
-//        } catch (ClassNotFoundException e) {
-//            Log.e("login activity", "File contained unexpected data type: " + e.toString());
-//        }
-//    }
-//    public void saveToFile(String fileName) {
-//        try {
-//            ObjectOutputStream outputStream = new ObjectOutputStream(
-//                    this.openFileOutput(fileName, MODE_PRIVATE));
-//            outputStream.writeObject(listOfUsers);
-//            outputStream.close();
-//        } catch (IOException e) {
-//            Log.e("Exception", "File write failed: " + e.toString());
-//        }
-//    }
+
+    /**
+     * checks if a username it already taken
+     * @param username the username in question
+     * @return if the username is taken
+     */
     public boolean isUsernameTaken(String username){
         if (listOfUsers == null){
             return false;
@@ -156,6 +115,12 @@ public class GameRegisterActivity extends AppCompatActivity {
         }
         return false;
     }
+
+    /**
+     * creates a SlidingTilesScoreboard for a user, fills it
+     * with blank entries, and saves it.
+     * @param username the username of the user
+     */
     void setUpUserSlidingTilesScoreboard(String username){
         SlidingTilesScoreboard s = new SlidingTilesScoreboard(username);
         for (int i = 0; i < 3; i++){

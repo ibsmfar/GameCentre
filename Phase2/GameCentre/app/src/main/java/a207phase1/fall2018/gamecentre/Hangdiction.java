@@ -12,14 +12,22 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Random;
 
-public class Hangdiction {
+/**
+ * The dictionary from which words are selected for the game of Hangman
+ */
+class Hangdiction {
     private Random random = new Random();
     private static final int DEFAULT_WORD_LENGTH = 3;
     private HashSet<String> wordSet;
     private ArrayList<String> wordList;
-    private int wordLength = DEFAULT_WORD_LENGTH;
+    //private int wordLength = DEFAULT_WORD_LENGTH;
 
-    public Hangdiction(InputStream wordListStream) throws IOException {
+    /**
+     *
+     * @param wordListStream the file from which words are being read
+     * @throws IOException if there is an IOException
+     */
+    Hangdiction(InputStream wordListStream) throws IOException {
         BufferedReader in = new BufferedReader(new InputStreamReader(wordListStream));
         String line;
 
@@ -33,7 +41,11 @@ public class Hangdiction {
         }
     }
 
-    public String pickGoodStarterWord() {
+    /**
+     *
+     * @return a word for a game of Hangman
+     */
+    String pickGoodStarterWord() {
         int index = random.nextInt(wordList.size());
         String t=wordList.get(index);
         if(t.length()<=6)

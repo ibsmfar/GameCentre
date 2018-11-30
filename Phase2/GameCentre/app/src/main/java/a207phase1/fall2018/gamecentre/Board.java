@@ -149,7 +149,12 @@ public class Board extends Observable implements Serializable, Iterable<Tile> {
         }
     }
 
+
+    /**
+     * Return  a string representation of this board
+     */
     @Override
+    @NonNull
     public String toString() {
         return "Board{" +
                 "tiles=" + Arrays.toString(tiles) +

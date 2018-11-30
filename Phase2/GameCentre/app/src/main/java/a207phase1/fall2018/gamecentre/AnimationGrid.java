@@ -2,7 +2,9 @@ package a207phase1.fall2018.gamecentre;
 
 import java.util.ArrayList;
 
-
+/**
+ * The animation grid for 2048
+ */
 public class AnimationGrid {
     public final ArrayList<AnimationCell> globalAnimation = new ArrayList<>();
     private final ArrayList<AnimationCell>[][] field;
@@ -19,6 +21,15 @@ public class AnimationGrid {
         }
     }
 
+    /**
+     * Starts an animation
+     * @param x x coordinate
+     * @param y y coordinate
+     * @param animationType the type of animation
+     * @param length how long the animation should be shown
+     * @param delay the delay after the animation has been shown
+     * @param extras extras to be added
+     */
     public void startAnimation(int x, int y, int animationType, long length, long delay, int[] extras) {
         AnimationCell animationToAdd = new AnimationCell(x, y, animationType, length, delay, extras);
         if (x == -1 && y == -1) {
@@ -29,7 +40,11 @@ public class AnimationGrid {
         activeAnimations = activeAnimations + 1;
     }
 
-    public void tickAll(long timeElapsed) {
+    /**
+     * handles the passage of time for animations
+     * @param timeElapsed since animation started
+     */
+    void tickAll(long timeElapsed) {
         ArrayList<AnimationCell> cancelledAnimations = new ArrayList<>();
         for (AnimationCell animation : globalAnimation) {
             animation.tick(timeElapsed);
@@ -56,7 +71,11 @@ public class AnimationGrid {
         }
     }
 
-    public boolean isAnimationActive() {
+    /**
+     *
+     * @return if the animation is active
+     */
+    boolean isAnimationActive() {
         if (activeAnimations != 0) {
             oneMoreFrame = true;
             return true;
@@ -68,10 +87,13 @@ public class AnimationGrid {
         }
     }
 
-    public ArrayList<AnimationCell> getAnimationCell(int x, int y) {
+    ArrayList<AnimationCell> getAnimationCell(int x, int y) {
         return field[x][y];
     }
 
+    /**
+     * Cancels all animations
+     */
     public void cancelAnimations() {
         for (ArrayList<AnimationCell>[] array : field) {
             for (ArrayList<AnimationCell> list : array) {
@@ -82,6 +104,10 @@ public class AnimationGrid {
         activeAnimations = 0;
     }
 
+    /**
+     * Cancels the animation
+     * @param animation the animation
+     */
     private void cancelAnimation(AnimationCell animation) {
         if (animation.getX() == -1 && animation.getY() == -1) {
             globalAnimation.remove(animation);

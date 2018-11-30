@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 /**
  * Stack-Like Container for saved GameStates
+ * Used for storing moves that have been made in 2048 and SlidingTiles
  *
  */
 public class GameStatesContainer<T> implements Serializable {
@@ -51,15 +52,5 @@ public class GameStatesContainer<T> implements Serializable {
         return this.contents.get(currentMoveCounter - 1);
     }
 
-    public void addSavesTuple(T t){
-        this.contents.add(t);
-    }
-    public void updateCounters(){
-        currentMoveCounter++;
-        if (currentMoveCounter - undoMoveCounter > numUndos) {
-            undoMoveCounter++;
-        }
-
-    }
 }
 

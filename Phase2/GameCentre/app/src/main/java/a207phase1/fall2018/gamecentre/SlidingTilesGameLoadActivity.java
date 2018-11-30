@@ -12,11 +12,29 @@ import android.widget.ListView;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class GameLoadActivity extends AppCompatActivity {
+/**
+ * An activity where a user can load previous SlidingTiles Games
+ */
+public class SlidingTilesGameLoadActivity extends AppCompatActivity {
+    /**
+     * the ListView of saves
+     */
     ListView l;
+    /**
+     * The list of users
+     */
     ArrayList<User> listOfUsers;
+    /**
+     * the list of board managers of a user (their saves)
+     */
     ArrayList<BoardManager> userBoardManagerList;
+    /**
+     * username of current user
+     */
     String username;
+    /**
+     * the index of the selected save to pass to SlidingTilesGame Activity
+     */
     int indexToPass;
 
 
@@ -49,6 +67,10 @@ public class GameLoadActivity extends AppCompatActivity {
             }
         });
     }
+
+    /**
+     * Switch to a game of sliding tiles
+     */
     private void switchToGame(){
         Intent tmp = new Intent(this, SlidingTilesGameActivity.class);
         tmp.putExtra("index", indexToPass);
@@ -57,6 +79,10 @@ public class GameLoadActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * set the index of the board manager we are looking for
+     * @param b the board manager we are search for
+     */
     private void setIndexOfBoard(BoardManager b){
         for (int i = 0; i < userBoardManagerList.size(); i++){
             if (userBoardManagerList.get(i) == b){
@@ -65,6 +91,9 @@ public class GameLoadActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * set the list of saves of a user
+     */
     private void setUserBoardManagerList(){
         for (User u: listOfUsers){
             if (u.getUsername().equals(username)){

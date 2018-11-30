@@ -11,22 +11,26 @@ import android.view.WindowManager;
 import java.util.ArrayList;
 import java.util.Collections;
 
+/**
+ * An activity where a user can play a game of 2048
+ */
 public class Main2048Activity extends AppCompatActivity {
-
+    /**
+     * The list of users
+     */
     ArrayList<User> listOfUsers;
-    //ArrayList<Game2048ScoreboardEntry> gameScores;
+    /**
+     * The username of the user
+     */
     String username;
+    /**
+     * The user
+     */
     User user;
 
-    private static final String WIDTH = "width";
-    private static final String HEIGHT = "height";
-    private static final String SCORE = "score";
-    private static final String HIGH_SCORE = "high score temp";
-    private static final String UNDO_SCORE = "undo score";
-    private static final String CAN_UNDO = "can undo";
-    private static final String UNDO_GRID = "undo";
-    private static final String GAME_STATE = "game state";
-    private static final String UNDO_GAME_STATE = "undo game state";
+    /**
+     * The view of the game
+     */
     private MainView2048 view;
 
     @Override
@@ -42,9 +46,10 @@ public class Main2048Activity extends AppCompatActivity {
             username = userBundle.getString("Username");
         }
         setUser();
+
         view = new MainView2048(this, username);
 
-
+        //loads the game if it is not new
         if (user.saveTuple2048 != null){
             load();
         }
@@ -57,6 +62,7 @@ public class Main2048Activity extends AppCompatActivity {
                load();
             }
         }
+
         setContentView(view);
     }
 
@@ -93,6 +99,9 @@ public class Main2048Activity extends AppCompatActivity {
         save();
     }
 
+    /**
+     * Saves the game into a SavesTuple2048
+     */
     private void save() {
         Tile2048[][] field = view.game.grid.field;
         Tile2048[][] undoField = view.game.grid.undoField;
@@ -136,14 +145,15 @@ public class Main2048Activity extends AppCompatActivity {
         load();
     }
 
+    /**
+     * loads the game from the SavesTuple2048
+     */
     private void load() {
         //Stopping all animations
         view.game.aGrid.cancelAnimations();
         listOfUsers = SavingData.loadFromFile(SavingData.USER_LIST, this);
         setUser();
         saveTuple2048 toTake = user.saveTuple2048;
-
-        //SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(this);
 
         ArrayList<TileContainer2048> currrentTiles = toTake.currentTiles;
         ArrayList<TileContainer2048> undoTiles = toTake.undoTiles;
@@ -176,7 +186,7 @@ public class Main2048Activity extends AppCompatActivity {
         view.game.lastGameState = toTake.getLastGameState();;
     }
     /**
-     * Setting the current user of the game
+     * Setting the current username of the game
      */
     void setUser() {
         for (User u : listOfUsers) {
@@ -184,6 +194,11 @@ public class Main2048Activity extends AppCompatActivity {
                 user = u;
         }
     }
+
+    /**
+     * updates a user's SavesTuple2048
+     * @param s the saveTuple2048
+     */
     void updateUserBoard(saveTuple2048 s){
         for (User u: listOfUsers){
             if (u.getUsername().equals(username)){

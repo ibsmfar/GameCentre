@@ -2,6 +2,9 @@ package a207phase1.fall2018.gamecentre;
 
 import java.io.Serializable;
 
+/**
+ * Cell-like object for storing a tile's information
+ */
 public class TileContainer2048 implements Serializable {
 
     private int xPosition;

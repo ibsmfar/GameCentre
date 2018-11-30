@@ -49,6 +49,12 @@ public class MainGame2048 {
     ArrayList<Game2048ScoreboardEntry> gameScores;
     private GameStatesContainer<saveTuple2048> movesMade = new GameStatesContainer<>(3);
 
+    /**
+     * Creates a new 2048 game
+     * @param context the context in which the game is being created
+     * @param view the view of the game
+     * @param username the username of the current user
+     */
     public MainGame2048(Context context, MainView2048 view, String username) {
         gameScores = SavingData.loadFromFile(SavingData.GAME_SCOREBOARD_2048, context);
         mContext = context;
@@ -57,6 +63,9 @@ public class MainGame2048 {
         endingMaxValue = (int) Math.pow(2, view.numCellTypes - 1);
     }
 
+    /**
+     * Creates a new game if the grid is empty and sets up a game
+     */
     public void newGame() {
         if (grid == null) {
             grid = new Grid2048(numSquaresX, numSquaresY);
@@ -87,6 +96,9 @@ public class MainGame2048 {
         }
     }
 
+    /**
+     * Adds a tile randomly to the grid
+     */
     private void addRandomTile() {
         if (grid.isCellsAvailable()) {
             int value = Math.random() < 0.9 ? 2 : 4;
@@ -95,12 +107,19 @@ public class MainGame2048 {
         }
     }
 
+    /**
+     * Displays the tile that has been created
+     * @param tile the created tile
+     */
     private void spawnTile(Tile2048 tile) {
         grid.insertTile(tile);
         aGrid.startAnimation(tile.getX(), tile.getY(), SPAWN_ANIMATION,
                 SPAWN_ANIMATION_TIME, MOVE_ANIMATION_TIME, null); //Direction: -1 = EXPANDING
     }
 
+    /**
+     * Record the user's high score
+     */
     private void recordHighScore() {
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(mContext);
         SharedPreferences.Editor editor = settings.edit();
@@ -108,11 +127,19 @@ public class MainGame2048 {
         editor.commit();
     }
 
+    /**
+     *
+     * @return the user's high score
+     */
     private long getHighScore() {
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(mContext);
         return settings.getLong(HIGH_SCORE, -1);
     }
 
+    /**
+     *
+     * @return if it the first time the user is playing 2048
+     */
     private boolean firstRun() {
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(mContext);
         if (settings.getBoolean(FIRST_RUN, true)) {
@@ -124,6 +151,9 @@ public class MainGame2048 {
         return false;
     }
 
+    /**
+     * Set up the tiles in grid
+     */
     private void prepareTiles() {
         for (Tile2048[] array : grid.field) {
             for (Tile2048 tile : array) {
@@ -134,12 +164,20 @@ public class MainGame2048 {
         }
     }
 
+    /**
+     * move the tile to cell
+     * @param tile the tile being moved
+     * @param cell the cell the tile is being moved to
+     */
     private void moveTile(Tile2048 tile, Cell cell) {
         grid.field[tile.getX()][tile.getY()] = null;
         grid.field[cell.getX()][cell.getY()] = tile;
         tile.updatePosition(cell);
     }
 
+    /**
+     * save the current tiles so we can undo back to them
+     */
     private void saveUndoState() {
         grid.saveTiles();
         canUndo = true;
@@ -147,13 +185,19 @@ public class MainGame2048 {
         lastGameState = bufferGameState;
     }
 
+    /**
+     * prepare the undo tiles to be saved
+     */
     private void prepareUndoState() {
         grid.prepareSaveTiles();
         bufferScore = score;
         bufferGameState = gameState;
     }
 
-    public void revertUndoState() {
+    /**
+     * Undo the last move
+     */
+    void revertUndoState() {
         if (canUndo) {
             canUndo = false;
             aGrid.cancelAnimations();
@@ -165,18 +209,34 @@ public class MainGame2048 {
         }
     }
 
-    public boolean gameWon() {
+    /**
+     *
+     * @return if the game has been won
+     */
+    boolean gameWon() {
         return (gameState > 0 && gameState % 2 != 0);
     }
 
-    public boolean gameLost() {
+    /**
+     *
+     * @return if a game has been lost
+     */
+    boolean gameLost() {
         return (gameState == GAME_LOST);
     }
 
+    /**
+     *
+     * @return if a game is currently being played
+     */
     public boolean isActive() {
         return !(gameWon() || gameLost());
     }
 
+    /**
+     * executes a move based on direction
+     * @param direction the direction the user swiped in
+     */
     public void move(int direction) {
         aGrid.cancelAnimations();
         // 0: up, 1: right, 2: down, 3: left
@@ -250,6 +310,9 @@ public class MainGame2048 {
         mView.invalidate();
     }
 
+    /**
+     * check if a user has lost the game
+     */
     private void checkLose() {
         if (!movesAvailable() && !gameWon()) {
             gameState = GAME_LOST;
@@ -257,6 +320,9 @@ public class MainGame2048 {
         }
     }
 
+    /**
+     * End the game, record the user's score, and possibly update the 2048 Scoreboard
+     */
     private void endGame() {
         aGrid.startAnimation(-1, -1, FADE_GLOBAL_ANIMATION, NOTIFICATION_ANIMATION_TIME, NOTIFICATION_DELAY_TIME, null);
         Game2048ScoreboardEntry g = new Game2048ScoreboardEntry(username, (int) score);
@@ -267,6 +333,11 @@ public class MainGame2048 {
         }
     }
 
+    /**
+     *
+     * @param direction the direction the user swiped in
+     * @return the Cell that is in the direction the user swiped in
+     */
     private Cell getVector(int direction) {
         Cell[] map = {
                 new Cell(0, -1), // up
@@ -277,6 +348,11 @@ public class MainGame2048 {
         return map[direction];
     }
 
+    /**
+     *
+     * @param vector a cell
+     * @return the list of x values to be traversed
+     */
     private List<Integer> buildTraversalsX(Cell vector) {
         List<Integer> traversals = new ArrayList<>();
 
@@ -290,6 +366,11 @@ public class MainGame2048 {
         return traversals;
     }
 
+    /**
+     *
+     * @param vector a Cell
+     * @return the list of y values to be traversed
+     */
     private List<Integer> buildTraversalsY(Cell vector) {
         List<Integer> traversals = new ArrayList<>();
 
@@ -303,6 +384,12 @@ public class MainGame2048 {
         return traversals;
     }
 
+    /**
+     *
+     * @param cell A cell
+     * @param vector A cell
+     * @return an array of cells furthest from cell
+     */
     private Cell[] findFarthestPosition(Cell cell, Cell vector) {
         Cell previous;
         Cell nextCell = new Cell(cell.getX(), cell.getY());
@@ -315,10 +402,18 @@ public class MainGame2048 {
         return new Cell[]{previous, nextCell};
     }
 
+    /**
+     *
+     * @return if there are moves available
+     */
     private boolean movesAvailable() {
         return grid.isCellsAvailable() || tileMatchesAvailable();
     }
 
+    /**
+     *
+     * @return if there are tiles on the board that can be matched (a 4 and a 4, for examples)
+     */
     private boolean tileMatchesAvailable() {
         Tile2048 tile;
 
@@ -344,10 +439,20 @@ public class MainGame2048 {
         return false;
     }
 
+    /**
+     *
+     * @param first a cell
+     * @param second a cell
+     * @return if the two cells are in the same position
+     */
     private boolean positionsEqual(Cell first, Cell second) {
         return first.getX() == second.getX() && first.getY() == second.getY();
     }
 
+    /**
+     *
+     * @return a value indicating whether or not the game has been won
+     */
     private int winValue() {
         if (!canContinue()) {
             return endingMaxValue;
@@ -356,16 +461,26 @@ public class MainGame2048 {
         }
     }
 
-    public void setEndlessMode() {
+    /**
+     * Put the game into endless mode
+     */
+    void setEndlessMode() {
         gameState = GAME_ENDLESS;
         mView.invalidate();
         mView.refreshLastTime = true;
     }
 
-    public boolean canContinue() {
+    /**
+     *
+     * @return if a user can continue
+     */
+    boolean canContinue() {
         return !(gameState == GAME_ENDLESS || gameState == GAME_ENDLESS_WON);
     }
 
+    /**
+     * save the current game
+     */
     public void save() {
         int width = numSquaresX;
         int height = numSquaresY;
@@ -397,9 +512,14 @@ public class MainGame2048 {
 
     }
 
-    public TileContainer2048 saveTile(int xPosition, int yPosition, int value) {
-        return new TileContainer2048(xPosition, yPosition, value);
-    }
+//    public TileContainer2048 saveTile(int xPosition, int yPosition, int value) {
+//        return new TileContainer2048(xPosition, yPosition, value);
+//    }
+
+    /**
+     * Update the scoreboard if g is an entry with a score higher than the ones already present
+     * @param g the entry to be entered
+     */
     void updateScoreBoard(Game2048ScoreboardEntry g){
         gameScores.add(g);
         Collections.sort(gameScores, new SortByScore());
@@ -409,8 +529,4 @@ public class MainGame2048 {
         SavingData.saveToFile(SavingData.GAME_SCOREBOARD_2048, mContext, gameScores);
     }
 
-
-    public void load() {
-
-    }
 }

@@ -1,5 +1,8 @@
 package a207phase1.fall2018.gamecentre;
 
+/**
+ * A cell in 2048
+ */
 public class Cell {
     private int x;
     private int y;

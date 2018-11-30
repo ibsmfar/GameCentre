@@ -33,24 +33,18 @@ class BoardManager implements Serializable {
     private int milliseconds;
 
 
-
-    /**
-     * Manage a board that has been pre-populated.
-     *
-     * @param board the board
-     */
-    BoardManager(Board board) {
-        this.board = board;
-    }
-
     /**
      * Return the current board.
+     *
+     * @return this board
      */
     Board getBoard() {
         return board;
     }
     /**
      * Return the moves that have been made
+     *
+     * @return the moves that have been made
      */
     GameStatesContainer getMovesMade(){
         return movesMade;
@@ -111,7 +105,10 @@ class BoardManager implements Serializable {
     }
 
     /**
-     * Manage a new shuffled board.
+     * Manage and setup a new shuffled board
+     *
+     * @param num_rows the number of rows.
+     * @param num_cols the number of columns.
      */
     BoardManager(int num_rows, int num_cols) {
         List<Tile> tiles = new ArrayList<>();
@@ -134,6 +131,13 @@ class BoardManager implements Serializable {
 
         this.board = new Board(tiles, num_rows, num_cols);
     }
+
+    /**
+     * Calculate the total number of inversions in a list of tiles
+     * @param T The list of tiles
+     * @param numTiles the number of tiles
+     * @return the number of inversions in T.
+     */
     int totalInversions(List<Tile> T, int numTiles){
         int numInversions = 0;
         for (int i = 0; i < T.size() - 1; i++){
@@ -149,27 +153,39 @@ class BoardManager implements Serializable {
         }
         return numInversions;
     }
+
+    /**
+     *
+     * @param num_cols the number of columns
+     * @param num_rows the number of rows.
+     * @param blankTileRow the index of the blank tile in T
+     * @param T the list of tiles
+     * @param numTiles the number of tiles
+     * @return return whether or not a board made with the tiles in T is solvable
+     */
     boolean isSolvable(int num_cols, int num_rows, int blankTileRow, List<Tile> T, int numTiles ){
+        //for even boards
         if (num_cols % 2 == 1){
             return (totalInversions(T, numTiles) % 2 == 0);
         }
+        //for odd boards
         else{
             return ((totalInversions(T, numTiles) + num_rows - blankTileRow) % 2 == 0);
         }
     }
 
     /**
-     * Location of the row the blank tile is in (array location)
+     * Location of the row the blank tile is in.
      * @param T the list of tiles
-     * @param numtiles the total number of tiles
+     * @param numTiles the total number of tiles
      * @return the row in which the blank tile is located in
      */
-    int blankTileRowLocation(List<Tile> T, int numtiles){
+    int blankTileRowLocation(List<Tile> T, int numTiles){
         int location = 0;
         for (int i = 0; i < T.size(); i++){
             Tile currTile = T.get(i);
-            if (currTile.getId() == numtiles){
-                location = i/(int)Math.sqrt(numtiles);
+            if (currTile.getId() == numTiles){
+                location = i/(int)Math.sqrt(numTiles);
             }
         }
         return location;
@@ -233,8 +249,8 @@ class BoardManager implements Serializable {
                 if (t.getId() == blankId){
                     board.swapTiles(row, col, pair[0], pair[1]);
                     SavesTuple s = new SavesTuple(row, col, pair[0], pair[1]);
+                    // add the savesTuple to contents so that we can undo the move in the future.
                     this.movesMade.contents.add(s);
-
                     this.movesMade.currentMoveCounter++;
                     if (this.movesMade.currentMoveCounter - this.movesMade.undoMoveCounter > this.movesMade.getNumUndos()) {
                         this.movesMade.undoMoveCounter++;
@@ -242,8 +258,11 @@ class BoardManager implements Serializable {
                 }
             }
         }
-
     }
+
+    /**
+     * Undo the most recent move
+     */
     void undo() {
         SavesTuple toTakeFrom = (SavesTuple) this.movesMade.getPreviousSave();
         int row1 = toTakeFrom.getRow1();
@@ -256,21 +275,15 @@ class BoardManager implements Serializable {
         this.movesMade.contents.trimToSize();
     }
 
-//    /**
-//     * Record a move and update the relevant move and undo counters
-//     *
-//     * @param save the SavesTuple to be saved
-//     */
-//    private void addMove(SavesTuple save){
-//        this.movesMade.addSavesTuple(save);
-//        this.movesMade.updateCounters();
-//    }
-
-
+    /**
+     * The string representation of this board manager
+     * @return a string representation of this board manager
+     */
     @Override
     public String toString(){
         int complexity = this.board.getNum_cols();
-        String s = "A " + complexity + " by " + complexity + "board";
+        String s = "A " + complexity + " by " + complexity + "board with time: " + minutes + "."
+                + seconds + "." + milliseconds;
         return s;
     }
 }
