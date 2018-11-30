@@ -11,26 +11,35 @@ import android.widget.Spinner;
 import android.support.v7.app.AppCompatActivity;
 
 import java.util.ArrayList;
-
+/**
+ * An activity where a user can choose from a dropdown menu of games
+ */
 public class GameSelectionActivity extends AppCompatActivity {
+    /**
+     * used to create the dropdown menu
+     */
     Spinner spinner;
     String spinnerSelection;
+    /**
+     * the username of the user
+     */
     String username;
+
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_choice);
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
-        Intent gamescreen = getIntent();
-        Bundle userBundle = gamescreen.getExtras();
+        Intent gameScreen = getIntent();
+        Bundle userBundle = gameScreen.getExtras();
 
         if(userBundle != null){
             username = userBundle.getString("Username");
         }
-
+        // Everything below is for setting up the dropdown menu
         spinner = findViewById(R.id.spinner);
-        spinnerSelection = "poop";
+        spinnerSelection = "default";
 
         ArrayList<String> list = new ArrayList<>();
         list.add("Sliding Tiles");
@@ -71,16 +80,26 @@ public class GameSelectionActivity extends AppCompatActivity {
             }
         });
     }
+
+    /**
+     * switch to the SlidingTiles menu
+     */
     private void switchToSlidingTiles(){
         Intent slidingMenu = new Intent(this, SlidingTilesMenuActivity.class);
         slidingMenu.putExtra("Username", username);
         startActivity(slidingMenu);
     }
+    /**
+     * switch to the Hangman menu
+     */
     private void switchToHangman(){
         Intent hangmanMenu = new Intent(this, HangmanMenuActivity.class);
         hangmanMenu.putExtra("Username", username);
         startActivity(hangmanMenu);
     }
+    /**
+     * switch to the 2048 menu
+     */
     private void switchTo2048(){
         Intent menu2048 = new Intent(this, Menu2048Activity.class);
         menu2048.putExtra("Username", username);

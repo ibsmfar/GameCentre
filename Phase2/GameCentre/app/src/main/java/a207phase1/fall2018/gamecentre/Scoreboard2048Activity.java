@@ -6,13 +6,21 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
+/**
+ * An activity where the scores for 2048 are listed
+ */
 public class Scoreboard2048Activity extends AppCompatActivity {
+    /**
+     * The list of scoreboard entries
+     */
     ArrayList<Game2048ScoreboardEntry> gameScores;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_2048_scoreboard);
         gameScores = SavingData.loadFromFile(SavingData.GAME_SCOREBOARD_2048, this);
+
+        //sets the top 5 scores
 
         if (gameScores.get(0) != null) {
             TextView userText = findViewById(R.id.FirstPlaceText);

@@ -3,12 +3,10 @@ package a207phase1.fall2018.gamecentre;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.res.AssetManager;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.InputType;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
@@ -19,15 +17,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
@@ -74,12 +65,12 @@ public class HangmanGameActivity extends AppCompatActivity {
         setUser();
 
         if (regular){
-            max = currUser.userHangmanManager.easyHighScore;
+            max = currUser.userHangmanManager.regularUserHighScore;
             TextView high = findViewById(R.id.high);
             high.setText(""+max);
         }
         else{
-            max = currUser.userHangmanManager.hardHighScore;
+            max = currUser.userHangmanManager.difficultUserHighScore;
             TextView high = findViewById(R.id.high);
             high.setText(""+max);
         }
@@ -239,12 +230,12 @@ public class HangmanGameActivity extends AppCompatActivity {
     }
     private void loadHangmanManager(){
         if (regular){
-            game = currUser.userHangmanManager.easy;
-            max = currUser.userHangmanManager.easyHighScore;
+            game = currUser.userHangmanManager.regularHangmanManager;
+            max = currUser.userHangmanManager.regularUserHighScore;
         }
         else{
-            game = currUser.userHangmanManager.hard;
-            max = currUser.userHangmanManager.hardHighScore;
+            game = currUser.userHangmanManager.difficultHangmanManager;
+            max = currUser.userHangmanManager.difficultUserHighScore;
         }
         currentWord = game.getWordToGuess();
         USED = game.getLettersGuessed();
@@ -267,7 +258,6 @@ public class HangmanGameActivity extends AppCompatActivity {
 
         int r_id = getResources().getIdentifier("hang" + count, "drawable", getApplication().getPackageName());
         ((ImageView) findViewById(R.id.hang)).setImageDrawable(getDrawable(r_id));
-        HangmanMenuActivity.loaded = false;
     }
 
     private void addSaveButtonListener(final Context context) {
@@ -299,12 +289,12 @@ public class HangmanGameActivity extends AppCompatActivity {
         for (User u: listOfUsers){
             if (u.getUsername().equals(username)){
                 if(regular){
-                    u.userHangmanManager.easy = game;
-                    u.userHangmanManager.easyHighScore = max;
+                    u.userHangmanManager.regularHangmanManager = game;
+                    u.userHangmanManager.regularUserHighScore = max;
                 }
                 else{
-                    u.userHangmanManager.hard = game;
-                    u.userHangmanManager.hardHighScore = max;
+                    u.userHangmanManager.difficultHangmanManager = game;
+                    u.userHangmanManager.difficultUserHighScore = max;
                 }
 
             }

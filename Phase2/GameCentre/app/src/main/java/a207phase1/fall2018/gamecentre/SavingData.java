@@ -25,6 +25,13 @@ class SavingData {
     final static String HANGMAN_SCOREBOARD_EASY = "hangman_scoreboard_easy.ser";
     final static String HANGMAN_SCOREBOARD_HARD = "hangman_scoreboard_hard.ser";
 
+    /**
+     *
+     * @param fileName the file where T is being loaded from
+     * @param context the context in which T is being loaded
+     * @param <T> the type of the objet being loaded
+     * @return the object being stored in the file
+     */
     static <T> T loadFromFile(String fileName, Context context) {
 
         try {
@@ -44,10 +51,13 @@ class SavingData {
         }
         return null;
     }
+
     /**
-     * Save the board manager to fileName.
      *
-     * @param fileName the name of the file
+     * @param fileName the file the object is being saved to
+     * @param context the context in which the object is being saved
+     * @param object the object being saved
+     * @param <T> the type of the object being saved
      */
     static <T> void  saveToFile(String fileName, Context context, T object) {
         try {

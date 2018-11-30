@@ -24,7 +24,7 @@ class InputListener implements View.OnTouchListener {
     private int veryLastDirection = 1;
     // Whether or not we have made a move, i.e. the blocks shifted or tried to shift.
     private boolean hasMoved = false;
-    // Whether or not we began the press on an icon. This is to disable swipes if the user began
+    // Whether or not we began the press on an icon. This is to disable swipes if the username began
     // the press on an icon.
     private boolean beganOnIcon = false;
 

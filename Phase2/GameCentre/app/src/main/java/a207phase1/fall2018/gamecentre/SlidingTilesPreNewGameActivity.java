@@ -21,6 +21,7 @@ import java.util.ArrayList;
 
 
 public class SlidingTilesPreNewGameActivity extends AppCompatActivity {
+    //buttons and groups for selecting options for creating new SlidingTiles Games
     public RadioButton threeByThree;
     public RadioButton fourByFour;
     public RadioButton fiveByFive;
@@ -33,16 +34,26 @@ public class SlidingTilesPreNewGameActivity extends AppCompatActivity {
 
     public RadioGroup rgGridSize;
     public RadioGroup rgBackground;
-
+    /**
+     * The number of columns and rows of the SlidingTiles Game to be created
+     */
     public static int NUM_ROWS;
     public static int NUM_COLS;
-
+    /**
+     * The picture of the SlidingTiles Game to be created
+     */
     public static int picture;
-    //public GameLaunchCentre GLC;
-
-    private ArrayList<Button> tileButtons;
+    /**
+     * The list of users
+     */
     ArrayList<User> listOfUsers;
+    /**
+     * The username of the current user
+     */
     String username;
+    /**
+     * The index of the board manager to pass so it can be loaded successfully
+     */
     int indexToPass;
 
 
@@ -50,22 +61,24 @@ public class SlidingTilesPreNewGameActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         SlidingTilesGameActivity.myActivity = this;
-        //loadData();
         setContentView(R.layout.activity_slidingtiles_newgame);
         listOfUsers = SavingData.loadFromFile(SavingData.USER_LIST, this);
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
         Intent gamescreen = getIntent();
         Bundle userBundle = gamescreen.getExtras();
 
         if(userBundle != null){
             username = userBundle.getString("Username");
         }
+
         threeByThree = findViewById(R.id.rb3x3);
         fourByFour = findViewById(R.id.rb4x4);
         fiveByFive = findViewById(R.id.rb5x5);
         number = findViewById(R.id.rbNumbers);
         penguin = findViewById(R.id.rbPenguin);
         uoft = findViewById(R.id.rbUoft);
+
         addNewGameButtonListener(this);
     }
 
@@ -123,6 +136,12 @@ public class SlidingTilesPreNewGameActivity extends AppCompatActivity {
             }
         });
     }
+
+    /**
+     * adds b to the user's list of boards
+     * @param b BoardManager to be added
+     * @param username of the user
+     */
     public void addToUser(BoardManager b, String username){
         for (User u: listOfUsers){
             if(u.getUsername().equals(username)){
@@ -132,6 +151,9 @@ public class SlidingTilesPreNewGameActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Switches to a game of SlidingTiles
+     */
     public void switchToGame() {
         Intent tmp = new Intent(this, SlidingTilesGameActivity.class);
         tmp.putExtra("index", indexToPass);

@@ -18,16 +18,24 @@ import java.util.List;
 
 
 public class HangmanPreNewGameActivity extends AppCompatActivity {
-
+    /**
+     * Buttons and groups for selecting the difficult fo the game to be created
+     */
     public RadioButton rbRegular;
     public RadioButton rbHard;
-
     public RadioButton radioComplexityButton;
-
     public RadioGroup rgComplexity;
-
+    /**
+     * the difficult of the game to be created
+     */
     boolean Regular = false;
+    /**
+     * The username of the user
+     */
     String username;
+    /**
+     * if a newGame is being created
+     */
     boolean newGame;
 
     @Override
@@ -44,6 +52,7 @@ public class HangmanPreNewGameActivity extends AppCompatActivity {
             username = userBundle.getString("Username");
             newGame = userBundle.getBoolean("NewGame");
         }
+
         rbRegular = findViewById(R.id.rbRegular);
         rbHard = findViewById(R.id.rbHard);
         addNewGameButtonListener();
@@ -72,6 +81,9 @@ public class HangmanPreNewGameActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * switch to a game of Hangman
+     */
     public void switchToGame() {
         Intent tmp = new Intent(this, HangmanGameActivity.class);
         //saveToFile(HangmanMenuActivity.TEMP_SAVE_FILENAME);
@@ -81,13 +93,4 @@ public class HangmanPreNewGameActivity extends AppCompatActivity {
         startActivity(tmp);
     }
 
-//    public void saveToFile(String fileName) {
-//        try {
-//            ObjectOutputStream outputStream = new ObjectOutputStream(
-//                    this.openFileOutput(fileName, MODE_PRIVATE));
-//            outputStream.close();
-//        } catch (IOException e) {
-//            Log.e("Exception", "File write failed: " + e.toString());
-//        }
-//    }
 }

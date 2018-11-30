@@ -3,7 +3,10 @@ package a207phase1.fall2018.gamecentre;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-public class saveTuple2048 implements Serializable {
+/**
+ * Used for saving a game of 2048
+ */
+class saveTuple2048 implements Serializable {
 
     private int width;
     private int height;
@@ -39,8 +42,16 @@ public class saveTuple2048 implements Serializable {
         this.gameState = gameState;
         this.lastGameState = lastGameState;
     }
+
+    /**
+     * Empty saveTuple2048 constructor
+     */
     saveTuple2048(){
     }
+
+    /**
+     * setters and getters for variables
+     */
 
     public int getWidth() {
         return width;
@@ -74,11 +85,4 @@ public class saveTuple2048 implements Serializable {
         return lastGameState;
     }
 
-    public ArrayList<TileContainer2048> getCurrentTiles() {
-        return currentTiles;
-    }
-
-    public ArrayList<TileContainer2048> getUndoTiles() {
-        return undoTiles;
-    }
 }

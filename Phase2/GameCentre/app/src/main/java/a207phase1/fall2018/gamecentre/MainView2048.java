@@ -13,6 +13,9 @@ import android.view.View;
 
 import java.util.ArrayList;
 
+/**
+ * The view of a game of 2048
+ */
 @SuppressWarnings("deprecation")
 public class MainView2048 extends View {
 
@@ -71,6 +74,11 @@ public class MainView2048 extends View {
     private int titleWidthHighScore;
     private int titleWidthScore;
 
+    /**
+     * Creates a new MainView2048
+     * @param context the context the view is being created in
+     * @param username the username of the current user
+     */
     public MainView2048(Context context, String username) {
         super(context);
 
@@ -140,11 +148,25 @@ public class MainView2048 extends View {
         createOverlays();
     }
 
+    /**
+     * Used to draw the board
+     * @param canvas the canvas
+     * @param draw the object to be drawn
+     * @param startingX starting x value
+     * @param startingY starting y value
+     * @param endingX ending x value
+     * @param endingY edning y value
+     */
     private void drawDrawable(Canvas canvas, Drawable draw, int startingX, int startingY, int endingX, int endingY) {
         draw.setBounds(startingX, startingY, endingX, endingY);
         draw.draw(canvas);
     }
 
+    /**
+     * Draw the text(number) on a cell
+     * @param canvas the canvas
+     * @param value the max value of the cells
+     */
     private void drawCellText(Canvas canvas, int value) {
         int textShiftY = centerText();
         if (value >= 8) {
@@ -155,6 +177,10 @@ public class MainView2048 extends View {
         canvas.drawText("" + value, cellSize / 2, cellSize / 2 - textShiftY, paint);
     }
 
+    /**
+     * Draws the current score and high score
+     * @param canvas the canvas being drawn on
+     */
     private void drawScoreText(Canvas canvas) {
         //Drawing the score text: Ver 2
         paint.setTextSize(bodyTextSize);
@@ -197,6 +223,11 @@ public class MainView2048 extends View {
         canvas.drawText(String.valueOf(game.score), sXScore + textMiddleScore, bodyStartYAll, paint);
     }
 
+    /**
+     * draw a new game on canvas is lightUp is true
+     * @param canvas the canvas being drawn on
+     * @param lightUp if a new game should be drawn
+     */
     private void drawNewGameButton(Canvas canvas, boolean lightUp) {
 
         if (lightUp) {
@@ -225,6 +256,10 @@ public class MainView2048 extends View {
         );
     }
 
+    /**
+     * draws the undo button
+     * @param canvas the canvas being drawn on
+     */
     private void drawUndoButton(Canvas canvas) {
 
         drawDrawable(canvas,
@@ -243,6 +278,10 @@ public class MainView2048 extends View {
         );
     }
 
+    /**
+     * the header at the top left of the game
+     * @param canvas the canvas being drawn on
+     */
     private void drawHeader(Canvas canvas) {
         paint.setTextSize(headerTextSize);
         paint.setColor(getResources().getColor(R.color.text_black));
@@ -252,6 +291,10 @@ public class MainView2048 extends View {
         canvas.drawText(getResources().getString(R.string.header), startingX, headerStartY, paint);
     }
 
+    /**
+     * draws the instructions
+     * @param canvas the canvas being drawn on
+     */
     private void drawInstructions(Canvas canvas) {
         paint.setTextSize(instructionsTextSize);
         paint.setTextAlign(Paint.Align.LEFT);
@@ -260,6 +303,10 @@ public class MainView2048 extends View {
                 startingX, endingY - textShiftY + textPaddingSize, paint);
     }
 
+    /**
+     * draw the background
+     * @param canvas the canvas being drawn on
+     */
     private void drawBackground(Canvas canvas) {
         drawDrawable(canvas, backgroundRectangle, startingX, startingY, endingX, endingY);
     }
@@ -281,6 +328,10 @@ public class MainView2048 extends View {
         }
     }
 
+    /**
+     * draws the cells onto the canvas
+     * @param canvas the canvas being drawn on
+     */
     private void drawCells(Canvas canvas) {
         paint.setTextSize(textSize);
         paint.setTextAlign(Paint.Align.CENTER);
@@ -356,6 +407,10 @@ public class MainView2048 extends View {
         }
     }
 
+    /**
+     * Draws the game over screen
+     * @param canvas the canvas being drawn on
+     */
     private void drawEndGameState(Canvas canvas) {
         double alphaChange = 1;
         continueButtonEnabled = false;
@@ -383,6 +438,10 @@ public class MainView2048 extends View {
         }
     }
 
+    /**
+     * displays when a game is in endless mode
+     * @param canvas the canvas being drawn on
+     */
     private void drawEndlessText(Canvas canvas) {
         paint.setTextAlign(Paint.Align.LEFT);
         paint.setTextSize(bodyTextSize);
@@ -390,6 +449,12 @@ public class MainView2048 extends View {
         canvas.drawText(getResources().getString(R.string.endless), startingX, sYIcons - centerText() * 2, paint);
     }
 
+    /**
+     * Either display the game over screen or the continue game screen if a user scores 2048
+     * @param canvas the canvas being drawn on
+     * @param win if the user reaches a score of 2048
+     * @param showButton if a button should be shown if the user reaches a score of 2048
+     */
     private void createEndGameStates(Canvas canvas, boolean win, boolean showButton) {
         int width = endingX - startingX;
         int length = endingY - startingY;
@@ -421,6 +486,11 @@ public class MainView2048 extends View {
         }
     }
 
+    /**
+     * creates a background bitmap of width and height
+     * @param width the width of the board
+     * @param height the height of the board
+     */
     private void createBackgroundBitmap(int width, int height) {
         background = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
         Canvas canvas = new Canvas(background);
@@ -433,6 +503,9 @@ public class MainView2048 extends View {
 
     }
 
+    /**
+     * creates the cells to be put into the bitmap
+     */
     private void createBitmapCells() {
         Resources resources = getResources();
         int[] cellRectangleIds = getCellRectangleIds();
@@ -450,6 +523,10 @@ public class MainView2048 extends View {
         }
     }
 
+    /**
+     *
+     * @return the list of ids of drawables so that cells can be drawn
+     */
     private int[] getCellRectangleIds() {
         int[] cellRectangleIds = new int[numCellTypes];
         cellRectangleIds[0] = R.drawable.cell_rectangle;
@@ -470,6 +547,9 @@ public class MainView2048 extends View {
         return cellRectangleIds;
     }
 
+    /**
+     * Creates a bitmap and canvas using that bitmap and uses those to create new BitmapDrawables
+     */
     private void createOverlays() {
         Resources resources = getResources();
         //Initialize overlays
@@ -487,16 +567,27 @@ public class MainView2048 extends View {
         loseGameOverlay = new BitmapDrawable(resources, bitmap);
     }
 
+    /**
+     * process the passing of time
+     */
     private void tick() {
         long currentTime = System.nanoTime();
         game.aGrid.tickAll(currentTime - lastFPSTime);
         lastFPSTime = currentTime;
     }
 
+    /**
+     * sync the time with the system clock
+     */
     public void resyncTime() {
         lastFPSTime = System.nanoTime();
     }
 
+    /**
+     * set the layout of the board
+     * @param width the width of the board
+     * @param height the height of the board
+     */
     private void getLayout(int width, int height) {
         cellSize = Math.min(width / (game.numSquaresX + 1), height / (game.numSquaresY + 3));
         gridWidth = cellSize / 7;
@@ -561,6 +652,10 @@ public class MainView2048 extends View {
         resyncTime();
     }
 
+    /**
+     *
+     * @return the coordinates of the centeredText
+     */
     private int centerText() {
         return (int) ((paint.descent() + paint.ascent()) / 2);
     }

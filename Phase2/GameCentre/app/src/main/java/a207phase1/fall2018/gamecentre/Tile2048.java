@@ -1,33 +1,40 @@
 package a207phase1.fall2018.gamecentre;
 
+/**
+ * A 2048 Tile
+ */
 public class Tile2048 extends Cell {
     private final int value;
     private Tile2048[] mergedFrom = null;
 
-    public Tile2048(int x, int y, int value) {
+    Tile2048(int x, int y, int value) {
         super(x, y);
         this.value = value;
     }
 
-    public Tile2048(Cell cell, int value) {
+    Tile2048(Cell cell, int value) {
         super(cell.getX(), cell.getY());
         this.value = value;
     }
 
-    public void updatePosition(Cell cell) {
+    /**
+     * updates the tile's location to that of cell
+     * @param cell of the new coordinates
+     */
+    void updatePosition(Cell cell) {
         this.setX(cell.getX());
         this.setY(cell.getY());
     }
 
-    public int getValue() {
+    int getValue() {
         return this.value;
     }
 
-    public Tile2048[] getMergedFrom() {
+    Tile2048[] getMergedFrom() {
         return mergedFrom;
     }
 
-    public void setMergedFrom(Tile2048[] tile) {
+    void setMergedFrom(Tile2048[] tile) {
         mergedFrom = tile;
     }
 }

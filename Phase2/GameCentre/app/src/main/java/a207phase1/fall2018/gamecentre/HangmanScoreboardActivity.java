@@ -1,15 +1,22 @@
 package a207phase1.fall2018.gamecentre;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 
+/**
+ * An activity where users can check the standings for the game of Hangman
+ */
 public class HangmanScoreboardActivity extends AppCompatActivity {
-
+    /**
+     * The scoreboards for regular games
+     */
     ArrayList<HangmanScoreboardEntry> easyGameScores;
+    /**
+     * The scoreboard for difficult games
+     */
     ArrayList<HangmanScoreboardEntry> hardGameScores;
 
     @Override
@@ -22,6 +29,10 @@ public class HangmanScoreboardActivity extends AppCompatActivity {
         setUpEasyGameScores();
         setUpHardGameScores();
     }
+
+    /**
+     * Set up the leaderboard for regular games
+     */
     void setUpEasyGameScores(){
         TextView easyFirstText = findViewById(R.id.txtFirstHangmanEasy);
         TextView easySecondText =  findViewById(R.id.txtSecondHangmanEasy);
@@ -32,6 +43,10 @@ public class HangmanScoreboardActivity extends AppCompatActivity {
         easyThirdText.setText(easyGameScores.get(2).toString());
 
     }
+
+    /**
+     * Set up the leaderboard for difficult games
+     */
     void setUpHardGameScores(){
         TextView hardFirstText = findViewById(R.id.txtFirstHangmanHard);
         TextView hardSecondText =  findViewById(R.id.txtSecondHangmanHard);

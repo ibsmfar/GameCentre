@@ -11,22 +11,33 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 /**
- * The initial activity for the Hangman game.
+ * The starting menu for a game of hangman.
  */
 public class HangmanMenuActivity extends AppCompatActivity {
-
+    /**
+     * The list of users
+     */
     ArrayList<User> listOfUsers;
-
+    /**
+     * The username of the user
+     */
     String username;
-
+    /**
+     * The UserHangmanManager of the user
+     */
     UserHangmanManager game;
-
+    /**
+     * The current user
+     */
     User user;
-
+    /**
+     * The ArrayList of HangmanScoreboardEntries that are of regular difficulty
+     */
     ArrayList<HangmanScoreboardEntry> easyGameScores;
+    /**
+     * The ArrayList of HangmanScoreboardEntries that are difficult
+     */
     ArrayList<HangmanScoreboardEntry> hardGameScores;
-
-    public static boolean loaded = false;
 
 
     @Override
@@ -45,6 +56,7 @@ public class HangmanMenuActivity extends AppCompatActivity {
 
         easyGameScores = SavingData.loadFromFile(SavingData.HANGMAN_SCOREBOARD_EASY, this);
         hardGameScores = SavingData.loadFromFile(SavingData.HANGMAN_SCOREBOARD_HARD, this);
+        //sets up the Scoreboard if they have not yet been created before
         if (easyGameScores == null){
             setUpHangmanEasyScoreboard();
             SavingData.saveToFile(SavingData.HANGMAN_SCOREBOARD_EASY, this, easyGameScores);
@@ -54,15 +66,11 @@ public class HangmanMenuActivity extends AppCompatActivity {
             SavingData.saveToFile(SavingData.HANGMAN_SCOREBOARD_HARD, this, hardGameScores);
         }
 
-
         game = user.userHangmanManager;
-
-        //HangmanGameActivity.myActivity = this;
 
         addStartButtonListener();
         addLoadButtonListener(this);
         addScoreboardButtonListener();
-        //addSaveButtonListener();
     }
 
     private void addScoreboardButtonListener(){
@@ -78,7 +86,7 @@ public class HangmanMenuActivity extends AppCompatActivity {
      * Activate the start button.
      */
     private void addStartButtonListener() {
-        Button startButton = (Button) findViewById(R.id.Play2048Btn);
+        Button startButton = findViewById(R.id.Play2048Btn);
         startButton.setOnClickListener(new View.OnClickListener() { /*when start button is clicked*/
             @Override
             public void onClick(View v) {
@@ -98,13 +106,12 @@ public class HangmanMenuActivity extends AppCompatActivity {
                 listOfUsers = SavingData.loadFromFile(SavingData.USER_LIST, context);
                 setUser();
                 game = user.userHangmanManager;
-                if (game.easy == null && game.hard == null){
+                if (game.regularHangmanManager == null && game.difficultHangmanManager == null){
                     makeToastNoSaves();
                 }
                 else {
                     makeToastLoadedText();
                     switchToSaves();
-
                 }
             }
         });
@@ -121,37 +128,8 @@ public class HangmanMenuActivity extends AppCompatActivity {
     }
 
 
-//    /**
-//     * Activate the save button.
-//     */
-//    private void addSaveButtonListener() {
-//        Button saveButton = findViewById(R.id.btnSaveHangman);
-//        saveButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                saveToFile(SAVE_FILENAME);
-//                saveToFile(TEMP_SAVE_FILENAME);
-//                makeToastSavedText();
-//            }
-//        });
-//    }
-
-//    /**
-//     * Display that a game was saved successfully.
-//     */
-//    private void makeToastSavedText() {
-//        Toast.makeText(this, "Game Saved", Toast.LENGTH_SHORT).show();
-//    }
     /**
-     * Read the temporary board from disk.
-     */
-    @Override
-    protected void onResume() {
-        super.onResume();
-    }
-
-    /**
-     * Switch to the HangmanPreNewGameActivity view to play the game.
+     * Switch to the HangmanPreNewGameActivity to create and start a new game
      */
     public void switchToPreGame() {
         Intent tmp = new Intent(this, HangmanPreNewGameActivity.class);
@@ -159,24 +137,26 @@ public class HangmanMenuActivity extends AppCompatActivity {
         tmp.putExtra("NewGame", true);
         startActivity(tmp);
     }
-
-//    public void switchToGame() {
-//        Intent tmp = new Intent(this, HangmanGameActivity.class);
-//        tmp.putExtra("Username", username);
-//        tmp.putExtra("NewGame", false);
-//        startActivity(tmp);
-//    }
+    /**
+     * Switch to the HangmanLoadActivity to load Hangman games
+     */
     public void switchToSaves(){
         Intent tmp = new Intent(this, HangmanLoadActivity.class);
         tmp.putExtra("Username", username);
         startActivity(tmp);
     }
 
+    /**
+     * Switch to the leaderboard
+     */
     private void switchToLeaderboard(){
         Intent tmp = new Intent(this, HangmanScoreboardActivity.class);
         startActivity(tmp);
     }
 
+    /**
+     * Find and set the user from the list of users
+     */
     void setUser(){
         for (User u: listOfUsers){
             if (u.getUsername().equals(username)){
@@ -185,6 +165,10 @@ public class HangmanMenuActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Creates the scoreboard for hangman games of regular difficulty, fills them with empty entries,
+     * and saves it
+     */
     void setUpHangmanEasyScoreboard(){
         easyGameScores= new ArrayList<>();
         for (int i = 0; i < 3; i ++){
@@ -192,7 +176,10 @@ public class HangmanMenuActivity extends AppCompatActivity {
         }
         SavingData.saveToFile(SavingData.HANGMAN_SCOREBOARD_EASY, this, easyGameScores);
     }
-
+    /**
+     * Creates the scoreboard for difficult hangman games, fills them with empty entries,
+     * and saves it
+     */
     void setUpHangmanHardScoreboard(){
         hardGameScores = new ArrayList<>();
         for (int i = 0; i < 3; i++){

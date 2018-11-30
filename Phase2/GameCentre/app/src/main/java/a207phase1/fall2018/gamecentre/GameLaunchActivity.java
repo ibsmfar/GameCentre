@@ -24,11 +24,22 @@ import java.io.ObjectOutputStream;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 
+/**
+ * The initial activity where users can either sign in or go to a page where they can sign up
+ */
 public class GameLaunchActivity extends AppCompatActivity{
 
-
+    /**
+     * The username of a user
+     */
     EditText username;
+    /**
+     * The password of a user
+     */
     EditText password;
+    /**
+     * The list of users
+     */
     ArrayList<User> listOfUsers;
 
 
@@ -37,25 +48,18 @@ public class GameLaunchActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_launch);
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
         listOfUsers = SavingData.loadFromFile(SavingData.USER_LIST, this);
-        //loadFromFile(SavingData.USER_LIST);
-        username = (EditText)findViewById(R.id.UserNameLogin);
-        password = (EditText)findViewById(R.id.PasswordLogin);
+
+        username = findViewById(R.id.UserNameLogin);
+        password = findViewById(R.id.PasswordLogin);
+
         if (!areSlidingTilesGameScoresSetUp() && !areSlidingTilesUserScoresSetUp()){
             setUpSlidingTilesScoreboard();
         }
         addGoButtonListener();
         addSignUpButtonListener();
 
-    }
-    private void addSignUpButtonListener(){
-        Button signupButton = findViewById(R.id.SignUpButton);
-        signupButton.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-                switchToSignUp();
-            }
-        });
     }
 
     private void addGoButtonListener(){
@@ -81,74 +85,60 @@ public class GameLaunchActivity extends AppCompatActivity{
                 }
             }
         });
-
     }
+    private void addSignUpButtonListener(){
+        Button signUpButton = findViewById(R.id.SignUpButton);
+        signUpButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                switchToSignUp();
+            }
+        });
+    }
+
+    /**
+     * switch to the screen where users can choose a game to play
+     * @param username the username of the user currently signed in
+     */
+    private void switchToGameChoice(String username){
+        Intent gameScreen = new Intent(this, GameSelectionActivity.class);
+        gameScreen.putExtra("Username", username);
+        startActivity(gameScreen);
+    }
+
+    /**
+     * Switch to a screen where users can sign up for an account
+     */
+    private void switchToSignUp(){
+        Intent signUpScreen = new Intent(this, GameRegisterActivity.class);
+        startActivity(signUpScreen);
+    }
+
+
     private void makeToastEmptyText() {
         Toast.makeText(this,"Username or password boxes empty",Toast.LENGTH_SHORT).show();
     }
     private void makeToastWrongPasswordText() {
         Toast.makeText(this,"Wrong password",Toast.LENGTH_SHORT).show();
     }
-    private void switchToGameChoice(String username){
-        Intent gameScreen = new Intent(this, GameSelectionActivity.class);
-        gameScreen.putExtra("Username", username);
-        startActivity(gameScreen);
-    }
-    private void switchToSignUp(){
-        Intent signUpScreen = new Intent(this, GameRegisterActivity.class);
-        startActivity(signUpScreen);
-    }
     private void userNameNotExistToast(){
         Toast.makeText(this, "Username does not exist", Toast.LENGTH_SHORT).show();
     }
 
+    /**
+     * Return if the text is empty
+     * @param text the text in question
+     * @return if the text is empty
+     */
     private boolean isEmpty(EditText text){
         return TextUtils.isEmpty(text.getText().toString());
     }
-//    private void saveData(){
-//        SharedPreferences sharedPreferences = getSharedPreferences("shared preferences", MODE_PRIVATE);
-//        SharedPreferences.Editor editor =  sharedPreferences.edit();
-//        Gson gson = new Gson();
-//        String json = gson.toJson(GLC);
-//        editor.putString("GameLaunchCentre", json);
-//        editor.apply();
-//    }
-//    private void loadData(){
-//        SharedPreferences sharedPreferences = getSharedPreferences("shared preferences", MODE_PRIVATE);
-//        Gson gson = new Gson();
-//        String json = sharedPreferences.getString("GameLaunchCentre", null);
-//        Type type = new TypeToken<GameLaunchCentre>() {}.getType();
-//        GLC = gson.fromJson(json, type);
-//
-//        if (GLC == null){
-//            GLC = new GameLaunchCentre();
-//        }
-//
-//    }
+
     /**
-     * Load the board manager from fileName.
-     *
+     * returns if a user with username exists
+     * @param username the username in question
+     * @return if a user with username exists
      */
-//    private void loadFromFile(String fileName) {
-//
-//        try {
-//            InputStream inputStream = this.openFileInput(fileName);
-//            if (inputStream != null) {
-//                ObjectInputStream input = new ObjectInputStream(inputStream);
-//                listOfUsers = (ArrayList<User>) input.readObject();
-//                inputStream.close();
-//            }
-//            else{
-//                listOfUsers = new ArrayList<>();
-//            }
-//        } catch (FileNotFoundException e) {
-//            Log.e("login activity", "File not found: " + e.toString());
-//        } catch (IOException e) {
-//            Log.e("login activity", "Can not read file: " + e.toString());
-//        } catch (ClassNotFoundException e) {
-//            Log.e("login activity", "File contained unexpected data type: " + e.toString());
-//        }
-//    }
     public boolean doesUsernameExist(String username){
         if (listOfUsers == null){
             return false;
@@ -160,6 +150,13 @@ public class GameLaunchActivity extends AppCompatActivity{
         }
         return false;
     }
+
+    /**
+     * Return if the correct password has been provided for username
+     * @param username the username of a user
+     * @param password the password in question
+     * @return if the correct password has been provided for username
+     */
     public boolean correctPassword(String username, String password){
         for (User u: listOfUsers){
             if (u.getUsername().equals(username)){
@@ -170,6 +167,11 @@ public class GameLaunchActivity extends AppCompatActivity{
         }
         return false;
     }
+
+    /**
+     * Checks if the sliding tiles scoreboards for the game have been set up
+     * @return whether or the sliding tiles scoreboards for the game have been set up
+     */
     boolean areSlidingTilesGameScoresSetUp(){
         SlidingTilesScoreboard gameScores = SavingData.loadFromFile(SavingData.ST_SCOREBOARD, this);
         if (gameScores != null){
@@ -177,6 +179,10 @@ public class GameLaunchActivity extends AppCompatActivity{
         }
         return false;
     }
+    /**
+     * Checks if the sliding tiles scoreboards for the user have been set up
+     * @return whether or the sliding tiles scoreboards for the user have been set up
+     */
     boolean areSlidingTilesUserScoresSetUp(){
         ArrayList<SlidingTilesScoreboard> userScoreList = SavingData.loadFromFile(SavingData.ST_USER_SCOREBOARD, this);
         if (userScoreList != null){
@@ -184,6 +190,12 @@ public class GameLaunchActivity extends AppCompatActivity{
         }
         return false;
     }
+
+    /**
+     * 1) Creates and saves an ArrayList of SlidingTilesScoreboards for users so that when a user signs up
+     * they are given their own designated blank SlidingTilesScoreboard
+     * 2) Creates and saves a SlidingTilesScoreboard with blank entries for the whole game
+     */
      void setUpSlidingTilesScoreboard(){
         ArrayList<SlidingTilesScoreboard> userScoreList = new ArrayList<>();
         SlidingTilesScoreboard gameScores = new SlidingTilesScoreboard(SlidingTilesScoreboard.GAME);
@@ -197,8 +209,5 @@ public class GameLaunchActivity extends AppCompatActivity{
         SavingData.saveToFile(SavingData.ST_USER_SCOREBOARD, this, userScoreList);
         SavingData.saveToFile(SavingData.ST_SCOREBOARD, this, gameScores);
      }
-
-
-
 
 }

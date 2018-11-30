@@ -3,35 +3,31 @@ package a207phase1.fall2018.gamecentre;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
 /**
- * The initial activity for the sliding puzzle tile game.
+ * The menu activity for the sliding puzzle tile game.
  */
 public class SlidingTilesMenuActivity extends AppCompatActivity {
 
     /**
-     * The board manager.
+     * The list of users
      */
     ArrayList<User> listOfUsers;
+    /**
+     * the username of the current user
+     */
     String username;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_slidingtiles_menu);
-        // This is for getting the username of the current user
+
         Intent gameSelection = getIntent();
         Bundle userBundle = gameSelection.getExtras();
 
@@ -39,9 +35,6 @@ public class SlidingTilesMenuActivity extends AppCompatActivity {
             username = userBundle.getString("Username");
         }
         listOfUsers = SavingData.loadFromFile(SavingData.USER_LIST, this);
-        //TextView userText = findViewById(R.id.userTest);
-        //userText.setText(username);
-        //listOfUsers = SavingData.loadFromFile(SavingData.USER_LIST, this);
 
         addGameScoreboardButtonListener();
         addUserScoreboardButtonListener();
@@ -96,12 +89,6 @@ public class SlidingTilesMenuActivity extends AppCompatActivity {
         });
     }
 
-    /**
-     * Display that a game was loaded successfully.
-     */
-    private void makeToastLoadedText() {
-        Toast.makeText(this, "Loaded Game", Toast.LENGTH_SHORT).show();
-    }
 
     /**
      * Display that a game was saved successfully.
@@ -109,14 +96,12 @@ public class SlidingTilesMenuActivity extends AppCompatActivity {
     private void noSavesText() {
         Toast.makeText(this, "You have no saves!", Toast.LENGTH_SHORT).show();
     }
-    /**
-     * Read the temporary board from disk.
-     */
-    @Override
-    protected void onResume() {
-        super.onResume();
-    }
 
+    /**
+     *
+     * @param username of the user
+     * @return if the user has saved sliding tiles games
+     */
     boolean doesUserHasSaves(String username){
         for (User u: listOfUsers){
             if (u.getUsername().equals(username)){
@@ -127,7 +112,7 @@ public class SlidingTilesMenuActivity extends AppCompatActivity {
     }
 
     /**
-     * Switch to the GameActivity view to play the game.
+     * Switch to SlidingTilesGameActivity to play the game.
      */
     private void switchToPreGame() {
         Intent tmp = new Intent(this, SlidingTilesPreNewGameActivity.class);
@@ -135,17 +120,28 @@ public class SlidingTilesMenuActivity extends AppCompatActivity {
         startActivity(tmp);
     }
 
+    /**
+     * Switch to SlidingTilesGameLoadActivity to load games
+     */
     private void switchToLoadScreen(){
-        Intent tmp = new Intent(this, GameLoadActivity.class);
+        Intent tmp = new Intent(this, SlidingTilesGameLoadActivity.class);
         tmp.putExtra("Username", username);
         startActivity(tmp);
     }
+
+    /**
+     * Switch to SlidingTilesScoreboardActivity to view scores for the whole game
+     */
     private void switchToGameScoreboard(){
         Intent tmp = new Intent(this, SlidingTilesScoreboardActivity.class);
         tmp.putExtra("Username", username);
         tmp.putExtra("displayGameScores?", true);
         startActivity(tmp);
     }
+
+    /**
+     * Switch to SlidingTilesScoreboardActivity to view scores for the user
+     */
     private void switchToUserScoreboard(){
         Intent tmp = new Intent(this, SlidingTilesScoreboardActivity.class);
         tmp.putExtra("Username", username);

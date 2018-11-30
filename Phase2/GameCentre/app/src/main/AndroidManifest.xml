@@ -20,7 +20,7 @@
         <activity android:name="a207phase1.fall2018.gamecentre.SlidingTilesMenuActivity"></activity>
         <activity android:name="a207phase1.fall2018.gamecentre.SlidingTilesGameActivity"></activity>
         <activity android:name=".GameRegisterActivity"></activity>
-        <activity android:name=".GameLoadActivity"></activity>
+        <activity android:name=".SlidingTilesGameLoadActivity"></activity>
         <activity android:name="a207phase1.fall2018.gamecentre.SlidingTilesPreNewGameActivity"></activity>
         <activity android:name="a207phase1.fall2018.gamecentre.HangmanMenuActivity"></activity>
         <activity android:name="a207phase1.fall2018.gamecentre.HangmanGameActivity"></activity>
